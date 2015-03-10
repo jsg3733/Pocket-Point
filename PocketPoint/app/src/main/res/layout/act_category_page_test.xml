@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ff000000">
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.1"
+        >
+
+
+        <ImageButton
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/imgBackButton"
+            android:src="@drawable/ic_launcher"
+            android:layout_weight="0.2"
+        />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/categoryPageDesc"
+            android:textColor="#ffff231c"
+            android:textSize="50dp"
+            android:id="@+id/txtTitle"
+            android:layout_weight="0.8"
+
+            />
+
+
+
+
+     </LinearLayout>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:text="@string/category"
+        android:id="@+id/txtCategory"
+        android:textSize="50dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+        android:textColor="#ffff231c"
+        android:layout_weight="0.1"
+        />
+
+
+
+    <GridView
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:id="@+id/myGridView"
+        android:numColumns="4"
+        android:horizontalSpacing="10dp"
+        android:verticalSpacing="10dp"
+        android:layout_margin="10dp"
+        android:gravity="center"
+        android:layout_weight="0.7"/>
+</LinearLayout>

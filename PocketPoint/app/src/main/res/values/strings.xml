@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Pocket Point</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="categoryPageDesc">Choose a Category</string>
+    <string name="wordPageDesc">Select 1 to 4 Words</string>
+    <string name="category">All Categories</string>
+    <string name="title_activity_word_page">WordPage</string>
+    <string name="title_activity_new_category">NewCategory</string>
+    <string name="new_category">Add New Category</string>
+    <string name="new_word">Add New Word</string>
+
+</resources>

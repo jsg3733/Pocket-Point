@@ -1,0 +1,107 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" tools:context=".CategoryPage"
+    android:background="#ff000000"
+    android:id="@+id/container">
+
+
+
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/categoryPageDesc"
+        android:textColor="#ffff231c"
+        android:id="@+id/txtTitle"
+        android:textSize="@dimen/title_size"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:text="New Text"
+        android:id="@+id/txtLineHeader"
+        android:layout_below="@+id/txtTitle"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:background="#ffff231c"/>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:id="@+id/backButton"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_above="@id/txtLineHeader"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:gravity="center"
+        android:visibility="invisible">
+
+        <ImageView
+            android:layout_width="@dimen/title_size"
+            android:layout_height="@dimen/title_size"
+            android:id="@+id/imgBackButton"
+            android:src="@drawable/backarrow"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:id="@+id/addNew"
+        android:layout_width="150dp"
+        android:layout_height="match_parent"
+        android:layout_above="@id/txtLineHeader"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:layout_width="@dimen/title_size"
+            android:layout_height="@dimen/title_size"
+            android:id="@+id/image"
+            android:background="@drawable/plusbutton"
+            />
+
+
+        <TextView android:text="@string/new_category"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#ffff231c"
+            android:gravity="center_vertical"
+            android:id="@+id/txtAddNew"/>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/category"
+        android:id="@+id/txtCategory"
+        android:layout_below="@+id/txtLineHeader"
+        android:layout_centerInParent="true"
+        android:textSize="@dimen/sub_title"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+        android:textColor="#ffff231c"/>
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:id="@+id/txtLineSubHeader"
+        android:layout_below="@+id/txtCategory"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:background="#ffff231c"/>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/txtLineSubHeader"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/gridFragmentPlaceholder"></LinearLayout>
+
+
+</RelativeLayout>
