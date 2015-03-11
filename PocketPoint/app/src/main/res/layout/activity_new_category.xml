@@ -145,7 +145,11 @@
         <ImageView
             android:layout_width="200dp"
             android:layout_height="200dp"
-            android:layout_gravity="center" />
+            android:layout_gravity="center"
+            android:id="@+id/imgPreview"
+            android:visibility="invisible"
+            android:src="@drawable/ic_launcher"
+            />
 
     </LinearLayout>
 
@@ -168,6 +172,7 @@
         android:layout_height="wrap_content"
         android:text="@string/save_button"
         android:id="@+id/btnSave"
+        android:enabled="false"
         android:layout_alignParentBottom="true"
         android:layout_alignRight="@+id/linlayImageField"
         android:layout_alignEnd="@+id/linlayImageField"

@@ -2,16 +2,22 @@ package info498.group3.pocketpoint;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 
 public class NewCategory extends ActionBarActivity {
+
+    private ImageView image;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,12 +35,42 @@ public class NewCategory extends ActionBarActivity {
         backButton.setOnClickListener(back);
         cancel.setOnClickListener(back);
 
+        final Button save = (Button) findViewById(R.id.btnSave);
+        final EditText categoryField = (EditText) findViewById(R.id.edtxtCategoryField);
+        //final ImageView image = (ImageView) findViewById(R.id.imgPreview);
+        image = (ImageView) findViewById(R.id.imgPreview);
+
+        TextWatcher chan = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                    String input = s.toString();
+                    if(input.equals("")) {
+                        save.setEnabled(false);
+                    }else if(image.getVisibility() == View.VISIBLE){
+                        save.setEnabled(true);
+                    }
+            }
+        };
+
+        categoryField.addTextChangedListener(chan);
+
 
     }
 
     private View.OnClickListener back = new View.OnClickListener() {
         @Override
         public void onClick(final View v) {
+            //image.setVisibility(View.VISIBLE);
             finish();
         }
     };
