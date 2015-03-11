@@ -110,36 +110,70 @@
             android:text="@string/image_field"
             android:id="@+id/txtImageField"
             android:textSize="@dimen/input_fields_text"
-            android:textColor="#ffff231c"/>
+            android:textColor="#ffff231c"
+            android:layout_weight="0.04"/>
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/insert_import_field_text"
-            android:id="@+id/btnImport" />
+            android:id="@+id/btnImport"
+            android:layout_weight=".15"/>
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/insert_takePhoto_field_text"
-            android:id="@+id/btnTakePhoto" />
+            android:id="@+id/btnTakePhoto"
+            android:layout_weight=".15"/>
 
 
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linlayImageField"
+        android:layout_marginTop="@dimen/input_fields_margin"
+        android:layout_marginStart="@dimen/input_fields_margin"
+        android:layout_marginLeft="@dimen/input_fields_margin"
+        android:layout_marginRight="@dimen/input_fields_margin"
+        android:gravity="center"
+        android:id="@+id/linlayImagePreview"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center" />
+
+    </LinearLayout>
+
+
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/cancel_button"
-        android:id="@+id/btnCancel" />
+        android:id="@+id/btnCancel"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="@dimen/input_fields_margin"
+        android:layout_marginLeft="@dimen/input_fields_margin"
+        android:layout_marginBottom="@dimen/input_fields_margin"/>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/save_button"
-        android:id="@+id/btnSave" />
-
-
+        android:id="@+id/btnSave"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/linlayImageField"
+        android:layout_alignEnd="@+id/linlayImageField"
+        android:layout_marginEnd="@dimen/input_fields_margin"
+        android:layout_marginRight="@dimen/input_fields_margin"
+        android:layout_marginBottom="@dimen/input_fields_margin"/>
 
 
 </RelativeLayout>

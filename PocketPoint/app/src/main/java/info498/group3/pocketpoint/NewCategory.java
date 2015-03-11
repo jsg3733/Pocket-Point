@@ -4,7 +4,11 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 
 public class NewCategory extends ActionBarActivity {
@@ -17,7 +21,23 @@ public class NewCategory extends ActionBarActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
+        TextView title = (TextView) findViewById(R.id.txtTitle);
+        title.setText(R.string.newCategoryPageDesc);
+
+        LinearLayout backButton = (LinearLayout) findViewById(R.id.backButton);
+        Button cancel = (Button)findViewById(R.id.btnCancel);
+        backButton.setOnClickListener(back);
+        cancel.setOnClickListener(back);
+
+
     }
+
+    private View.OnClickListener back = new View.OnClickListener() {
+        @Override
+        public void onClick(final View v) {
+            finish();
+        }
+    };
 
 
     @Override

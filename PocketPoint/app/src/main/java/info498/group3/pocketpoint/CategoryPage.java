@@ -35,7 +35,7 @@ public class CategoryPage extends ActionBarActivity {
 
 
 
-        category = "All Categories";
+        category = "Categories";
         Log.i("Test", category);
 
         Bundle bundle = new Bundle();

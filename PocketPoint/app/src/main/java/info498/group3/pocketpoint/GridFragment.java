@@ -24,7 +24,7 @@ public class GridFragment extends Fragment {
 
 
     private GridView gridView;
-    private List<String> category;
+    private List<String> names;
     //private final List<String> foods = new ArrayList<>(Arrays.asList("Apple", "Banana", "Bread", "Cake", "Cheese", "Cracker",
             //"Egg", "Juice", "Milk", "Pizza", "Stix", "Water"));
 
@@ -39,19 +39,19 @@ public class GridFragment extends Fragment {
         String topic = info.getString("category");
         Log.i("FragmentLoad", topic);
 
-        category = new ArrayList<>();
+        names = new ArrayList<>();
 
 
         try{
-
+            String file = topic.toLowerCase() + ".txt";
             AssetManager am = gridFragment.getContext().getAssets();
-            InputStream is = am.open("food.txt");
+            InputStream is = am.open(file);
 
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
             String line = br.readLine();
 
             while(line != null) {
-                category.add(line);
+                names.add(line);
                 line = br.readLine();
 
             }
@@ -67,15 +67,15 @@ public class GridFragment extends Fragment {
 
         final List<Icon> icons = new ArrayList<>();
 
-        for(int i=0; i < category.size(); i++) {
+        for(int i=0; i < names.size(); i++) {
             //String hello = "hello";
             //icons.add(new Icon(R.drawable.ic_launcher, items[i]));  // array version
             //icons.add(new Icon(R.drawable.ic_launcher, words.get(i))); //arraylist version for categories
             //if(foods.get(i).equals("Apple")) {
 
-            String name = category.get(i).toLowerCase();
-            int resID = getResources().getIdentifier("food_" + name, "drawable", getActivity().getPackageName());
-            icons.add(new Icon(resID, category.get(i)));
+            String name = names.get(i).replaceAll("\\s+","").toLowerCase();
+            int resID = getResources().getIdentifier(topic.toLowerCase() + "_" + name, "drawable", getActivity().getPackageName());
+            icons.add(new Icon(resID, names.get(i)));
             //icons.add(new Icon(R.drawable.food_apple, foods.get(i))); //If know the exact name
             //}else {
             //icons.add(new Icon(R.drawable.ic_launcher, foods.get(i)));  //generic image
