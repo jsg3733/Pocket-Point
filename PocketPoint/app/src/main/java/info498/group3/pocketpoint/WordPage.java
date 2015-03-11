@@ -29,6 +29,9 @@ public class WordPage extends ActionBarActivity {
         Intent launchedMe = getIntent();
         category = launchedMe.getStringExtra("category");
 
+        TextView txtCategory = (TextView) findViewById(R.id.txtCategory);
+        txtCategory.setText(category);
+
         LinearLayout backButton = (LinearLayout) findViewById(R.id.backButton);
         backButton.setVisibility(View.VISIBLE);
         backButton.setOnClickListener(new LinearLayout.OnClickListener() {
