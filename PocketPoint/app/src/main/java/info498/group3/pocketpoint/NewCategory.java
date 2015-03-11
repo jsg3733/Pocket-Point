@@ -1,5 +1,10 @@
 package info498.group3.pocketpoint;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -14,10 +19,15 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.io.FileNotFoundException;
+
 
 public class NewCategory extends ActionBarActivity {
 
+    private Button save;
+    private EditText categoryField;
     private ImageView image;
+    static final int REQUEST_IMAGE_CAPTURE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,8 +45,10 @@ public class NewCategory extends ActionBarActivity {
         backButton.setOnClickListener(back);
         cancel.setOnClickListener(back);
 
-        final Button save = (Button) findViewById(R.id.btnSave);
-        final EditText categoryField = (EditText) findViewById(R.id.edtxtCategoryField);
+        //final Button save = (Button) findViewById(R.id.btnSave);
+        save = (Button) findViewById(R.id.btnSave);
+        //final EditText categoryField = (EditText) findViewById(R.id.edtxtCategoryField);
+        categoryField = (EditText) findViewById(R.id.edtxtCategoryField);
         //final ImageView image = (ImageView) findViewById(R.id.imgPreview);
         image = (ImageView) findViewById(R.id.imgPreview);
 
@@ -63,14 +75,34 @@ public class NewCategory extends ActionBarActivity {
         };
 
         categoryField.addTextChangedListener(chan);
+        Button buttonLoadImage = (Button)findViewById(R.id.btnImport);
 
+        //import
+        buttonLoadImage.setOnClickListener(new Button.OnClickListener(){
 
+            @Override
+            public void onClick(View arg0) {
+                // TODO Auto-generated method stub
+                Intent intent = new Intent(Intent.ACTION_PICK,
+                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(intent, 0);
+            }});
+
+        //camera
+        Button takeimage = (Button)findViewById(R.id.btnTakePhoto);
+        takeimage.setOnClickListener(new Button.OnClickListener(){
+
+            @Override
+            public void onClick(View arg0){
+                dispatchTakePictureIntent();
+            }
+        });
     }
 
     private View.OnClickListener back = new View.OnClickListener() {
         @Override
         public void onClick(final View v) {
-            //image.setVisibility(View.VISIBLE);
+            image.setVisibility(View.VISIBLE);
             finish();
         }
     };
@@ -96,5 +128,38 @@ public class NewCategory extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    //for gallery and picture
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // TODO Auto-generated method stub
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK){
+            Uri targetUri = data.getData();
+            //pathy = targetUri;
+            Bitmap bitmap;
+            try {
+                bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(targetUri));
+                image.setImageBitmap(bitmap);
+                image.setVisibility(View.VISIBLE);
+                if(!categoryField.getText().toString().equals("")) {
+                    save.setEnabled(true);
+                }
+            } catch (FileNotFoundException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+    }
+
+    //for camera
+    private void dispatchTakePictureIntent() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE); //works
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+
+        }
     }
 }
