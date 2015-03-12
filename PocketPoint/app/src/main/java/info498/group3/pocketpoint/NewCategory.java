@@ -1,6 +1,7 @@
 package info498.group3.pocketpoint;
 
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -37,6 +38,7 @@ public class NewCategory extends ActionBarActivity {
     private EditText categoryField;
     private ImageView image;
     static final int REQUEST_IMAGE_CAPTURE = 1;
+    Bitmap savedImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,10 +106,12 @@ public class NewCategory extends ActionBarActivity {
             }
         });
 
+        //save button click listener
         save.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String categories = "";
+                saveToInternalStorage(savedImage, categoryField.getText().toString());
                 try {
                     BufferedReader inputReader = new BufferedReader(new InputStreamReader(openFileInput("Categories")));
                     String inputString = inputReader.readLine();
@@ -116,12 +120,6 @@ public class NewCategory extends ActionBarActivity {
                         inputString = inputReader.readLine();
                     }
                     Log.i("internalFile", "pass");
-                /*StringBuffer stringBuffer = new StringBuffer();
-                while ((inputString = inputReader.readLine()) != null) {
-                    stringBuffer.append(inputString + "\n");
-                }*/
-                    //lblTextViewOne.setText(stringBuffer.toString());
-                    //names.add();
                 } catch (IOException e) {
                     Log.i("internalFile", "fail");
                     e.printStackTrace();
@@ -194,6 +192,7 @@ public class NewCategory extends ActionBarActivity {
             Bitmap bitmap;
             try {
                 bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(targetUri));
+                savedImage = bitmap;
                 image.setImageBitmap(bitmap);
                 image.setVisibility(View.VISIBLE);
                 if(!categoryField.getText().toString().equals("")) {
@@ -213,5 +212,27 @@ public class NewCategory extends ActionBarActivity {
             startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
 
         }
+    }
+
+    //save to internal directory
+    private String saveToInternalStorage(Bitmap bitmapImage, String pathname){
+        ContextWrapper cw = new ContextWrapper(getApplicationContext());
+        // path to /data/data/yourapp/app_data/imageDir
+        File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
+        // Create imageDir
+        File mypath=new File(directory, pathname);
+        FileOutputStream fos = null;
+        try {
+            Log.v("asdf", "it ran");
+            fos = new FileOutputStream(mypath);
+
+            // Use the compress method on the BitMap object to write image to the OutputStream
+            bitmapImage.compress(Bitmap.CompressFormat.JPEG, 1, fos);
+            Log.v("point", "shit no the fan");
+            fos.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return directory.getAbsolutePath();
     }
 }

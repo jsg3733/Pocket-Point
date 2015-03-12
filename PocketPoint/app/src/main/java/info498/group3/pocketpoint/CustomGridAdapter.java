@@ -62,8 +62,11 @@ public class CustomGridAdapter extends BaseAdapter {
         }
         Icon icon = items.get(position);
         holder.txtTitle.setText(icon.getTitle());
-        holder.imgIcon.setImageResource(icon.getIcon());
-
+        if (icon.getIcon() > 0){
+            holder.imgIcon.setImageResource(icon.getIcon());
+        } else{//negative value indicates bitmap version
+            holder.imgIcon.setImageBitmap(icon.getBitmap());
+        }
         return row;
     }
 

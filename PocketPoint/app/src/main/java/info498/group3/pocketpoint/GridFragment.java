@@ -1,8 +1,13 @@
 package info498.group3.pocketpoint;
 
 import android.app.Fragment;
+import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
 import android.content.res.AssetManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,8 +15,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.ImageView;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -63,21 +72,31 @@ public class GridFragment extends Fragment {
         }
         final List<Icon> icons = new ArrayList<>();
 
+        //interntal category file
         if(topic.equals("Categories")) {
             try {
                 BufferedReader inputReader = new BufferedReader(new InputStreamReader(gridFragment.getContext().openFileInput("Categories")));
                 String inputString = inputReader.readLine();
                 while (inputString != null) {
-                    icons.add(new Icon(R.drawable.ic_launcher, inputString));
+                    //getting image
+                    ContextWrapper cw = new ContextWrapper(gridFragment.getContext());
+                    File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
+
+                    Bitmap storedimagepath = loadImageFromStorage(directory.getAbsolutePath(), inputString.trim());
+
+                    //set icon to negative value
+                    Icon bitmapIcon = new Icon(-1, inputString);
+                    //set bitmap on icon class
+                    bitmapIcon.setBitmap(storedimagepath);
+                    //add to icon list
+                    icons.add(bitmapIcon);
+
+
+                    //icons.add(new Icon(R.drawable.ic_launcher, inputString));
                     inputString = inputReader.readLine();
                 }
                 Log.i("internalFile", "pass");
-                /*StringBuffer stringBuffer = new StringBuffer();
-                while ((inputString = inputReader.readLine()) != null) {
-                    stringBuffer.append(inputString + "\n");
-                }*/
-                //lblTextViewOne.setText(stringBuffer.toString());
-                //names.add();
+
             } catch (IOException e) {
                 Log.i("internalFile", "fail");
                 e.printStackTrace();
@@ -124,5 +143,24 @@ public class GridFragment extends Fragment {
 
 
         return gridFragment;
+    }
+
+    //loading image from storage
+    //return associated bitmap
+    private Bitmap loadImageFromStorage(String path, String filename)
+    {
+
+        try {
+            File f=new File(path, filename);
+            Bitmap b = BitmapFactory.decodeStream(new FileInputStream(f));
+            return b;
+        }
+        catch (FileNotFoundException e)
+        {
+            Log.v("nahblah", "it didn't run");
+            e.printStackTrace();
+        }
+
+        return null;
     }
 }
