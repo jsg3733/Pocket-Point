@@ -130,6 +130,7 @@ public class NewWord extends ActionBarActivity {
                     fos.write(words.getBytes());
                     fos.close();
                     Intent backToCategoryPage = new Intent(NewWord.this, CategoryPage.class);
+                    backToCategoryPage.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(backToCategoryPage);
                     finish();
 

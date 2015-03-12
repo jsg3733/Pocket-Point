@@ -130,6 +130,7 @@ public class NewCategory extends ActionBarActivity {
                     fos.write(categories.getBytes());
                     fos.close();
                     Intent backToCategoryPage = new Intent(NewCategory.this, CategoryPage.class);
+                    backToCategoryPage.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(backToCategoryPage);
                     finish();
 

@@ -3,6 +3,9 @@ package info498.group3.pocketpoint;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,6 +18,7 @@ import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -54,6 +58,7 @@ public class CategoryPage extends ActionBarActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(CategoryPage.this, NewCategory.class);
                 startActivity(intent);
+
             }
         });
 
@@ -61,6 +66,7 @@ public class CategoryPage extends ActionBarActivity {
 
 
     }
+
 
 
     @Override
