@@ -133,7 +133,9 @@ public class NewCategory extends ActionBarActivity {
                     categories += categoryField.getText().toString();
                     fos.write(categories.getBytes());
                     fos.close();
-                    finish();
+                    Intent backToCategoryPage = new Intent(NewCategory.this, CategoryPage.class);
+                    startActivity(backToCategoryPage);
+
                 }catch (Exception e) {
                     e.printStackTrace();
                 }
