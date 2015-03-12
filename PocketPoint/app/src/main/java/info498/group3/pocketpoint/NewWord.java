@@ -1,6 +1,5 @@
 package info498.group3.pocketpoint;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -20,25 +19,24 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 
 
-public class NewCategory extends ActionBarActivity {
+public class NewWord extends ActionBarActivity {
 
     private Button save;
-    private EditText categoryField;
+    private EditText wordField;
     private ImageView image;
     static final int REQUEST_IMAGE_CAPTURE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_new_category);
+        setContentView(R.layout.activity_new_word);
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
 
         LinearLayout backButton = (LinearLayout) findViewById(R.id.backButton);
         Button cancel = (Button)findViewById(R.id.btnCancel);
@@ -48,7 +46,7 @@ public class NewCategory extends ActionBarActivity {
         //final Button save = (Button) findViewById(R.id.btnSave);
         save = (Button) findViewById(R.id.btnSave);
         //final EditText categoryField = (EditText) findViewById(R.id.edtxtCategoryField);
-        categoryField = (EditText) findViewById(R.id.edtxtCategoryField);
+        wordField = (EditText) findViewById(R.id.edtxtWordField);
         //final ImageView image = (ImageView) findViewById(R.id.imgPreview);
         image = (ImageView) findViewById(R.id.imgPreview);
 
@@ -65,16 +63,16 @@ public class NewCategory extends ActionBarActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                    String input = s.toString();
-                    if(input.equals("")) {
-                        save.setEnabled(false);
-                    }else if(image.getVisibility() == View.VISIBLE){
-                        save.setEnabled(true);
-                    }
+                String input = s.toString();
+                if(input.equals("")) {
+                    save.setEnabled(false);
+                }else if(image.getVisibility() == View.VISIBLE){
+                    save.setEnabled(true);
+                }
             }
         };
 
-        categoryField.addTextChangedListener(chan);
+        wordField.addTextChangedListener(chan);
         Button buttonLoadImage = (Button)findViewById(R.id.btnImport);
 
         //import
@@ -97,40 +95,12 @@ public class NewCategory extends ActionBarActivity {
                 dispatchTakePictureIntent();
             }
         });
-
-        save.setOnClickListener(new Button.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //String filename = categoryField.getText().toString();
-                //File file = new File(getFilesDir(), categoryField.getText().toString() + ".txt");
-                try{
-                    FileOutputStream fos = openFileOutput("Categories.txt", Context.MODE_PRIVATE);
-                    fos.write(categoryField.getText().toString().getBytes());
-                    fos.close();
-                }catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-
-
-                /*if(filename.endsWith(".txt")) {
-                    File file = new File(getFilesDir(), categoryField.getText().toString());
-                }else {
-                    File file = new File(getFilesDir(), categoryField.getText().toString() + ".txt");
-                }*/
-            }
-        });
-
-
-
     }
-
-
-
 
     private View.OnClickListener back = new View.OnClickListener() {
         @Override
         public void onClick(final View v) {
+            image.setVisibility(View.VISIBLE);
             finish();
         }
     };
@@ -172,7 +142,7 @@ public class NewCategory extends ActionBarActivity {
                 bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(targetUri));
                 image.setImageBitmap(bitmap);
                 image.setVisibility(View.VISIBLE);
-                if(!categoryField.getText().toString().equals("")) {
+                if(!wordField.getText().toString().equals("")) {
                     save.setEnabled(true);
                 }
             } catch (FileNotFoundException e) {

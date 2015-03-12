@@ -57,7 +57,7 @@ public class WordPage extends ActionBarActivity {
         LinearLayout newCategory = (LinearLayout) findViewById(R.id.addNew);
         newCategory.setOnClickListener(new LinearLayout.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(WordPage.this, NewCategory.class);
+                Intent intent = new Intent(WordPage.this, NewWord.class);
                 startActivity(intent);
             }
         });

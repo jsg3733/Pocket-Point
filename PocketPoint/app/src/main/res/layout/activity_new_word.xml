@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent" tools:context="info498.group3.pocketpoint.NewCategory"
     android:background="#ff000000"
-    android:id="@+id/newCategory">
+    android:id="@+id/Word">
 
 
 
@@ -11,7 +11,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/newCategoryPageDesc"
+        android:text="@string/newWordPageDesc"
         android:textColor="#ffff231c"
         android:id="@+id/txtTitle"
         android:textSize="@dimen/title_size"
@@ -60,25 +60,25 @@
         android:layout_marginLeft="@dimen/input_fields_margin"
         android:layout_marginRight="@dimen/input_fields_margin"
         android:gravity="center"
-        android:id="@+id/linlayCategoryField"
+        android:id="@+id/linlayWordField"
         android:orientation="horizontal"
         >
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/category_field"
-            android:id="@+id/txtCategoryField"
+            android:text="@string/word_field"
+            android:id="@+id/txtWordField"
             android:textSize="@dimen/input_fields_text"
             android:textColor="#ffff231c"/>
 
         <EditText
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/edtxtCategoryField"
+            android:id="@+id/edtxtWordField"
             android:inputType="text"
             android:textColorHint="#ff000000"
-            android:hint="@string/insert_category_field_text"
+            android:hint="@string/insert_word_field_text"
             android:background="#ffffffff"
             android:textSize="@dimen/input_fields_text"
             android:layout_marginLeft="@dimen/input_fields_margin"
@@ -87,13 +87,72 @@
 
 
 
-        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linlayWordField"
+        android:layout_marginTop="@dimen/input_fields_margin"
+        android:layout_marginStart="@dimen/input_fields_margin"
+        android:layout_marginLeft="@dimen/input_fields_margin"
+        android:layout_marginRight="@dimen/input_fields_margin"
+        android:gravity="center"
+        android:id="@+id/linlayVoiceField"
+        android:orientation="horizontal"
+        android:background="#ffffffff">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/voice_field"
+            android:id="@+id/txtVoiceField"
+            android:textSize="@dimen/input_fields_text"
+            android:textColor="#ffff231c"
+            android:background="#ff000000"
+            android:layout_weight="0.03"
+            />
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:id="@+id/imgRecord"
+            android:layout_weight="0.2"
+            android:src="@drawable/record"/>
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:id="@+id/imgPlay"
+            android:layout_weight="0.2"
+            android:background="#00ffffff"
+            android:src="@drawable/play"/>
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:id="@+id/imgPause"
+            android:layout_weight="0.2"
+            android:src="@drawable/pausebutton"/>
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:id="@+id/imageView"
+            android:layout_weight="0.2"
+            android:src="@drawable/x"/>
+
+
+      </LinearLayout>
+
+
 
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/linlayCategoryField"
+        android:layout_below="@+id/linlayVoiceField"
         android:layout_marginTop="@dimen/input_fields_margin"
         android:layout_marginStart="@dimen/input_fields_margin"
         android:layout_marginLeft="@dimen/input_fields_margin"
@@ -181,5 +240,6 @@
 
 
 </RelativeLayout>
+
 
 

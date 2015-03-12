@@ -7,19 +7,22 @@
     <string name="categoryPageDesc">Choose a Category</string>
     <string name="wordPageDesc">Select 1 to 4 Words</string>
     <string name="newCategoryPageDesc">Add a Category</string>
+    <string name="newWordPageDesc">Add New Word</string>
     <string name="category">All Categories</string>
     <string name="title_activity_word_page">WordPage</string>
     <string name="title_activity_new_category">NewCategory</string>
     <string name="new_category">Add New Category</string>
     <string name="new_word">Add New Word</string>
     <string name="category_field">Category:</string>
+    <string name="word_field">Word:</string>
     <string name="image_field"> Image:</string>
     <string name="voice_field">Voice:</string>
     <string name="insert_category_field_text">Insert Category Name Here</string>
+    <string name="insert_word_field_text">Insert Word Name Here</string>
     <string name="insert_import_field_text">Import</string>
     <string name="insert_takePhoto_field_text">Take Photo</string>
     <string name="save_button">Save</string>
     <string name="cancel_button">Cancel</string>
-
+    <string name="title_activity_new_word">NewWord</string>
 
 </resources>
