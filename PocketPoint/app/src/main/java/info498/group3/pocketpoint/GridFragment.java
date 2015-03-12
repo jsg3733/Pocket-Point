@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -34,6 +35,7 @@ public class GridFragment extends Fragment {
 
     private GridView gridView;
     private List<String> names;
+    private String topic;
     //private final List<String> foods = new ArrayList<>(Arrays.asList("Apple", "Banana", "Bread", "Cake", "Cheese", "Cracker",
             //"Egg", "Juice", "Milk", "Pizza", "Stix", "Water"));
 
@@ -45,7 +47,7 @@ public class GridFragment extends Fragment {
         final View gridFragment = inflater.inflate(R.layout.gridview_fragment, container, false);
 
         Bundle info = this.getArguments();
-        String topic = info.getString("category");
+        topic = info.getString("category");
         Log.i("FragmentLoad", topic);
 
         names = new ArrayList<>();
@@ -109,19 +111,55 @@ public class GridFragment extends Fragment {
 
 
 
+
+
         //final List<Icon> icons = new ArrayList<>();
 
-        for(int i=0; i < names.size(); i++) {
-            if(topic.equals("Categories") || topic.equals("Activities")) {
-                String name = names.get(i).replaceAll("\\s+", "").toLowerCase();
-                int resID = getResources().getIdentifier(topic.toLowerCase() + "_" + name, "drawable", getActivity().getPackageName());
-                icons.add(new Icon(resID, names.get(i)));
-            }else {
-                String name = names.get(i).replaceAll("\\s+", "").toLowerCase();
-                int resID = getResources().getIdentifier("food_" + name, "drawable", getActivity().getPackageName());
-                icons.add(new Icon(resID, names.get(i)));
+        //if in mywords category pull from own
+        if(topic.equals("MYWORDS")) {
+            try {
+                BufferedReader inputReader = new BufferedReader(new InputStreamReader(gridFragment.getContext().openFileInput("Words")));
+                String inputString = inputReader.readLine();
+                while (inputString != null) {
+                    //getting image
+                    ContextWrapper cw = new ContextWrapper(gridFragment.getContext());
+                    File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
+
+                    Bitmap storedimagepath = loadImageFromStorage(directory.getAbsolutePath(), inputString.trim());
+
+                    //set icon to negative value
+                    Icon bitmapIcon = new Icon(-1, inputString);
+                    //set bitmap on icon class
+                    bitmapIcon.setBitmap(storedimagepath);
+                    //add to icon list
+                    icons.add(bitmapIcon);
+
+
+                    //icons.add(new Icon(R.drawable.ic_launcher, inputString));
+                    inputString = inputReader.readLine();
+                }
+                Log.i("internalFile", "pass");
+
+            } catch (IOException e) {
+                Log.i("internalFile", "fail");
+                e.printStackTrace();
             }
 
+        }else {  // for getting all words if not in MYWORDS section
+
+
+            for (int i = 0; i < names.size(); i++) {
+                if (topic.equals("Categories") || topic.equals("Activities")) {
+                    String name = names.get(i).replaceAll("\\s+", "").toLowerCase();
+                    int resID = getResources().getIdentifier(topic.toLowerCase() + "_" + name, "drawable", getActivity().getPackageName());
+                    icons.add(new Icon(resID, names.get(i)));
+                } else {
+                    String name = names.get(i).replaceAll("\\s+", "").toLowerCase();
+                    int resID = getResources().getIdentifier("food_" + name, "drawable", getActivity().getPackageName());
+                    icons.add(new Icon(resID, names.get(i)));
+                }
+
+            }
         }
 
 
@@ -132,10 +170,16 @@ public class GridFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Log.i("ITEM_CLICKED", icons.get(position).getTitle());
-                Intent nextActivity = new Intent(getActivity(), WordPage.class);
-                //nextActivity.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                nextActivity.putExtra("category", icons.get(position).getTitle());
-                startActivity(nextActivity);
+                if(topic.equals("Categories")) {
+                    Intent nextActivity = new Intent(getActivity(), WordPage.class);
+                    //nextActivity.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                    nextActivity.putExtra("category", icons.get(position).getTitle());
+                    startActivity(nextActivity);
+                }else {
+                    TextView label = (TextView) getActivity().findViewById(R.id.txtCategory);
+                    label.setText(topic);
+                }
+
 
             }
         });

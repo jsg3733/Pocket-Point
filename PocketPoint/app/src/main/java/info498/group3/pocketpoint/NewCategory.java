@@ -53,11 +53,9 @@ public class NewCategory extends ActionBarActivity {
         backButton.setOnClickListener(back);
         cancel.setOnClickListener(back);
 
-        //final Button save = (Button) findViewById(R.id.btnSave);
+
         save = (Button) findViewById(R.id.btnSave);
-        //final EditText categoryField = (EditText) findViewById(R.id.edtxtCategoryField);
         categoryField = (EditText) findViewById(R.id.edtxtCategoryField);
-        //final ImageView image = (ImageView) findViewById(R.id.imgPreview);
         image = (ImageView) findViewById(R.id.imgPreview);
 
         TextWatcher chan = new TextWatcher() {
@@ -133,6 +131,7 @@ public class NewCategory extends ActionBarActivity {
                     fos.close();
                     Intent backToCategoryPage = new Intent(NewCategory.this, CategoryPage.class);
                     startActivity(backToCategoryPage);
+                    finish();
 
                 }catch (Exception e) {
                     e.printStackTrace();

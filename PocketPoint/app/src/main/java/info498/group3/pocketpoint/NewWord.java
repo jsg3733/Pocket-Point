@@ -1,5 +1,7 @@
 package info498.group3.pocketpoint;
 
+import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -9,6 +11,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,7 +22,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 
 public class NewWord extends ActionBarActivity {
@@ -28,6 +36,7 @@ public class NewWord extends ActionBarActivity {
     private EditText wordField;
     private ImageView image;
     static final int REQUEST_IMAGE_CAPTURE = 1;
+    Bitmap savedImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,11 +52,9 @@ public class NewWord extends ActionBarActivity {
         backButton.setOnClickListener(back);
         cancel.setOnClickListener(back);
 
-        //final Button save = (Button) findViewById(R.id.btnSave);
+
         save = (Button) findViewById(R.id.btnSave);
-        //final EditText categoryField = (EditText) findViewById(R.id.edtxtCategoryField);
         wordField = (EditText) findViewById(R.id.edtxtWordField);
-        //final ImageView image = (ImageView) findViewById(R.id.imgPreview);
         image = (ImageView) findViewById(R.id.imgPreview);
 
         TextWatcher chan = new TextWatcher() {
@@ -95,12 +102,53 @@ public class NewWord extends ActionBarActivity {
                 dispatchTakePictureIntent();
             }
         });
+
+
+        //save button click listener
+        save.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String words = "";
+                saveToInternalStorage(savedImage, wordField.getText().toString());
+                try {
+                    BufferedReader inputReader = new BufferedReader(new InputStreamReader(openFileInput("Words")));
+                    String inputString = inputReader.readLine();
+                    while (inputString != null) {
+                        words += inputString + "\n";
+                        inputString = inputReader.readLine();
+                    }
+                    Log.i("internalFile", "pass");
+                } catch (IOException e) {
+                    Log.i("internalFile", "fail");
+                    e.printStackTrace();
+                }
+
+
+                try{
+                    FileOutputStream fos = openFileOutput("Words", Context.MODE_PRIVATE);
+                    words += wordField.getText().toString();
+                    fos.write(words.getBytes());
+                    fos.close();
+                    Intent backToCategoryPage = new Intent(NewWord.this, CategoryPage.class);
+                    startActivity(backToCategoryPage);
+                    finish();
+
+                }catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+
+
+            }
+        });
+
+
+
     }
 
     private View.OnClickListener back = new View.OnClickListener() {
         @Override
         public void onClick(final View v) {
-            image.setVisibility(View.VISIBLE);
             finish();
         }
     };
@@ -140,6 +188,7 @@ public class NewWord extends ActionBarActivity {
             Bitmap bitmap;
             try {
                 bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(targetUri));
+                savedImage = bitmap;
                 image.setImageBitmap(bitmap);
                 image.setVisibility(View.VISIBLE);
                 if(!wordField.getText().toString().equals("")) {
@@ -160,4 +209,27 @@ public class NewWord extends ActionBarActivity {
 
         }
     }
+
+    //save to internal directory
+    private String saveToInternalStorage(Bitmap bitmapImage, String pathname){
+        ContextWrapper cw = new ContextWrapper(getApplicationContext());
+        // path to /data/data/yourapp/app_data/imageDir
+        File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
+        // Create imageDir
+        File mypath=new File(directory, pathname);
+        FileOutputStream fos = null;
+        try {
+            Log.v("asdf", "it ran");
+            fos = new FileOutputStream(mypath);
+
+            // Use the compress method on the BitMap object to write image to the OutputStream
+            bitmapImage.compress(Bitmap.CompressFormat.JPEG, 1, fos);
+            Log.v("point", "shit no the fan");
+            fos.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return directory.getAbsolutePath();
+    }
+
 }

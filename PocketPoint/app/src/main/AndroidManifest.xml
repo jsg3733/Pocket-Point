@@ -28,15 +28,18 @@
         <activity
             android:name=".WordPage"
             android:label="@string/title_activity_word_page"
-            android:theme="@style/noAnimOrActionBar" >
+            android:screenOrientation="landscape" >
         </activity>
         <activity
             android:name=".NewCategory"
-            android:label="@string/title_activity_new_category" >
+            android:label="@string/title_activity_new_category"
+            android:screenOrientation="landscape"
+            >
         </activity>
         <activity
             android:name=".NewWord"
-            android:label="@string/title_activity_new_word" >
+            android:label="@string/title_activity_new_word"
+            android:screenOrientation="landscape">
         </activity>
     </application>
 
