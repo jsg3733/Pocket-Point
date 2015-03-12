@@ -43,7 +43,10 @@ public class GridFragment extends Fragment {
 
 
         try{
-            String file = topic.toLowerCase() + ".txt";
+            String file = "food.txt";
+            if(topic.equals("Categories") || topic.equals("Activities")) {
+                file = topic.toLowerCase() + ".txt";
+            }
             AssetManager am = gridFragment.getContext().getAssets();
             InputStream is = am.open(file);
 
@@ -68,22 +71,18 @@ public class GridFragment extends Fragment {
         final List<Icon> icons = new ArrayList<>();
 
         for(int i=0; i < names.size(); i++) {
-            //String hello = "hello";
-            //icons.add(new Icon(R.drawable.ic_launcher, items[i]));  // array version
-            //icons.add(new Icon(R.drawable.ic_launcher, words.get(i))); //arraylist version for categories
-            //if(foods.get(i).equals("Apple")) {
+            if(topic.equals("Categories") || topic.equals("Activities")) {
+                String name = names.get(i).replaceAll("\\s+", "").toLowerCase();
+                int resID = getResources().getIdentifier(topic.toLowerCase() + "_" + name, "drawable", getActivity().getPackageName());
+                icons.add(new Icon(resID, names.get(i)));
+            }else {
+                String name = names.get(i).replaceAll("\\s+", "").toLowerCase();
+                int resID = getResources().getIdentifier("food_" + name, "drawable", getActivity().getPackageName());
+                icons.add(new Icon(resID, names.get(i)));
+            }
 
-            String name = names.get(i).replaceAll("\\s+","").toLowerCase();
-            int resID = getResources().getIdentifier(topic.toLowerCase() + "_" + name, "drawable", getActivity().getPackageName());
-            icons.add(new Icon(resID, names.get(i)));
-            //icons.add(new Icon(R.drawable.food_apple, foods.get(i))); //If know the exact name
-            //}else {
-            //icons.add(new Icon(R.drawable.ic_launcher, foods.get(i)));  //generic image
-            //}
         }
-        /*for(int i=0; i < 3; i++) {
-            icons.add(new Icon(R.drawable.ic_launcher, "hello"));
-        }*/
+
 
         gridView = (GridView) gridFragment.findViewById(R.id.myGridView);
         CustomGridAdapter gridAdapter = new CustomGridAdapter(gridFragment.getContext(), R.layout.gridview_cell, icons);
