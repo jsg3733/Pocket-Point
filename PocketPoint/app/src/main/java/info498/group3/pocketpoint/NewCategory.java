@@ -10,6 +10,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,9 +21,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class NewCategory extends ActionBarActivity {
@@ -101,23 +107,39 @@ public class NewCategory extends ActionBarActivity {
         save.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //String filename = categoryField.getText().toString();
-                //File file = new File(getFilesDir(), categoryField.getText().toString() + ".txt");
+                String categories = "";
+                try {
+                    BufferedReader inputReader = new BufferedReader(new InputStreamReader(openFileInput("Categories")));
+                    String inputString = inputReader.readLine();
+                    while (inputString != null) {
+                        categories += inputString + "\n";
+                        inputString = inputReader.readLine();
+                    }
+                    Log.i("internalFile", "pass");
+                /*StringBuffer stringBuffer = new StringBuffer();
+                while ((inputString = inputReader.readLine()) != null) {
+                    stringBuffer.append(inputString + "\n");
+                }*/
+                    //lblTextViewOne.setText(stringBuffer.toString());
+                    //names.add();
+                } catch (IOException e) {
+                    Log.i("internalFile", "fail");
+                    e.printStackTrace();
+                }
+
+
                 try{
-                    FileOutputStream fos = openFileOutput("Categories.txt", Context.MODE_PRIVATE);
-                    fos.write(categoryField.getText().toString().getBytes());
+                    FileOutputStream fos = openFileOutput("Categories", Context.MODE_PRIVATE);
+                    categories += categoryField.getText().toString();
+                    fos.write(categories.getBytes());
                     fos.close();
+                    finish();
                 }catch (Exception e) {
                     e.printStackTrace();
                 }
 
 
 
-                /*if(filename.endsWith(".txt")) {
-                    File file = new File(getFilesDir(), categoryField.getText().toString());
-                }else {
-                    File file = new File(getFilesDir(), categoryField.getText().toString() + ".txt");
-                }*/
             }
         });
 

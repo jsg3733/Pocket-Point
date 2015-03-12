@@ -61,14 +61,36 @@ public class GridFragment extends Fragment {
         }catch (IOException e) {
             Log.i("GridFragment", "File is not being found");
         }
-
-
-
-
-
-
-
         final List<Icon> icons = new ArrayList<>();
+
+        if(topic.equals("Categories")) {
+            try {
+                BufferedReader inputReader = new BufferedReader(new InputStreamReader(gridFragment.getContext().openFileInput("Categories")));
+                String inputString = inputReader.readLine();
+                while (inputString != null) {
+                    icons.add(new Icon(R.drawable.ic_launcher, inputString));
+                    inputString = inputReader.readLine();
+                }
+                Log.i("internalFile", "pass");
+                /*StringBuffer stringBuffer = new StringBuffer();
+                while ((inputString = inputReader.readLine()) != null) {
+                    stringBuffer.append(inputString + "\n");
+                }*/
+                //lblTextViewOne.setText(stringBuffer.toString());
+                //names.add();
+            } catch (IOException e) {
+                Log.i("internalFile", "fail");
+                e.printStackTrace();
+            }
+        }
+
+
+
+
+
+
+
+        //final List<Icon> icons = new ArrayList<>();
 
         for(int i=0; i < names.size(); i++) {
             if(topic.equals("Categories") || topic.equals("Activities")) {
