@@ -108,11 +108,6 @@ public class GridFragment extends Fragment {
 
 
 
-
-
-
-
-
         //final List<Icon> icons = new ArrayList<>();
 
         //if in mywords category pull from own
