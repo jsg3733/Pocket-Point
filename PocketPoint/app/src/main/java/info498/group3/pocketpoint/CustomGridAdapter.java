@@ -12,6 +12,8 @@ import android.widget.TextView;
 import java.util.List;
 
 
+
+// is making the customGridAdapter for the icons
 public class CustomGridAdapter extends BaseAdapter {
 
     private Context context;
@@ -40,6 +42,7 @@ public class CustomGridAdapter extends BaseAdapter {
         return position;
     }
 
+    // is reseting the view to have the images
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View row = convertView;
@@ -49,11 +52,12 @@ public class CustomGridAdapter extends BaseAdapter {
             LayoutInflater inflater1 = ((Activity)context).getLayoutInflater();
             row = inflater1.inflate(layoutResourceId, parent, false);
 
-
+            // is setting the image view on title for the given iconholder defined below
             holder = new IconHolder();
             holder.imgIcon = (ImageView) row.findViewById(R.id.imgIcon);
             holder.txtTitle = (TextView) row.findViewById(R.id.txtTitle);
 
+            // sets the given holder to the inflater
             row.setTag(holder);
 
         }else {
@@ -62,6 +66,7 @@ public class CustomGridAdapter extends BaseAdapter {
         }
         Icon icon = items.get(position);
         holder.txtTitle.setText(icon.getTitle());
+        // positive value indicates png in drawable folder
         if (icon.getIcon() > 0){
             holder.imgIcon.setImageResource(icon.getIcon());
         } else{//negative value indicates bitmap version

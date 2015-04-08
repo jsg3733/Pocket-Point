@@ -29,7 +29,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-
+// Is the Create New Word Page linked from the Word Page
 public class NewWord extends ActionBarActivity {
 
     private Button save;
@@ -43,12 +43,14 @@ public class NewWord extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_word);
 
+        // gets rid of the notification bar
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-
+        //makes a onclick listener for the back arrow and cancel button
         LinearLayout backButton = (LinearLayout) findViewById(R.id.backButton);
         Button cancel = (Button)findViewById(R.id.btnCancel);
+        // sets the onclick listener to the back function
         backButton.setOnClickListener(back);
         cancel.setOnClickListener(back);
 
@@ -71,14 +73,17 @@ public class NewWord extends ActionBarActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 String input = s.toString();
+                // if edittext field is empty save button is disabled
                 if(input.equals("")) {
                     save.setEnabled(false);
+                    // if edittext has text and image preview is visible then save button is enabled
                 }else if(image.getVisibility() == View.VISIBLE){
                     save.setEnabled(true);
                 }
             }
         };
 
+        // sets textwatcher for word edittext
         wordField.addTextChangedListener(chan);
         Button buttonLoadImage = (Button)findViewById(R.id.btnImport);
 
@@ -109,7 +114,9 @@ public class NewWord extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 String words = "";
+                // saves the image internally
                 saveToInternalStorage(savedImage, wordField.getText().toString());
+                // reads through the words internal file and stores all lines to a string
                 try {
                     BufferedReader inputReader = new BufferedReader(new InputStreamReader(openFileInput("Words")));
                     String inputString = inputReader.readLine();
@@ -123,13 +130,16 @@ public class NewWord extends ActionBarActivity {
                     e.printStackTrace();
                 }
 
-
+                // rewrites the category internal file with the new word added
                 try{
                     FileOutputStream fos = openFileOutput("Words", Context.MODE_PRIVATE);
+                    // adds the new word to the end of the file
                     words += wordField.getText().toString();
                     fos.write(words.getBytes());
                     fos.close();
+                    // goes back to the main category page
                     Intent backToCategoryPage = new Intent(NewWord.this, CategoryPage.class);
+                    // closes activities in the background
                     backToCategoryPage.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(backToCategoryPage);
                     finish();
@@ -147,6 +157,7 @@ public class NewWord extends ActionBarActivity {
 
     }
 
+    // on click will finish the activity
     private View.OnClickListener back = new View.OnClickListener() {
         @Override
         public void onClick(final View v) {

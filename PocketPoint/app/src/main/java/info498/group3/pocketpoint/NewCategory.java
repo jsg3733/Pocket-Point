@@ -31,7 +31,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-
+// Is the Create New Category Page linked from the Category Page
 public class NewCategory extends ActionBarActivity {
 
     private Button save;
@@ -45,11 +45,15 @@ public class NewCategory extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_category);
 
+        // gets rid of the notification bar
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
+
+        //makes a onclick listener for the back arrow and cancel button
         LinearLayout backButton = (LinearLayout) findViewById(R.id.backButton);
         Button cancel = (Button)findViewById(R.id.btnCancel);
+        // sets the onclick listener to the back function
         backButton.setOnClickListener(back);
         cancel.setOnClickListener(back);
 
@@ -72,14 +76,17 @@ public class NewCategory extends ActionBarActivity {
             @Override
             public void afterTextChanged(Editable s) {
                     String input = s.toString();
+                    // if edittext field is empty save button is disabled
                     if(input.equals("")) {
                         save.setEnabled(false);
+                    // if edittext has text and image preview is visible then save button is enabled
                     }else if(image.getVisibility() == View.VISIBLE){
                         save.setEnabled(true);
                     }
             }
         };
 
+        // sets textwatcher for category edittext
         categoryField.addTextChangedListener(chan);
         Button buttonLoadImage = (Button)findViewById(R.id.btnImport);
 
@@ -109,7 +116,9 @@ public class NewCategory extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 String categories = "";
+                // saves the image internally
                 saveToInternalStorage(savedImage, categoryField.getText().toString());
+                // reads through the category internal file and stores all lines to a string
                 try {
                     BufferedReader inputReader = new BufferedReader(new InputStreamReader(openFileInput("Categories")));
                     String inputString = inputReader.readLine();
@@ -124,12 +133,16 @@ public class NewCategory extends ActionBarActivity {
                 }
 
 
+                // rewrites the category internal file with the new category added
                 try{
                     FileOutputStream fos = openFileOutput("Categories", Context.MODE_PRIVATE);
+                    // adds the new category to the end of the file
                     categories += categoryField.getText().toString();
                     fos.write(categories.getBytes());
                     fos.close();
+                    // goes back to the main category page
                     Intent backToCategoryPage = new Intent(NewCategory.this, CategoryPage.class);
+                    // closes activities in the background
                     backToCategoryPage.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(backToCategoryPage);
                     finish();
@@ -150,6 +163,7 @@ public class NewCategory extends ActionBarActivity {
 
 
 
+    // on click will finish the activity
     private View.OnClickListener back = new View.OnClickListener() {
         @Override
         public void onClick(final View v) {

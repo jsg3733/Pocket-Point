@@ -24,8 +24,11 @@ import java.util.Arrays;
 import java.util.List;
 
 
+// This is the first page that is loaded on app opening
+// Category Page
 public class CategoryPage extends ActionBarActivity {
 
+    // category name
     private String category;
 
     @Override
@@ -33,19 +36,22 @@ public class CategoryPage extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category_page);
 
+        // removes the notification bar
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
 
-
-
+        // sets the category to all category for reference and logs
         category = "Categories";
         Log.i("Test", category);
 
+        //puts the category into a bundle
         Bundle bundle = new Bundle();
         bundle.putString("category", category);
 
 
+        // calls the GridFragment and passes it the bundle that has category name
+        // places it in the linear layout called gridFragmentPlaceholder
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         GridFragment gridFragment = new GridFragment();
@@ -53,6 +59,7 @@ public class CategoryPage extends ActionBarActivity {
         fragmentTransaction.add(R.id.gridFragmentPlaceholder, gridFragment);
         fragmentTransaction.commit();
 
+        // sets on click listener for the add new category button that will go to that intent on click
         LinearLayout newCategory = (LinearLayout) findViewById(R.id.addNew);
         newCategory.setOnClickListener(new LinearLayout.OnClickListener() {
             public void onClick(View v) {
