@@ -241,7 +241,9 @@ public class NewCategory extends ActionBarActivity {
             fos = new FileOutputStream(mypath);
 
             // Use the compress method on the BitMap object to write image to the OutputStream
-            bitmapImage.compress(Bitmap.CompressFormat.JPEG, 1, fos);
+            Bitmap resizedBitmap = Bitmap.createScaledBitmap(bitmapImage, 500, 500, false);
+            resizedBitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+            // bitmapImage.compress(Bitmap.CompressFormat.JPEG, 1, fos);
             Log.v("point", "shit no the fan");
             fos.close();
         } catch (Exception e) {

@@ -79,6 +79,20 @@ public class WordPage extends ActionBarActivity {
     }
 
 
+    public void gridWithBar(String topic){
+        Bundle bundle = new Bundle();
+        bundle.putString("category", topic);
+
+        GridFragmentWithBar gridFragmentWithBar = new GridFragmentWithBar();
+        gridFragmentWithBar.setArguments(bundle);
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.gridFragmentPlaceholder, gridFragmentWithBar);
+        fragmentTransaction.commit();
+    }
+
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.

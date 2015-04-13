@@ -30,21 +30,20 @@ import java.util.Arrays;
 import java.util.List;
 
 
-public class GridFragment extends Fragment {
-
+public class GridFragmentWithBar extends Fragment {
 
     private GridView gridView;
     private List<String> names;
     private String topic;
     //private final List<String> foods = new ArrayList<>(Arrays.asList("Apple", "Banana", "Bread", "Cake", "Cheese", "Cracker",
-            //"Egg", "Juice", "Milk", "Pizza", "Stix", "Water"));
+    //"Egg", "Juice", "Milk", "Pizza", "Stix", "Water"));
 
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
                              final Bundle savedInstanceState) {
 
         // Inflate the layout for this fragment
-        final View gridFragment = inflater.inflate(R.layout.gridview_fragment, container, false);
+        final View gridFragment = inflater.inflate(R.layout.gridview_fragment_with_bar, container, false);
 
         // takes in the topic/category that was passed in
         Bundle info = this.getArguments();
@@ -77,7 +76,7 @@ public class GridFragment extends Fragment {
                 line = br.readLine();
 
             }
-        // catch exception if file is not found
+            // catch exception if file is not found
         }catch (IOException e) {
             Log.i("GridFragment", "File is not being found");
         }
@@ -194,10 +193,6 @@ public class GridFragment extends Fragment {
                     // if want to see word clicked then have it icons.get(poistion).getTitle()
                     TextView label = (TextView) getActivity().findViewById(R.id.txtCategory);
                     label.setText(topic);
-
-                    Log.i("GridWithBar", topic);
-                    ((WordPage)getActivity()).gridWithBar(topic);
-
                 }
 
 
@@ -227,4 +222,5 @@ public class GridFragment extends Fragment {
 
         return null;
     }
+
 }

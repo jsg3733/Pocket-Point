@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <GridView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/myGridView"
+        android:numColumns="4"
+        android:horizontalSpacing="10dp"
+        android:verticalSpacing="10dp"
+        android:layout_margin="10dp"
+        android:gravity="center" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffff423c">
+
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:id="@+id/iconOne"
+            android:layout_weight=".2"
+            android:src="@drawable/ic_launcher"
+            />
+
+        <TextView
+            android:layout_width="2dp"
+            android:layout_height="fill_parent"
+            android:id="@+id/txtSpacerOne"
+            android:background="#ff000000"/>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:id="@+id/iconTwo"
+            android:layout_weight=".2"
+            android:src="@drawable/food_apple"/>
+
+        <TextView
+            android:layout_width="2dp"
+            android:layout_height="fill_parent"
+            android:id="@+id/txtSpacerTwo"
+            android:background="#ff000000"/>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:id="@+id/iconThree"
+            android:layout_weight=".2"/>
+
+        <TextView
+            android:layout_width="2dp"
+            android:layout_height="fill_parent"
+            android:id="@+id/txtSpacerThree"
+            android:background="#ff000000"/>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:id="@+id/iconFour"
+            android:layout_weight=".2"/>
+
+        <TextView
+            android:layout_width="2dp"
+            android:layout_height="fill_parent"
+            android:id="@+id/txtSpacerFour"
+            android:background="#ff000000"/>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:id="@+id/checkMark"
+            android:layout_weight=".2"/>
+
+    </LinearLayout>
+
+
+</LinearLayout>
