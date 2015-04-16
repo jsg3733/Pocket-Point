@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.io.BufferedReader;
@@ -35,6 +36,7 @@ public class GridFragmentWithBar extends Fragment {
     private GridView gridView;
     private List<String> names;
     private String topic;
+    private int howManyInBar;
     //private final List<String> foods = new ArrayList<>(Arrays.asList("Apple", "Banana", "Bread", "Cake", "Cheese", "Cracker",
     //"Egg", "Juice", "Milk", "Pizza", "Stix", "Water"));
 
@@ -48,6 +50,7 @@ public class GridFragmentWithBar extends Fragment {
         // takes in the topic/category that was passed in
         Bundle info = this.getArguments();
         topic = info.getString("category");
+        howManyInBar = 0;
         Log.i("FragmentLoad", topic);
 
         // array list of icon titles
@@ -177,6 +180,7 @@ public class GridFragmentWithBar extends Fragment {
         gridView = (GridView) gridFragment.findViewById(R.id.myGridView);
         CustomGridAdapter gridAdapter = new CustomGridAdapter(gridFragment.getContext(), R.layout.gridview_cell, icons);
         gridView.setAdapter(gridAdapter);
+        final List<Icon> iconBar = new ArrayList<>();
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -193,6 +197,92 @@ public class GridFragmentWithBar extends Fragment {
                     // if want to see word clicked then have it icons.get(poistion).getTitle()
                     TextView label = (TextView) getActivity().findViewById(R.id.txtCategory);
                     label.setText(topic);
+                    Boolean notRepeatedImage = true;
+
+                    switch (howManyInBar) {
+                        case 0:
+                            TextView titleOne = (TextView) getActivity().findViewById(R.id.txtTitleOne);
+                            ImageView imgOne = (ImageView) getActivity().findViewById(R.id.imgIconOne);
+                            LinearLayout iconOne = (LinearLayout) getActivity().findViewById(R.id.iconOne);
+                            iconOne.setVisibility(View.VISIBLE);
+                            howManyInBar++;
+                            iconBar.add(icons.get(position));
+                            titleOne.setText(icons.get(position).getTitle());
+                            if(icons.get(position).getIcon() < 0 ) {
+                                imgOne.setImageBitmap(icons.get(position).getBitmap());
+                            }else {
+                                imgOne.setImageResource(icons.get(position).getIcon());
+                            }
+                            break;
+                        case 1:
+                            for(int i = 0; i < iconBar.size(); i++){
+                                if(iconBar.get(i).getTitle().toLowerCase().equals(icons.get(position).getTitle().toLowerCase())){
+                                    notRepeatedImage = false;
+                                }
+                            }
+                            if(notRepeatedImage) {
+                                TextView titleTwo = (TextView) getActivity().findViewById(R.id.txtTitleTwo);
+                                ImageView imgTwo = (ImageView) getActivity().findViewById(R.id.imgIconTwo);
+                                LinearLayout iconTwo = (LinearLayout) getActivity().findViewById(R.id.iconTwo);
+                                iconTwo.setVisibility(View.VISIBLE);
+                                howManyInBar++;
+                                iconBar.add(icons.get(position));
+                                titleTwo.setText(icons.get(position).getTitle());
+                                if (icons.get(position).getIcon() < 0) {
+                                    imgTwo.setImageBitmap(icons.get(position).getBitmap());
+                                } else {
+                                    imgTwo.setImageResource(icons.get(position).getIcon());
+                                }
+                                break;
+                            }
+                        case 2:
+                            for(int i = 0; i < iconBar.size(); i++){
+                                if(iconBar.get(i).getTitle().toLowerCase().equals(icons.get(position).getTitle().toLowerCase())){
+                                    notRepeatedImage = false;
+                                }
+                            }
+                            if(notRepeatedImage) {
+                                TextView titleThree = (TextView) getActivity().findViewById(R.id.txtTitleThree);
+                                ImageView imgThree = (ImageView) getActivity().findViewById(R.id.imgIconThree);
+                                LinearLayout iconThree = (LinearLayout) getActivity().findViewById(R.id.iconThree);
+                                iconThree.setVisibility(View.VISIBLE);
+                                howManyInBar++;
+                                iconBar.add(icons.get(position));
+                                titleThree.setText(icons.get(position).getTitle());
+                                if (icons.get(position).getIcon() < 0) {
+                                    imgThree.setImageBitmap(icons.get(position).getBitmap());
+                                } else {
+                                    imgThree.setImageResource(icons.get(position).getIcon());
+                                }
+                                break;
+                            }
+                        case 3:
+                        case 4:
+                            for(int i = 0; i < iconBar.size(); i++){
+                                if(iconBar.get(i).getTitle().toLowerCase().equals(icons.get(position).getTitle().toLowerCase())){
+                                    notRepeatedImage = false;
+                                }
+                            }
+                            if(notRepeatedImage) {
+                                TextView titleFour = (TextView) getActivity().findViewById(R.id.txtTitleFour);
+                                ImageView imgFour = (ImageView) getActivity().findViewById(R.id.imgIconFour);
+                                LinearLayout iconFour = (LinearLayout) getActivity().findViewById(R.id.iconFour);
+                                iconFour.setVisibility(View.VISIBLE);
+                                if (howManyInBar == 3) {
+                                    howManyInBar++;
+                                } else {
+                                    iconBar.remove(3);
+                                }
+                                iconBar.add(icons.get(position));
+                                titleFour.setText(icons.get(position).getTitle());
+                                if (icons.get(position).getIcon() < 0) {
+                                    imgFour.setImageBitmap(icons.get(position).getBitmap());
+                                } else {
+                                    imgFour.setImageResource(icons.get(position).getIcon());
+                                }
+                                break;
+                            }
+                    }
                 }
 
 

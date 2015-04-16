@@ -33,6 +33,10 @@ public class WordPage extends ActionBarActivity {
         Intent launchedMe = getIntent();
         category = launchedMe.getStringExtra("category");
 
+        // changes the text to show what to do on the page
+        TextView txtTitle = (TextView) findViewById(R.id.txtTitle);
+        txtTitle.setText(R.string.wordPageDesc);
+
         // changes the text to show the category that you are within
         TextView txtCategory = (TextView) findViewById(R.id.txtCategory);
         txtCategory.setText(category);
