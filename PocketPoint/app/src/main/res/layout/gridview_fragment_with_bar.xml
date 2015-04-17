@@ -36,7 +36,6 @@
                 android:textColor="#ff000000"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
-                android:text="Title"
                 />
 
             <ImageView android:id="@+id/imgIconOne"
@@ -44,7 +43,6 @@
                 android:layout_height="100dp"
                 android:gravity="center_vertical"
                 android:layout_marginBottom="5dp"
-                android:src="@drawable/ic_launcher"
                 />
 
         </LinearLayout>
@@ -79,7 +77,6 @@
                 android:textColor="#ff000000"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
-                android:text="Title"
                 />
 
             <ImageView android:id="@+id/imgIconTwo"
@@ -87,7 +84,6 @@
                 android:layout_height="100dp"
                 android:gravity="center_vertical"
                 android:layout_marginBottom="5dp"
-                android:src="@drawable/ic_launcher"
                 />
 
         </LinearLayout>
@@ -120,7 +116,6 @@
                 android:textColor="#ff000000"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
-                android:text="Title"
                 />
 
             <ImageView android:id="@+id/imgIconThree"
@@ -128,7 +123,6 @@
                 android:layout_height="100dp"
                 android:gravity="center_vertical"
                 android:layout_marginBottom="5dp"
-                android:src="@drawable/ic_launcher"
                 />
 
         </LinearLayout>
@@ -161,7 +155,6 @@
                 android:textColor="#ff000000"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
-                android:text="Title"
                 />
 
             <ImageView android:id="@+id/imgIconFour"
@@ -169,7 +162,6 @@
                 android:layout_height="100dp"
                 android:gravity="center_vertical"
                 android:layout_marginBottom="5dp"
-                android:src="@drawable/ic_launcher"
                 />
 
         </LinearLayout>
@@ -180,11 +172,24 @@
             android:id="@+id/txtSpacerFour"
             android:background="#ff000000"/>
 
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="100dp"
-            android:id="@+id/checkMark"
-            android:layout_weight=".2"/>
+        <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="150dp"
+        android:id="@+id/checkMark"
+        android:layout_weight=".2"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imgCheckMark"
+                android:src="@drawable/ic_launcher"
+                android:layout_gravity="center"/>
+
+        </LinearLayout>
 
     </LinearLayout>
 
@@ -199,7 +204,7 @@
 
     <GridView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="fill_parent"
         android:id="@+id/myGridView"
         android:numColumns="4"
         android:horizontalSpacing="10dp"

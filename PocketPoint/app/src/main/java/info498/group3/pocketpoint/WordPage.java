@@ -58,9 +58,9 @@ public class WordPage extends ActionBarActivity {
         // places it in the linear layout called gridFragmentPlaceholder
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        GridFragment gridFragment = new GridFragment();
-        gridFragment.setArguments(bundle);
-        fragmentTransaction.add(R.id.gridFragmentPlaceholder, gridFragment);
+        GridFragmentWithBar gridFragmentWithBar = new GridFragmentWithBar();
+        gridFragmentWithBar.setArguments(bundle);
+        fragmentTransaction.add(R.id.gridFragmentPlaceholder, gridFragmentWithBar);
         fragmentTransaction.commit();
 
         // changes the text for the addnew field to Add New Word

@@ -37,6 +37,7 @@ public class GridFragmentWithBar extends Fragment {
     private List<String> names;
     private String topic;
     private int howManyInBar;
+    private Boolean iconBarVisible;
     //private final List<String> foods = new ArrayList<>(Arrays.asList("Apple", "Banana", "Bread", "Cake", "Cheese", "Cracker",
     //"Egg", "Juice", "Milk", "Pizza", "Stix", "Water"));
 
@@ -45,12 +46,13 @@ public class GridFragmentWithBar extends Fragment {
                              final Bundle savedInstanceState) {
 
         // Inflate the layout for this fragment
-        final View gridFragment = inflater.inflate(R.layout.gridview_fragment_with_bar, container, false);
+        final View gridFragmentWithBar = inflater.inflate(R.layout.gridview_fragment_with_bar, container, false);
 
         // takes in the topic/category that was passed in
         Bundle info = this.getArguments();
         topic = info.getString("category");
         howManyInBar = 0;
+        iconBarVisible = false;
         Log.i("FragmentLoad", topic);
 
         // array list of icon titles
@@ -66,7 +68,7 @@ public class GridFragmentWithBar extends Fragment {
                 file = topic.toLowerCase() + ".txt";
             }
             // brings the file into a inputstream
-            AssetManager am = gridFragment.getContext().getAssets();
+            AssetManager am = gridFragmentWithBar.getContext().getAssets();
             InputStream is = am.open(file);
 
             // turns the inputstream of the file into a bufferedReader and reads the first line
@@ -90,11 +92,11 @@ public class GridFragmentWithBar extends Fragment {
         //internal category file
         if(topic.equals("Categories")) {
             try {
-                BufferedReader inputReader = new BufferedReader(new InputStreamReader(gridFragment.getContext().openFileInput("Categories")));
+                BufferedReader inputReader = new BufferedReader(new InputStreamReader(gridFragmentWithBar.getContext().openFileInput("Categories")));
                 String inputString = inputReader.readLine();
                 while (inputString != null) {
                     //getting image
-                    ContextWrapper cw = new ContextWrapper(gridFragment.getContext());
+                    ContextWrapper cw = new ContextWrapper(gridFragmentWithBar.getContext());
                     File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
 
                     Bitmap storedimagepath = loadImageFromStorage(directory.getAbsolutePath(), inputString.trim());
@@ -126,11 +128,11 @@ public class GridFragmentWithBar extends Fragment {
         //if in mywords category pull from internal mywords file
         if(topic.equals("MYWORDS")) {
             try {
-                BufferedReader inputReader = new BufferedReader(new InputStreamReader(gridFragment.getContext().openFileInput("Words")));
+                BufferedReader inputReader = new BufferedReader(new InputStreamReader(gridFragmentWithBar.getContext().openFileInput("Words")));
                 String inputString = inputReader.readLine();
                 while (inputString != null) {
                     //getting image
-                    ContextWrapper cw = new ContextWrapper(gridFragment.getContext());
+                    ContextWrapper cw = new ContextWrapper(gridFragmentWithBar.getContext());
                     File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
 
                     Bitmap storedimagepath = loadImageFromStorage(directory.getAbsolutePath(), inputString.trim());
@@ -177,8 +179,8 @@ public class GridFragmentWithBar extends Fragment {
         }
 
         // creates the gridview with all the icons by calling customGridAdapter
-        gridView = (GridView) gridFragment.findViewById(R.id.myGridView);
-        CustomGridAdapter gridAdapter = new CustomGridAdapter(gridFragment.getContext(), R.layout.gridview_cell, icons);
+        gridView = (GridView) gridFragmentWithBar.findViewById(R.id.myGridView);
+        CustomGridAdapter gridAdapter = new CustomGridAdapter(gridFragmentWithBar.getContext(), R.layout.gridview_cell, icons);
         gridView.setAdapter(gridAdapter);
         final List<Icon> iconBar = new ArrayList<>();
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -198,6 +200,12 @@ public class GridFragmentWithBar extends Fragment {
                     TextView label = (TextView) getActivity().findViewById(R.id.txtCategory);
                     label.setText(topic);
                     Boolean notRepeatedImage = true;
+                    if (!iconBarVisible){
+                        LinearLayout linLayoutIconBar = (LinearLayout) getActivity().findViewById(R.id.iconBar);
+                    ViewGroup.LayoutParams params = linLayoutIconBar.getLayoutParams();
+                    params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+                    iconBarVisible = true;
+                    }
 
                     switch (howManyInBar) {
                         case 0:
@@ -289,9 +297,16 @@ public class GridFragmentWithBar extends Fragment {
             }
         });
 
+        LinearLayout checkMark = (LinearLayout) gridFragmentWithBar.findViewById(R.id.checkMark);
+        checkMark.setOnClickListener(new LinearLayout.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i("Checkmark", "Was clicked");
+            }
+        });
 
 
-        return gridFragment;
+        return gridFragmentWithBar;
     }
 
     //loading image from storage
