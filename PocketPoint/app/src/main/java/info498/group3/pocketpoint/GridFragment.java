@@ -27,6 +27,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -173,7 +174,7 @@ public class GridFragment extends Fragment {
 
             }
         }
-
+        Collections.sort(icons, new IconComparator());
         // creates the gridview with all the icons by calling customGridAdapter
         gridView = (GridView) gridFragment.findViewById(R.id.myGridView);
         CustomGridAdapter gridAdapter = new CustomGridAdapter(gridFragment.getContext(), R.layout.gridview_cell, icons);
