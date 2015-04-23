@@ -42,6 +42,22 @@ public class GridFragmentWithBar extends Fragment {
     //private final List<String> foods = new ArrayList<>(Arrays.asList("Apple", "Banana", "Bread", "Cake", "Cheese", "Cracker",
     //"Egg", "Juice", "Milk", "Pizza", "Stix", "Water"));
 
+    private TextView titleOne;
+    private TextView titleTwo;
+    private TextView titleThree;
+    private TextView titleFour;
+    private ImageView imgOne;
+    private ImageView imgTwo;
+    private ImageView imgThree;
+    private ImageView imgFour;
+    private LinearLayout iconOne;
+    private LinearLayout iconTwo;
+    private LinearLayout iconThree;
+    private LinearLayout iconFour;
+    private List<Icon> iconBar;
+
+
+
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
                              final Bundle savedInstanceState) {
@@ -183,7 +199,7 @@ public class GridFragmentWithBar extends Fragment {
         gridView = (GridView) gridFragmentWithBar.findViewById(R.id.myGridView);
         CustomGridAdapter gridAdapter = new CustomGridAdapter(gridFragmentWithBar.getContext(), R.layout.gridview_cell, icons);
         gridView.setAdapter(gridAdapter);
-        final List<Icon> iconBar = new ArrayList<>();
+        iconBar = new ArrayList<>();
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -210,9 +226,9 @@ public class GridFragmentWithBar extends Fragment {
 
                     switch (howManyInBar) {
                         case 0:
-                            TextView titleOne = (TextView) getActivity().findViewById(R.id.txtTitleOne);
-                            ImageView imgOne = (ImageView) getActivity().findViewById(R.id.imgIconOne);
-                            LinearLayout iconOne = (LinearLayout) getActivity().findViewById(R.id.iconOne);
+                            titleOne = (TextView) getActivity().findViewById(R.id.txtTitleOne);
+                            imgOne = (ImageView) getActivity().findViewById(R.id.imgIconOne);
+                            iconOne = (LinearLayout) getActivity().findViewById(R.id.iconOne);
                             iconOne.setVisibility(View.VISIBLE);
                             howManyInBar++;
                             iconBar.add(icons.get(position));
@@ -230,9 +246,9 @@ public class GridFragmentWithBar extends Fragment {
                                 }
                             }
                             if(notRepeatedImage) {
-                                TextView titleTwo = (TextView) getActivity().findViewById(R.id.txtTitleTwo);
-                                ImageView imgTwo = (ImageView) getActivity().findViewById(R.id.imgIconTwo);
-                                LinearLayout iconTwo = (LinearLayout) getActivity().findViewById(R.id.iconTwo);
+                                titleTwo = (TextView) getActivity().findViewById(R.id.txtTitleTwo);
+                                imgTwo = (ImageView) getActivity().findViewById(R.id.imgIconTwo);
+                                iconTwo = (LinearLayout) getActivity().findViewById(R.id.iconTwo);
                                 iconTwo.setVisibility(View.VISIBLE);
                                 howManyInBar++;
                                 iconBar.add(icons.get(position));
@@ -251,9 +267,9 @@ public class GridFragmentWithBar extends Fragment {
                                 }
                             }
                             if(notRepeatedImage) {
-                                TextView titleThree = (TextView) getActivity().findViewById(R.id.txtTitleThree);
-                                ImageView imgThree = (ImageView) getActivity().findViewById(R.id.imgIconThree);
-                                LinearLayout iconThree = (LinearLayout) getActivity().findViewById(R.id.iconThree);
+                                titleThree = (TextView) getActivity().findViewById(R.id.txtTitleThree);
+                                imgThree = (ImageView) getActivity().findViewById(R.id.imgIconThree);
+                                iconThree = (LinearLayout) getActivity().findViewById(R.id.iconThree);
                                 iconThree.setVisibility(View.VISIBLE);
                                 howManyInBar++;
                                 iconBar.add(icons.get(position));
@@ -273,9 +289,9 @@ public class GridFragmentWithBar extends Fragment {
                                 }
                             }
                             if(notRepeatedImage) {
-                                TextView titleFour = (TextView) getActivity().findViewById(R.id.txtTitleFour);
-                                ImageView imgFour = (ImageView) getActivity().findViewById(R.id.imgIconFour);
-                                LinearLayout iconFour = (LinearLayout) getActivity().findViewById(R.id.iconFour);
+                                titleFour = (TextView) getActivity().findViewById(R.id.txtTitleFour);
+                                imgFour = (ImageView) getActivity().findViewById(R.id.imgIconFour);
+                                iconFour = (LinearLayout) getActivity().findViewById(R.id.iconFour);
                                 iconFour.setVisibility(View.VISIBLE);
                                 if (howManyInBar == 3) {
                                     howManyInBar++;
@@ -298,6 +314,7 @@ public class GridFragmentWithBar extends Fragment {
             }
         });
 
+        // Is setting up the onClick from when the checkMark is clicked
         LinearLayout checkMark = (LinearLayout) gridFragmentWithBar.findViewById(R.id.checkMark);
         checkMark.setOnClickListener(new LinearLayout.OnClickListener() {
             @Override
@@ -306,9 +323,148 @@ public class GridFragmentWithBar extends Fragment {
             }
         });
 
+        // finding the imageviews for the X's in the corners of the icons within the iconBar
+        ImageView removeIconOne = (ImageView) gridFragmentWithBar.findViewById(R.id.btnRemoveOne);
+        ImageView removeIconTwo = (ImageView) gridFragmentWithBar.findViewById(R.id.btnRemoveTwo);
+        ImageView removeIconThree = (ImageView) gridFragmentWithBar.findViewById(R.id.btnRemoveThree);
+        ImageView removeIconFour = (ImageView) gridFragmentWithBar.findViewById(R.id.btnRemoveFour);
+        // setting the onClick listener for all of the X's
+        removeIconOne.setOnClickListener(removeIcon);
+        removeIconTwo.setOnClickListener(removeIcon);
+        removeIconThree.setOnClickListener(removeIcon);
+        removeIconFour.setOnClickListener(removeIcon);
+
 
         return gridFragmentWithBar;
     }
+
+    // Is called when an X is clicked
+    // Will remove that icon from the bar and shift the ones from
+    // the right over to the left
+    private View.OnClickListener removeIcon = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            switch(v.getId()){
+                case R.id.btnRemoveOne:
+                    switch (howManyInBar){
+                        /*case 0:
+                            break;*/
+                        case 1:
+                            iconOne.setVisibility(View.INVISIBLE);
+                            break;
+                        case 2:
+                            titleOne.setText(titleTwo.getText());
+                            if(iconBar.get(1).getIcon() < 0){
+                                imgOne.setImageBitmap(iconBar.get(1).getBitmap());
+                            }else {
+                                imgOne.setImageResource(iconBar.get(1).getIcon());
+                            }
+                            //imgOne.setId(imgTwo.getId());
+                            iconTwo.setVisibility(View.INVISIBLE);
+                            break;
+                        case 3:
+                            titleOne.setText(titleTwo.getText());
+                            if(iconBar.get(1).getIcon() < 0){
+                                imgOne.setImageBitmap(iconBar.get(1).getBitmap());
+                            }else {
+                                imgOne.setImageResource(iconBar.get(1).getIcon());
+                            }
+                            titleTwo.setText(titleThree.getText());
+                            if(iconBar.get(2).getIcon() < 0){
+                                imgTwo.setImageBitmap(iconBar.get(2).getBitmap());
+                            }else {
+                                imgTwo.setImageResource(iconBar.get(2).getIcon());
+                            }
+                            iconThree.setVisibility(View.INVISIBLE);
+                            break;
+                        case 4:
+                            titleOne.setText(titleTwo.getText());
+                            if(iconBar.get(1).getIcon() < 0){
+                                imgOne.setImageBitmap(iconBar.get(1).getBitmap());
+                            }else {
+                                imgOne.setImageResource(iconBar.get(1).getIcon());
+                            }
+                            titleTwo.setText(titleThree.getText());
+                            if(iconBar.get(2).getIcon() < 0){
+                                imgTwo.setImageBitmap(iconBar.get(2).getBitmap());
+                            }else {
+                                imgTwo.setImageResource(iconBar.get(2).getIcon());
+                            }
+                            titleThree.setText(titleFour.getText());
+                            if(iconBar.get(3).getIcon() < 0){
+                                imgThree.setImageBitmap(iconBar.get(3).getBitmap());
+                            }else {
+                                imgThree.setImageResource(iconBar.get(3).getIcon());
+                            }
+                            iconFour.setVisibility(View.INVISIBLE);
+                            break;
+                    }
+                    howManyInBar--;
+                    iconBar.remove(0);
+                    Log.i("Remove", "Icon One");
+                    break;
+                case R.id.btnRemoveTwo:
+                    switch (howManyInBar) {
+                        case 2:
+                            iconTwo.setVisibility(View.INVISIBLE);
+                            break;
+                        case 3:
+                            titleTwo.setText(titleThree.getText());
+                            if(iconBar.get(2).getIcon() < 0){
+                                imgTwo.setImageBitmap(iconBar.get(2).getBitmap());
+                            }else {
+                                imgTwo.setImageResource(iconBar.get(2).getIcon());
+                            }
+                            iconThree.setVisibility(View.INVISIBLE);
+                            break;
+                        case 4:
+                            titleTwo.setText(titleThree.getText());
+                            if(iconBar.get(2).getIcon() < 0){
+                                imgTwo.setImageBitmap(iconBar.get(2).getBitmap());
+                            }else {
+                                imgTwo.setImageResource(iconBar.get(2).getIcon());
+                            }
+                            titleThree.setText(titleFour.getText());
+                            if(iconBar.get(3).getIcon() < 0){
+                                imgThree.setImageBitmap(iconBar.get(3).getBitmap());
+                            }else {
+                                imgThree.setImageResource(iconBar.get(3).getIcon());
+                            }
+                            iconFour.setVisibility(View.INVISIBLE);
+                            break;
+                    }
+                    howManyInBar--;
+                    iconBar.remove(1);
+                    Log.i("Remove", "Icon Two");
+                    break;
+                case R.id.btnRemoveThree:
+                    switch (howManyInBar) {
+                        case 3:
+                            iconThree.setVisibility(View.INVISIBLE);
+                            break;
+                        case 4:
+                            titleThree.setText(titleFour.getText());
+                            if(iconBar.get(3).getIcon() < 0){
+                                imgThree.setImageBitmap(iconBar.get(3).getBitmap());
+                            }else {
+                                imgThree.setImageResource(iconBar.get(3).getIcon());
+                            }
+                            iconFour.setVisibility(View.INVISIBLE);
+                            break;
+                    }
+                    howManyInBar--;
+                    iconBar.remove(2);
+                    Log.i("Remove", "Icon Three");
+                    break;
+                case R.id.btnRemoveFour:
+                    howManyInBar--;
+                    iconBar.remove(3);
+                    iconFour.setVisibility(View.INVISIBLE);
+                    Log.i("Remove", "Icon Four");
+                    break;
+            }
+        }
+    };
 
     //loading image from storage
     //return associated bitmap
