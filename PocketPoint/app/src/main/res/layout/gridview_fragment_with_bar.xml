@@ -27,16 +27,33 @@
             android:visibility="invisible">
 
 
-            <TextView android:id="@+id/txtTitleOne"
+            <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:textStyle="bold"
-                android:textSize="22dp"
-                android:textColor="#ff000000"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                />
+                android:id="@+id/layoutTitleOne"
+
+                >
+
+                <TextView android:id="@+id/txtTitleOne"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textSize="22dp"
+                    android:textColor="#ff000000"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="5dp"/>
+
+                <ImageView
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:id="@+id/btnRemoveOne"
+                    android:background="@drawable/x"
+                    android:layout_marginBottom="5dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true" />
+
+            </RelativeLayout>
+
 
             <ImageView android:id="@+id/imgIconOne"
                 android:layout_width="wrap_content"
@@ -67,17 +84,33 @@
             android:paddingBottom="5dp"
             android:visibility="invisible">
 
-
-            <TextView android:id="@+id/txtTitleTwo"
+            <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:textStyle="bold"
-                android:textSize="22dp"
-                android:textColor="#ff000000"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                />
+                android:id="@+id/layoutTitleTwo"
+
+                >
+
+                <TextView android:id="@+id/txtTitleTwo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textSize="22dp"
+                    android:textColor="#ff000000"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="5dp"/>
+
+                <ImageView
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:id="@+id/btnRemoveTwo"
+                    android:background="@drawable/x"
+                    android:layout_marginBottom="5dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true" />
+
+            </RelativeLayout>
+
 
             <ImageView android:id="@+id/imgIconTwo"
                 android:layout_width="wrap_content"
@@ -106,17 +139,33 @@
             android:paddingBottom="5dp"
             android:visibility="invisible">
 
-
-            <TextView android:id="@+id/txtTitleThree"
+            <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:textStyle="bold"
-                android:textSize="22dp"
-                android:textColor="#ff000000"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                />
+                android:id="@+id/layoutTitleThree"
+
+                >
+
+                <TextView android:id="@+id/txtTitleThree"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textSize="22dp"
+                    android:textColor="#ff000000"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="5dp"/>
+
+                <ImageView
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:id="@+id/btnRemoveThree"
+                    android:background="@drawable/x"
+                    android:layout_marginBottom="5dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true" />
+
+            </RelativeLayout>
+
 
             <ImageView android:id="@+id/imgIconThree"
                 android:layout_width="wrap_content"
@@ -145,17 +194,33 @@
             android:paddingBottom="5dp"
             android:visibility="invisible">
 
-
-            <TextView android:id="@+id/txtTitleFour"
+            <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:textStyle="bold"
-                android:textSize="22dp"
-                android:textColor="#ff000000"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                />
+                android:id="@+id/layoutTitleFour"
+
+                >
+
+                <TextView android:id="@+id/txtTitleFour"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textSize="22dp"
+                    android:textColor="#ff000000"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="5dp"/>
+
+                <ImageView
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:id="@+id/btnRemoveFour"
+                    android:background="@drawable/x"
+                    android:layout_marginBottom="5dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true" />
+
+            </RelativeLayout>
+
 
             <ImageView android:id="@+id/imgIconFour"
                 android:layout_width="wrap_content"
