@@ -320,6 +320,14 @@ public class GridFragmentWithBar extends Fragment {
             @Override
             public void onClick(View v) {
                 Log.i("Checkmark", "Was clicked");
+                Intent arrange = new Intent(getActivity(), ArrangePage.class);
+                // With arrayList and serializable
+                //arrange.putExtra("iconBar", iconBar);
+                //arrange.putExtra("category", icons.get(position).getTitle());
+                Bundle b=new Bundle();
+                b.putSerializable("iconBar",(ArrayList<Icon>)iconBar);
+                arrange.putExtras(b);
+                startActivity(arrange);
             }
         });
 

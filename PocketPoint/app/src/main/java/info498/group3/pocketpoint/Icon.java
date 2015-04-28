@@ -3,11 +3,12 @@ package info498.group3.pocketpoint;
 
 import android.graphics.Bitmap;
 
+import java.io.Serializable;
 import java.util.Comparator;
 
 
 // Is the icons that store title and images in either bitmap or drawable
-public class Icon  {
+public class Icon implements Serializable{
     private int icon;
     private String title;
     private Bitmap bitmap;
@@ -20,6 +21,8 @@ public class Icon  {
         this.icon = icon;
         this.title = title;
     }
+
+
 
     // -1 means is a bitmap and not a drawable resID
     public int getIcon(){
