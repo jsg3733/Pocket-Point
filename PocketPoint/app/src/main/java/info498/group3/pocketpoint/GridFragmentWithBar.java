@@ -219,9 +219,9 @@ public class GridFragmentWithBar extends Fragment {
                     Boolean notRepeatedImage = true;
                     if (!iconBarVisible){
                         LinearLayout linLayoutIconBar = (LinearLayout) getActivity().findViewById(R.id.iconBar);
-                    ViewGroup.LayoutParams params = linLayoutIconBar.getLayoutParams();
-                    params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-                    iconBarVisible = true;
+                        ViewGroup.LayoutParams params = linLayoutIconBar.getLayoutParams();
+                        params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+                        iconBarVisible = true;
                     }
 
                     switch (howManyInBar) {
@@ -351,6 +351,11 @@ public class GridFragmentWithBar extends Fragment {
                             break;*/
                         case 1:
                             iconOne.setVisibility(View.INVISIBLE);
+                            LinearLayout linLayoutIconBar = (LinearLayout) getActivity().findViewById(R.id.iconBar);
+                            ViewGroup.LayoutParams params = linLayoutIconBar.getLayoutParams();
+                            params.height = 0;
+                            linLayoutIconBar.setLayoutParams(params);
+                            iconBarVisible = false;
                             break;
                         case 2:
                             titleOne.setText(titleTwo.getText());
