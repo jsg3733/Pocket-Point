@@ -8,6 +8,7 @@
     <string name="wordPageDesc">Select 1 to 4 Words</string>
     <string name="newCategoryPageDesc">Add a Category</string>
     <string name="newWordPageDesc">Add New Word</string>
+    <string name="arrangePageDesc">Arrange Page</string>
     <string name="category">All Categories</string>
     <string name="title_activity_word_page">WordPage</string>
     <string name="title_activity_new_category">NewCategory</string>
@@ -23,6 +24,7 @@
     <string name="insert_takePhoto_field_text">Take Photo</string>
     <string name="save_button">Save</string>
     <string name="cancel_button">Cancel</string>
+    <string name="save_page_button">Save Page</string>
     <string name="title_activity_new_word">NewWord</string>
     <string name="title_activity_arrange_page">ArrangePage</string>
 

@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -28,6 +30,25 @@ public class ArrangePage extends ActionBarActivity {
             iconBar = (ArrayList<Icon>)b.getSerializable("iconBar");
         }
         Log.i("iconOne", iconBar.get(0).getTitle());
+        TextView titleOne = (TextView) findViewById(R.id.txtTitleOne);
+        titleOne.setText(iconBar.get(0).getTitle());
+        ImageView imgOne = (ImageView) findViewById(R.id.imgIconOne);
+        if(iconBar.get(0).getIcon() < 0 ){
+            imgOne.setImageBitmap(iconBar.get(0).getBitmap());
+        }else {
+            imgOne.setImageResource(iconBar.get(0).getIcon());
+        }
+        if(iconBar.size() > 1) {
+            TextView titleTwo = (TextView) findViewById(R.id.txtTitleTwo);
+            titleTwo.setText(iconBar.get(1).getTitle());
+            ImageView imgTwo = (ImageView) findViewById(R.id.imgIconTwo);
+            if(iconBar.get(1).getIcon() < 0 ){
+                imgTwo.setImageBitmap(iconBar.get(1).getBitmap());
+            }else {
+                imgTwo.setImageResource(iconBar.get(1).getIcon());
+            }
+        }
+
     }
 
 
