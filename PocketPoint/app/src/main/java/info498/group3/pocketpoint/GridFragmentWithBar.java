@@ -324,9 +324,40 @@ public class GridFragmentWithBar extends Fragment {
                 // With arrayList and serializable
                 //arrange.putExtra("iconBar", iconBar);
                 //arrange.putExtra("category", icons.get(position).getTitle());
-                Bundle b=new Bundle();
+                Icon current = new Icon(0, "");
+                List<String> iconNumber = new ArrayList<String>(
+                        Arrays.asList("iconOne", "iconTwo", "iconThree", "iconFour"));
+                for(int i = 0; i < howManyInBar; i++) {
+                    current = iconBar.get(i);
+                    String iconNum = iconNumber.get(i);
+
+                    arrange.putExtra(iconNum + "Title",  current.getTitle());
+                    if(current.getIcon() < 0 ) {
+                        arrange.putExtra(iconNum + "ImageInt", 1);
+                        arrange.putExtra(iconNum + "Img", current.getBitmap());
+                    }else {
+                        arrange.putExtra(iconNum + "ImageInt", 0);
+                        arrange.putExtra(iconNum + "Img", current.getIcon());
+                    }
+                }
+                arrange.putExtra("howManyInBar", howManyInBar);
+                /*switch(howManyInBar){
+                    case 4:
+                        current = iconBar.get(3);
+                        arrange.putExtra("iconFourTitle",  current.getTitle());
+                        if(current.getIcon() < 0 ) {
+                            arrange.putExtra("iconFourImageInt", 1);
+                            arrange.putExtra("iconFourImg", current.getBitmap());
+                        }else {
+                            arrange.putExtra("iconFourImageInt", 0);
+                            arrange.putExtra("iconFourImg", current.getIcon());
+                        }
+                }*/
+
+                //Serilizabile passing a bundle (problem with bitmap images)
+                /*Bundle b=new Bundle();
                 b.putSerializable("iconBar",(ArrayList<Icon>)iconBar);
-                arrange.putExtras(b);
+                arrange.putExtras(b);*/
                 startActivity(arrange);
             }
         });

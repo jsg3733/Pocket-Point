@@ -1,6 +1,7 @@
 package info498.group3.pocketpoint;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,25 +11,54 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 
 public class ArrangePage extends ActionBarActivity {
 
-    ArrayList<Icon> iconBar;
+    List<Icon> iconBar;
+    private int howManyInBar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_arrange_page);
 
-        // With serializable and passing extra
+        // With serializable and passing extra (problem with Bitmap images)
         //Intent launchedMe = getIntent();
         //iconBar = (ArrayList<Icon>)launchedMe.getSerializableExtra("iconBar");
         //Log.i("iconOne", iconBar.get(0).getTitle());
-        Bundle b = getIntent().getExtras();
+
+        // Serializable passing as bundle (problem with Bitmap images)
+        /*Bundle b = getIntent().getExtras();
         if (b != null) {
             iconBar = (ArrayList<Icon>)b.getSerializable("iconBar");
+        }*/
+
+        iconBar = new ArrayList<Icon>();
+        Intent launchedMe = getIntent();
+        howManyInBar = launchedMe.getIntExtra("howManyInBar", 1);
+        List<String> iconNumber = new ArrayList<String>(
+                Arrays.asList("iconOne", "iconTwo", "iconThree", "iconFour"));
+        for(int i = 0; i < howManyInBar; i++) {
+            String iconNum = iconNumber.get(i);
+            String iconTitle = launchedMe.getStringExtra(iconNum + "Title");
+            int imgInt = launchedMe.getIntExtra(iconNum + "ImageInt", 2);
+            if(imgInt == 0) {
+                int iconInt = launchedMe.getIntExtra(iconNum + "Img", 0);
+                Icon current = new Icon(iconInt, iconTitle);
+                iconBar.add(current);
+            }else {
+                Bitmap imgBitmap = launchedMe.getParcelableExtra(iconNum + "Img");
+                Icon current = new Icon((-1), iconTitle);
+                current.setBitmap(imgBitmap);
+                iconBar.add(current);
+            }
         }
+
+
         Log.i("iconOne", iconBar.get(0).getTitle());
         TextView titleOne = (TextView) findViewById(R.id.txtTitleOne);
         titleOne.setText(iconBar.get(0).getTitle());
