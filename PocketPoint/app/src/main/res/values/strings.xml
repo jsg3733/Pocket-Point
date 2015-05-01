@@ -27,5 +27,7 @@
     <string name="save_page_button">Save Page</string>
     <string name="title_activity_new_word">NewWord</string>
     <string name="title_activity_arrange_page">ArrangePage</string>
+    <string name="done_button">Done</string>
+    <string name="title_activity_kiddo_page">KiddoPage</string>
 
 </resources>

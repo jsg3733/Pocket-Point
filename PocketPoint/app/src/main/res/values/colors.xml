@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="header" type="color">#ffe4a5ff</item>
+    <item name="body" type="color">#ffffffdd</item>
+    <item name="txtHeader" type="color">#ff000000</item>
+    <item name="txtIcons" type="color">#ff000000</item>
+    <item name="kiddoPageBackground" type="color">#ff000000</item>
+    <item name="bar" type="color">#ffbfbfbf</item>
+
+
+    <item name="oldred" type="color">#ffff231c</item>
+
+
+
+</resources>
