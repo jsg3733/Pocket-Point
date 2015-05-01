@@ -334,7 +334,7 @@ public class GridFragmentWithBar extends Fragment {
                     arrange.putExtra(iconNum + "Title",  current.getTitle());
                     if(current.getIcon() < 0 ) {
                         arrange.putExtra(iconNum + "ImageInt", 1);
-                        arrange.putExtra(iconNum + "Img", current.getBitmap());
+                        //arrange.putExtra(iconNum + "Img", current.getBitmap());
                     }else {
                         arrange.putExtra(iconNum + "ImageInt", 0);
                         arrange.putExtra(iconNum + "Img", current.getIcon());

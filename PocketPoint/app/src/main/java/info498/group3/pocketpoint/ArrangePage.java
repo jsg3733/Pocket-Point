@@ -1,7 +1,10 @@
 package info498.group3.pocketpoint;
 
+import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,6 +13,9 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -51,9 +57,18 @@ public class ArrangePage extends ActionBarActivity {
                 Icon current = new Icon(iconInt, iconTitle);
                 iconBar.add(current);
             }else {
-                Bitmap imgBitmap = launchedMe.getParcelableExtra(iconNum + "Img");
+
+                ContextWrapper cw = new ContextWrapper(getApplicationContext());
+                File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
+
+                Bitmap storedimagepath = loadImageFromStorage(directory.getAbsolutePath(), iconTitle.trim());
+
+
+
+                //Bitmap imgBitmap = launchedMe.getParcelableExtra(iconNum + "Img");
                 Icon current = new Icon((-1), iconTitle);
-                current.setBitmap(imgBitmap);
+                current.setBitmap(storedimagepath);
+                //current.setBitmap(imgBitmap);
                 iconBar.add(current);
             }
         }
@@ -102,5 +117,24 @@ public class ArrangePage extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    //loading image from storage
+    //return associated bitmap
+    private Bitmap loadImageFromStorage(String path, String filename)
+    {
+
+        try {
+            File f=new File(path, filename);
+            Bitmap b = BitmapFactory.decodeStream(new FileInputStream(f));
+            return b;
+        }
+        catch (FileNotFoundException e)
+        {
+            Log.v("nahblah", "it didn't run");
+            e.printStackTrace();
+        }
+
+        return null;
     }
 }
