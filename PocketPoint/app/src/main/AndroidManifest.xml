@@ -43,7 +43,13 @@
         </activity>
         <activity
             android:name=".ArrangePage"
-            android:label="@string/title_activity_arrange_page" >
+            android:label="@string/title_activity_arrange_page"
+            android:screenOrientation="landscape" >
+        </activity>
+        <activity
+            android:name=".KiddoPage"
+            android:label="@string/title_activity_kiddo_page"
+            android:screenOrientation="landscape" >
         </activity>
     </application>
 

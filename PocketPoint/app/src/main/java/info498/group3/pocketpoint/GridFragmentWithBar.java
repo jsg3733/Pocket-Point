@@ -324,11 +324,11 @@ public class GridFragmentWithBar extends Fragment {
                 // With arrayList and serializable
                 //arrange.putExtra("iconBar", iconBar);
                 //arrange.putExtra("category", icons.get(position).getTitle());
-                Icon current = new Icon(0, "");
+                //Icon current = new Icon(0, "");
                 List<String> iconNumber = new ArrayList<String>(
                         Arrays.asList("iconOne", "iconTwo", "iconThree", "iconFour"));
                 for(int i = 0; i < howManyInBar; i++) {
-                    current = iconBar.get(i);
+                    Icon current = iconBar.get(i);
                     String iconNum = iconNumber.get(i);
 
                     arrange.putExtra(iconNum + "Title",  current.getTitle());
@@ -359,6 +359,7 @@ public class GridFragmentWithBar extends Fragment {
                 b.putSerializable("iconBar",(ArrayList<Icon>)iconBar);
                 arrange.putExtras(b);*/
                 startActivity(arrange);
+                //getActivity().finish();
             }
         });
 

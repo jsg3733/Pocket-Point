@@ -10,10 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.io.File;
@@ -24,34 +21,15 @@ import java.util.Arrays;
 import java.util.List;
 
 
-public class ArrangePage extends ActionBarActivity {
+public class KiddoPage extends ActionBarActivity {
 
     private List<Icon> iconBar;
     private int howManyInBar;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_arrange_page);
-
-        LinearLayout backButton = (LinearLayout) findViewById(R.id.backButton);
-        backButton.setOnClickListener(new LinearLayout.OnClickListener() {
-            public void onClick(View v) {
-                finish();
-            }
-        });
-
-        // With serializable and passing extra (problem with Bitmap images)
-        //Intent launchedMe = getIntent();
-        //iconBar = (ArrayList<Icon>)launchedMe.getSerializableExtra("iconBar");
-        //Log.i("iconOne", iconBar.get(0).getTitle());
-
-        // Serializable passing as bundle (problem with Bitmap images)
-        /*Bundle b = getIntent().getExtras();
-        if (b != null) {
-            iconBar = (ArrayList<Icon>)b.getSerializable("iconBar");
-        }*/
+        setContentView(R.layout.activity_kiddo_page);
 
         iconBar = new ArrayList<Icon>();
         Intent launchedMe = getIntent();
@@ -73,21 +51,12 @@ public class ArrangePage extends ActionBarActivity {
 
                 Bitmap storedimagepath = loadImageFromStorage(directory.getAbsolutePath(), iconTitle.trim());
 
-
-
-                //Bitmap imgBitmap = launchedMe.getParcelableExtra(iconNum + "Img");
                 Icon current = new Icon((-1), iconTitle);
                 current.setBitmap(storedimagepath);
-                //current.setBitmap(imgBitmap);
                 iconBar.add(current);
             }
         }
 
-
-
-
-
-        Log.i("iconOne", iconBar.get(0).getTitle());
         if(iconBar.size() >= 1) {
             TextView titleOne = (TextView) findViewById(R.id.txtTitleOne);
             titleOne.setText(iconBar.get(0).getTitle());
@@ -129,31 +98,6 @@ public class ArrangePage extends ActionBarActivity {
             }
         }
 
-        Button done = (Button) findViewById(R.id.btnDone);
-        done.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent kiddoPage = new Intent(ArrangePage.this, KiddoPage.class);
-                List<String> iconNumber = new ArrayList<String>(
-                        Arrays.asList("iconOne", "iconTwo", "iconThree", "iconFour"));
-                for(int i = 0; i < howManyInBar; i++) {
-                    Icon current = iconBar.get(i);
-                    String iconNum = iconNumber.get(i);
-
-                    kiddoPage.putExtra(iconNum + "Title",  current.getTitle());
-                    if(current.getIcon() < 0 ) {
-                        kiddoPage.putExtra(iconNum + "ImageInt", 1);
-                        //arrange.putExtra(iconNum + "Img", current.getBitmap());
-                    }else {
-                        kiddoPage.putExtra(iconNum + "ImageInt", 0);
-                        kiddoPage.putExtra(iconNum + "Img", current.getIcon());
-                    }
-                }
-                kiddoPage.putExtra("howManyInBar", howManyInBar);
-
-                startActivity(kiddoPage);
-            }
-        });
 
     }
 
@@ -161,7 +105,7 @@ public class ArrangePage extends ActionBarActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_arrange_page, menu);
+        getMenuInflater().inflate(R.menu.menu_kiddo_page, menu);
         return true;
     }
 
@@ -180,8 +124,6 @@ public class ArrangePage extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    //loading image from storage
-    //return associated bitmap
     private Bitmap loadImageFromStorage(String path, String filename)
     {
 
