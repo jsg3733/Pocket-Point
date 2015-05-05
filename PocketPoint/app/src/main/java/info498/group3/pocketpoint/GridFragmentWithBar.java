@@ -34,7 +34,7 @@ import java.util.List;
 
 public class GridFragmentWithBar extends Fragment {
 
-    private GridView gridView;
+    private HeaderGridView gridView;
     private List<String> names;
     private String topic;
     private int howManyInBar;
@@ -196,13 +196,22 @@ public class GridFragmentWithBar extends Fragment {
         }
         Collections.sort(icons, new IconComparator());
         // creates the gridview with all the icons by calling customGridAdapter
-        gridView = (GridView) gridFragmentWithBar.findViewById(R.id.myGridView);
+        gridView = (HeaderGridView) gridFragmentWithBar.findViewById(R.id.myGridView);
+        //gridView.setNumColumns(1);
+        View header = View.inflate(getActivity(), R.layout.gridview_header, null );
+        gridView.addHeaderView(header);
+        //gridView.setNumColumns(4);
         CustomGridAdapter gridAdapter = new CustomGridAdapter(gridFragmentWithBar.getContext(), R.layout.gridview_cell, icons);
         gridView.setAdapter(gridAdapter);
+
+        TextView label = (TextView) header.findViewById(R.id.txtCategory);
+        label.setText(topic);
+
         iconBar = new ArrayList<>();
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                position = position - 4;
                 // is the title of the icon based on the position clicked for testing
                 Log.i("ITEM_CLICKED", icons.get(position).getTitle());
                 // if topic is equal to category then on click will take to wordPage intent
@@ -214,8 +223,8 @@ public class GridFragmentWithBar extends Fragment {
                 }else {
                     // sets category section to topic
                     // if want to see word clicked then have it icons.get(poistion).getTitle()
-                    TextView label = (TextView) getActivity().findViewById(R.id.txtCategory);
-                    label.setText(topic);
+                   // TextView label = (TextView) getActivity().findViewById(R.id.txtCategory);
+                   //label.setText(topic);
                     Boolean notRepeatedImage = true;
                     if (!iconBarVisible){
                         LinearLayout linLayoutIconBar = (LinearLayout) getActivity().findViewById(R.id.iconBar);

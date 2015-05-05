@@ -267,7 +267,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"/>
 
-    <GridView
+    <info498.group3.pocketpoint.HeaderGridView
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
         android:id="@+id/myGridView"

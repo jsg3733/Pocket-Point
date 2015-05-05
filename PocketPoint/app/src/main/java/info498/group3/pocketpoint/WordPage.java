@@ -38,8 +38,8 @@ public class WordPage extends ActionBarActivity {
         txtTitle.setText(R.string.wordPageDesc);
 
         // changes the text to show the category that you are within
-        TextView txtCategory = (TextView) findViewById(R.id.txtCategory);
-        txtCategory.setText(category);
+        //TextView txtCategory = (TextView) findViewById(R.id.txtCategory);
+        //txtCategory.setText(category);
 
         // makes the back button visible so can click to finish the current activity
         LinearLayout backButton = (LinearLayout) findViewById(R.id.backButton);
