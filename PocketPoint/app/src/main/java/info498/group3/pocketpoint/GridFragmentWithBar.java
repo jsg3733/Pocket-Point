@@ -326,12 +326,12 @@ public class GridFragmentWithBar extends Fragment {
         });
 
         // Is setting up the onClick from when the checkMark is clicked
-        LinearLayout checkMark = (LinearLayout) gridFragmentWithBar.findViewById(R.id.checkMark);
-        checkMark.setOnClickListener(new LinearLayout.OnClickListener() {
+        LinearLayout forwardArrow = (LinearLayout) gridFragmentWithBar.findViewById(R.id.forwardArrow);
+        forwardArrow.setOnClickListener(new LinearLayout.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.i("Checkmark", "Was clicked");
-                Intent arrange = new Intent(getActivity(), ArrangePage.class);
+                Intent kiddo = new Intent(getActivity(), KiddoPage.class);
                 // With arrayList and serializable
                 //arrange.putExtra("iconBar", iconBar);
                 //arrange.putExtra("category", icons.get(position).getTitle());
@@ -342,16 +342,16 @@ public class GridFragmentWithBar extends Fragment {
                     Icon current = iconBar.get(i);
                     String iconNum = iconNumber.get(i);
 
-                    arrange.putExtra(iconNum + "Title",  current.getTitle());
+                    kiddo.putExtra(iconNum + "Title",  current.getTitle());
                     if(current.getIcon() < 0 ) {
-                        arrange.putExtra(iconNum + "ImageInt", 1);
+                        kiddo.putExtra(iconNum + "ImageInt", 1);
                         //arrange.putExtra(iconNum + "Img", current.getBitmap());
                     }else {
-                        arrange.putExtra(iconNum + "ImageInt", 0);
-                        arrange.putExtra(iconNum + "Img", current.getIcon());
+                        kiddo.putExtra(iconNum + "ImageInt", 0);
+                        kiddo.putExtra(iconNum + "Img", current.getIcon());
                     }
                 }
-                arrange.putExtra("howManyInBar", howManyInBar);
+                kiddo.putExtra("howManyInBar", howManyInBar);
                 /*switch(howManyInBar){
                     case 4:
                         current = iconBar.get(3);
@@ -369,8 +369,33 @@ public class GridFragmentWithBar extends Fragment {
                 /*Bundle b=new Bundle();
                 b.putSerializable("iconBar",(ArrayList<Icon>)iconBar);
                 arrange.putExtras(b);*/
-                startActivity(arrange);
+                startActivity(kiddo);
                 //getActivity().finish();
+            }
+        });
+
+        LinearLayout settings = (LinearLayout) gridFragmentWithBar.findViewById(R.id.btnArrangePage);
+        settings.setOnClickListener(new LinearLayout.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent arrange = new Intent(getActivity(), ArrangePage.class);
+                List<String> iconNumber = new ArrayList<String>(
+                        Arrays.asList("iconOne", "iconTwo", "iconThree", "iconFour"));
+                for(int i = 0; i < howManyInBar; i++) {
+                    Icon current = iconBar.get(i);
+                    String iconNum = iconNumber.get(i);
+
+                    arrange.putExtra(iconNum + "Title",  current.getTitle());
+                    if(current.getIcon() < 0 ) {
+                        arrange.putExtra(iconNum + "ImageInt", 1);
+                        //arrange.putExtra(iconNum + "Img", current.getBitmap());
+                    }else {
+                        arrange.putExtra(iconNum + "ImageInt", 0);
+                        arrange.putExtra(iconNum + "Img", current.getIcon());
+                    }
+                }
+                arrange.putExtra("howManyInBar", howManyInBar);
+                startActivity(arrange);
             }
         });
 
