@@ -5,6 +5,7 @@ import android.content.ContextWrapper;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.MediaPlayer;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -28,6 +29,8 @@ public class KiddoPage extends ActionBarActivity {
 
     private List<Icon> iconBar;
     private int howManyInBar;
+    private MediaPlayer mp;
+    private Boolean playing;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,10 +41,15 @@ public class KiddoPage extends ActionBarActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
+        mp = new MediaPlayer();
+        playing = false;
+
         ImageView backButton = (ImageView) findViewById(R.id.btnBackButton);
         backButton.setOnLongClickListener(new ImageView.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
+                mp.stop();
+                mp.reset();
                 finish();
                 return true;
             }
@@ -73,6 +81,12 @@ public class KiddoPage extends ActionBarActivity {
             }
         }
 
+        LinearLayout iconOne = (LinearLayout) findViewById(R.id.iconOne);
+        LinearLayout iconTwo = (LinearLayout) findViewById(R.id.iconTwo);
+        LinearLayout iconThree = (LinearLayout) findViewById(R.id.iconThree);
+        LinearLayout iconFour = (LinearLayout) findViewById(R.id.iconFour);
+
+
         if(iconBar.size() >= 1) {
             TextView titleOne = (TextView) findViewById(R.id.txtTitleOne);
             titleOne.setText(iconBar.get(0).getTitle());
@@ -92,6 +106,7 @@ public class KiddoPage extends ActionBarActivity {
             }else {
                 imgTwo.setImageResource(iconBar.get(1).getIcon());
             }
+            iconTwo.setVisibility(View.VISIBLE);
         }
         if(iconBar.size() >= 3) {
             TextView titleThree = (TextView) findViewById(R.id.txtTitleThree);
@@ -102,6 +117,7 @@ public class KiddoPage extends ActionBarActivity {
             }else {
                 imgThree.setImageResource(iconBar.get(2).getIcon());
             }
+            iconThree.setVisibility(View.VISIBLE);
         }
         if(iconBar.size() >= 4) {
             TextView titleFour = (TextView) findViewById(R.id.txtTitleFour);
@@ -112,9 +128,52 @@ public class KiddoPage extends ActionBarActivity {
             }else {
                 imgFour.setImageResource(iconBar.get(3).getIcon());
             }
+            iconFour.setVisibility(View.VISIBLE);
         }
 
+        iconOne.setOnClickListener(sound);
+        iconTwo.setOnClickListener(sound);
+        iconThree.setOnClickListener(sound);
+        iconFour.setOnClickListener(sound);
 
+    }
+
+    private View.OnClickListener sound = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            if(!playing) {
+                mp = MediaPlayer.create(KiddoPage.this, R.raw.test);
+                mp.start();
+                SoundtrackPlayerListener Music = new SoundtrackPlayerListener();
+                Music.onCompletion(mp);
+                playing = true;
+            }
+            /*switch (v.getId()) {
+                case R.id.iconOne:
+                    break;
+                case R.id.iconTwo:
+                    break;
+                case R.id.iconThree:
+                    break;
+                case R.id.iconFour:
+                    break;
+            }*/
+        }
+    };
+
+    private class SoundtrackPlayerListener implements MediaPlayer.OnCompletionListener{
+
+        public void onCompletion(MediaPlayer mp) {
+            mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer mp) {
+                    mp.stop();
+                    mp.reset();
+                    playing = false;
+                    //finish();
+                }
+            });
+        }
     }
 
 
@@ -157,3 +216,4 @@ public class KiddoPage extends ActionBarActivity {
         return null;
     }
 }
+
