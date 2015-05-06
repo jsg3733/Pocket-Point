@@ -97,7 +97,7 @@
                         android:layout_width="32dp"
                         android:layout_height="32dp"
                         android:id="@+id/btnRemoveOne"
-                        android:background="@drawable/x"
+                        android:background="@drawable/button_delete"
                         android:layout_marginBottom="5dp"
                         android:layout_alignParentRight="true"
                         android:layout_alignParentEnd="true" />
@@ -149,7 +149,7 @@
                     android:layout_width="32dp"
                     android:layout_height="32dp"
                     android:id="@+id/btnRemoveTwo"
-                    android:background="@drawable/x"
+                    android:background="@drawable/button_delete"
                     android:layout_marginBottom="5dp"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentEnd="true" />
@@ -202,7 +202,7 @@
                     android:layout_width="32dp"
                     android:layout_height="32dp"
                     android:id="@+id/btnRemoveThree"
-                    android:background="@drawable/x"
+                    android:background="@drawable/button_delete"
                     android:layout_marginBottom="5dp"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentEnd="true" />
@@ -254,7 +254,7 @@
                     android:layout_width="32dp"
                     android:layout_height="32dp"
                     android:id="@+id/btnRemoveFour"
-                    android:background="@drawable/x"
+                    android:background="@drawable/button_delete"
                     android:layout_marginBottom="5dp"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentEnd="true" />
