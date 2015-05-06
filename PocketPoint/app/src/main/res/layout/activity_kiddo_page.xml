@@ -4,6 +4,12 @@
     tools:context="info498.group3.pocketpoint.KiddoPage"
     android:background="@color/kiddoPageBackground" android:orientation="vertical">
 
+    <ImageView
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:id="@+id/btnBackButton"
+        android:src="@drawable/button_record"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"

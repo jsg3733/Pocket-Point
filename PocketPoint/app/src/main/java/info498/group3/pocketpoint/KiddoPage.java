@@ -10,7 +10,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.io.File;
@@ -30,6 +33,19 @@ public class KiddoPage extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_kiddo_page);
+
+        // removes the notification bar
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        ImageView backButton = (ImageView) findViewById(R.id.btnBackButton);
+        backButton.setOnLongClickListener(new ImageView.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                finish();
+                return true;
+            }
+        });
 
         iconBar = new ArrayList<Icon>();
         Intent launchedMe = getIntent();
