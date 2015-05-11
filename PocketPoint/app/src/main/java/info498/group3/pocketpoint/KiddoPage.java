@@ -215,5 +215,10 @@ public class KiddoPage extends ActionBarActivity {
 
         return null;
     }
+
+    @Override
+    public void onBackPressed(){
+        // doing nothing
+    }
 }
 
