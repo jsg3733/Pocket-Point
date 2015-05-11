@@ -1,4 +1,6 @@
 Angry
+Bored
+Confused
 Happy
 Nervous
 Sleepy

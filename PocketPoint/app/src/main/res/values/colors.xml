@@ -6,6 +6,7 @@
     <item name="txtIcons" type="color">#ff000000</item>
     <item name="kiddoPageBackground" type="color">#ff000000</item>
     <item name="bar" type="color">#ffbfbfbf</item>
+    <item name="barLines" type="color">#ff000000</item>
 
 
     <item name="oldred" type="color">#ffff231c</item>

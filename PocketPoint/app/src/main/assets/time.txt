@@ -1,0 +1,7 @@
+Bedtime
+Breakfast
+Dinner
+Lunch
+Playtime
+School Time
+Wake Up

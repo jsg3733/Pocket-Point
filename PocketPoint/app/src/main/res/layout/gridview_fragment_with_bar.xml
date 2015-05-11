@@ -70,7 +70,7 @@
             android:layout_width="2dp"
             android:layout_height="fill_parent"
             android:id="@+id/txtSpacerOne"
-            android:background="@color/bar"/>
+            android:background="@color/barLines"/>
 
         <LinearLayout
             android:layout_width="0dp"
@@ -125,7 +125,7 @@
             android:layout_width="2dp"
             android:layout_height="fill_parent"
             android:id="@+id/txtSpacerTwo"
-            android:background="@color/bar"/>
+            android:background="@color/barLines"/>
 
         <LinearLayout
             android:layout_width="0dp"
@@ -180,7 +180,7 @@
             android:layout_width="2dp"
             android:layout_height="fill_parent"
             android:id="@+id/txtSpacerThree"
-            android:background="@color/bar"/>
+            android:background="@color/barLines"/>
 
         <LinearLayout
             android:layout_width="0dp"
@@ -235,7 +235,7 @@
             android:layout_width="2dp"
             android:layout_height="fill_parent"
             android:id="@+id/txtSpacerFour"
-            android:background="@color/bar"/>
+            android:background="@color/barLines"/>
 
         <LinearLayout
             android:layout_width="0dp"
@@ -260,7 +260,7 @@
             android:layout_width="2dp"
             android:layout_height="fill_parent"
             android:id="@+id/txtSpacerFive"
-            android:background="@color/bar"/>
+            android:background="@color/barLines"/>
 
 
         <LinearLayout

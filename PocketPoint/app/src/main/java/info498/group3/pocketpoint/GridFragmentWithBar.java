@@ -82,7 +82,8 @@ public class GridFragmentWithBar extends Fragment {
             // if is not food will also do for categories and activities because only
             // have these images at the moment
             if(topic.equals("Categories") || topic.equals("Activities") || topic.equals("Answers") ||
-                    topic.equals("Colors") || topic.equals("Feelings") || topic.equals("Shapes")) {
+                    topic.equals("Colors") || topic.equals("Feelings") || topic.equals("Shapes")
+                    || topic.equals("Places") || topic.equals("Time")) {
                 file = topic.toLowerCase() + ".txt";
             }
             // brings the file into a inputstream
@@ -178,7 +179,8 @@ public class GridFragmentWithBar extends Fragment {
             // goes through all pre-stored icons based on names
             for (int i = 0; i < names.size(); i++) {
                 if (topic.equals("Categories") || topic.equals("Activities") || topic.equals("Answers")
-                        || topic.equals("Colors") || topic.equals("Feelings") || topic.equals("Shapes")) {
+                        || topic.equals("Colors") || topic.equals("Feelings") || topic.equals("Shapes")
+                        || topic.equals("Places") || topic.equals("Time")) {
                     // makes name into one word
                     String name = names.get(i).replaceAll("\\s+", "").replaceAll("'","").toLowerCase();
                     // gets the resource id for the object based on drawable name
