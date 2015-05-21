@@ -2,7 +2,11 @@ package info498.group3.pocketpoint;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,12 +17,20 @@ import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 // This is the page that is loaded after a category is selected
 // Word Page
-public class WordPage extends ActionBarActivity {
+public class WordPage extends ActionBarActivity implements GridFragmentWithBar.multipleCategories {
 
     // category name
     private String category;
+    private List<Icon> iconBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +49,8 @@ public class WordPage extends ActionBarActivity {
         TextView txtTitle = (TextView) findViewById(R.id.txtTitle);
         txtTitle.setText(R.string.wordPageDesc);
 
+        iconBar = new ArrayList<Icon>();
+
         // changes the text to show the category that you are within
         //TextView txtCategory = (TextView) findViewById(R.id.txtCategory);
         //txtCategory.setText(category);
@@ -46,7 +60,45 @@ public class WordPage extends ActionBarActivity {
         backButton.setVisibility(View.VISIBLE);
         backButton.setOnClickListener(new LinearLayout.OnClickListener() {
             public void onClick(View v) {
+                if(findViewById(R.id.iconBar).getVisibility() == View.VISIBLE) {
+                    Intent categoryPage = new Intent(WordPage.this, CategoryPage.class);
+                    List<String> iconNumber = new ArrayList<String>(
+                            Arrays.asList("iconOne", "iconTwo", "iconThree", "iconFour"));
+                    GridFragmentWithBar gridFragmentWithBar = new GridFragmentWithBar();
+                    //List<Icon> iconBar = gridFragmentWithBar.getIconBar();
+                    //int howManyInBar = iconBar.size();
+                    int howManyInBar = 0;
+                    if(findViewById(R.id.iconFour).getVisibility() == View.VISIBLE) {
+                        howManyInBar = 4;
+                    }else if(findViewById(R.id.iconThree).getVisibility() == View.VISIBLE) {
+                        howManyInBar = 3;
+                    }else if(findViewById(R.id.iconTwo).getVisibility() == View.VISIBLE) {
+                        howManyInBar = 2;
+                    }else if(findViewById(R.id.iconOne).getVisibility() == View.VISIBLE) {
+                        howManyInBar = 1;
+                    }
+                    for(int i = 0; i < howManyInBar; i++) {
+                        Icon current = iconBar.get(i);
+                        String iconNum = iconNumber.get(i);
+
+                        categoryPage.putExtra(iconNum + "Title",  current.getTitle());
+                        if(current.getIcon() < 0 ) {
+                            categoryPage.putExtra(iconNum + "ImageInt", 1);
+                            //arrange.putExtra(iconNum + "Img", current.getBitmap());
+                        }else {
+                            categoryPage.putExtra(iconNum + "ImageInt", 0);
+                            categoryPage.putExtra(iconNum + "Img", current.getIcon());
+                        }
+                    }
+                    categoryPage.putExtra("howManyInBar", howManyInBar);
+                    if(howManyInBar > 0){
+                        categoryPage.putExtra("showBar", true);
+                    }
+                    categoryPage.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(categoryPage);
+                }
                 finish();
+
             }
         });
 
@@ -117,5 +169,15 @@ public class WordPage extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+
+    public void addIcon(Icon icon){
+        iconBar.add(icon);
+        //iconBar.add(new Icon(0, "hello"));
+    }
+
+    public void removeIcon(int position){
+        iconBar.remove(position);
     }
 }

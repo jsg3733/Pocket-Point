@@ -212,6 +212,7 @@ public class GridFragmentWithBar extends Fragment {
         label.setText(topic);
 
         iconBar = new ArrayList<>();
+        //loadIconBar(gridFragmentWithBar);
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -220,10 +221,35 @@ public class GridFragmentWithBar extends Fragment {
                 Log.i("ITEM_CLICKED", icons.get(position).getTitle());
                 // if topic is equal to category then on click will take to wordPage intent
                 if(topic.equals("Categories")) {
-                    Intent nextActivity = new Intent(getActivity(), WordPage.class);
+                    Intent wordPage = new Intent(getActivity(), WordPage.class);
+                    //nextActivity.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                    wordPage.putExtra("category", icons.get(position).getTitle());
+                    List<String> iconNumber = new ArrayList<String>(
+                            Arrays.asList("iconOne", "iconTwo", "iconThree", "iconFour"));
+                    for(int i = 0; i < howManyInBar; i++) {
+                        Icon current = iconBar.get(i);
+                        String iconNum = iconNumber.get(i);
+
+                        wordPage.putExtra(iconNum + "Title",  current.getTitle());
+                        if(current.getIcon() < 0 ) {
+                            wordPage.putExtra(iconNum + "ImageInt", 1);
+                            //arrange.putExtra(iconNum + "Img", current.getBitmap());
+                        }else {
+                            wordPage.putExtra(iconNum + "ImageInt", 0);
+                            wordPage.putExtra(iconNum + "Img", current.getIcon());
+                        }
+                    }
+                    wordPage.putExtra("howManyInBar", howManyInBar);
+                    if(howManyInBar > 0){
+                        wordPage.putExtra("showBar", true);
+                    }
+                    startActivity(wordPage);
+
+
+                    /*Intent nextActivity = new Intent(getActivity(), WordPage.class);
                     //nextActivity.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     nextActivity.putExtra("category", icons.get(position).getTitle());
-                    startActivity(nextActivity);
+                    startActivity(nextActivity);*/
                 }else {
                     // sets category section to topic
                     // if want to see word clicked then have it icons.get(poistion).getTitle()
@@ -245,6 +271,7 @@ public class GridFragmentWithBar extends Fragment {
                             iconOne.setVisibility(View.VISIBLE);
                             howManyInBar++;
                             iconBar.add(icons.get(position));
+                            ((multipleCategories) getActivity()).addIcon(icons.get(position));
                             titleOne.setText(icons.get(position).getTitle());
                             if(icons.get(position).getIcon() < 0 ) {
                                 imgOne.setImageBitmap(icons.get(position).getBitmap());
@@ -265,6 +292,7 @@ public class GridFragmentWithBar extends Fragment {
                                 iconTwo.setVisibility(View.VISIBLE);
                                 howManyInBar++;
                                 iconBar.add(icons.get(position));
+                                ((multipleCategories) getActivity()).addIcon(icons.get(position));
                                 titleTwo.setText(icons.get(position).getTitle());
                                 if (icons.get(position).getIcon() < 0) {
                                     imgTwo.setImageBitmap(icons.get(position).getBitmap());
@@ -286,6 +314,7 @@ public class GridFragmentWithBar extends Fragment {
                                 iconThree.setVisibility(View.VISIBLE);
                                 howManyInBar++;
                                 iconBar.add(icons.get(position));
+                                ((multipleCategories) getActivity()).addIcon(icons.get(position));
                                 titleThree.setText(icons.get(position).getTitle());
                                 if (icons.get(position).getIcon() < 0) {
                                     imgThree.setImageBitmap(icons.get(position).getBitmap());
@@ -310,8 +339,12 @@ public class GridFragmentWithBar extends Fragment {
                                     howManyInBar++;
                                 } else {
                                     iconBar.remove(3);
+                                    if(!topic.equals("Categories")) {
+                                        ((multipleCategories) getActivity()).removeIcon(3);
+                                    }
                                 }
                                 iconBar.add(icons.get(position));
+                                ((multipleCategories) getActivity()).addIcon(icons.get(position));
                                 titleFour.setText(icons.get(position).getTitle());
                                 if (icons.get(position).getIcon() < 0) {
                                     imgFour.setImageBitmap(icons.get(position).getBitmap());
@@ -412,6 +445,108 @@ public class GridFragmentWithBar extends Fragment {
         removeIconThree.setOnClickListener(removeIcon);
         removeIconFour.setOnClickListener(removeIcon);
 
+        if(getActivity().getIntent().getBooleanExtra("showBar", false)){
+            Log.i("Hey", getActivity().toString() );
+            LinearLayout linLayoutIconBar = (LinearLayout) gridFragmentWithBar.findViewById(R.id.iconBar);
+            ViewGroup.LayoutParams params = linLayoutIconBar.getLayoutParams();
+            params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+            iconBarVisible = true;
+
+            if(getActivity().getIntent() != null) {
+                Log.i("hey" , "in if statement");
+                Intent launchedMe = getActivity().getIntent();
+                howManyInBar = launchedMe.getIntExtra("howManyInBar", 0);
+                if(howManyInBar > 0) {
+                    Log.i("hey", "in 2nd if statement ");
+                    List<String> iconNumber = new ArrayList<String>(
+                            Arrays.asList("iconOne", "iconTwo", "iconThree", "iconFour"));
+                    for(int i = 0; i < howManyInBar; i++) {
+                        String iconNum = iconNumber.get(i);
+                        String iconTitle = launchedMe.getStringExtra(iconNum + "Title");
+                        int imgInt = launchedMe.getIntExtra(iconNum + "ImageInt", 2);
+                        if(imgInt == 0) {
+                            int iconInt = launchedMe.getIntExtra(iconNum + "Img", 0);
+                            Icon current = new Icon(iconInt, iconTitle);
+                            iconBar.add(current);
+                            if(!topic.equals("Categories")){
+                                ((multipleCategories) getActivity()).addIcon(current);
+                            }
+                        }else {
+
+                            ContextWrapper cw = new ContextWrapper(getActivity().getApplicationContext());
+                            File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
+
+                            Bitmap storedimagepath = loadImageFromStorage(directory.getAbsolutePath(), iconTitle.trim());
+
+                            //Bitmap imgBitmap = launchedMe.getParcelableExtra(iconNum + "Img");
+                            Icon current = new Icon((-1), iconTitle);
+                            current.setBitmap(storedimagepath);
+                            //current.setBitmap(imgBitmap);
+                            iconBar.add(current);
+                            if(!topic.equals("Categories")){
+                                ((multipleCategories) getActivity()).addIcon(current);
+                            }
+                        }
+                    }
+                    //LinearLayout bar = (LinearLayout) getActivity().findViewById(R.id.iconBar);
+                    //bar.setVisibility(View.VISIBLE);
+
+
+
+                    Log.i("iconOne", iconBar.get(0).getTitle());
+                    if(iconBar.size() >= 1) {
+                        LinearLayout iconOne = (LinearLayout) gridFragmentWithBar.findViewById(R.id.iconOne);
+                        iconOne.setVisibility(View.VISIBLE);
+                        TextView titleOne = (TextView) gridFragmentWithBar.findViewById(R.id.txtTitleOne);
+                        titleOne.setText(iconBar.get(0).getTitle());
+                        ImageView imgOne = (ImageView) gridFragmentWithBar.findViewById(R.id.imgIconOne);
+                        if (iconBar.get(0).getIcon() < 0) {
+                            imgOne.setImageBitmap(iconBar.get(0).getBitmap());
+                        } else {
+                            imgOne.setImageResource(iconBar.get(0).getIcon());
+                        }
+                    }
+                    if(iconBar.size() >= 2) {
+                        LinearLayout iconTwo = (LinearLayout) gridFragmentWithBar.findViewById(R.id.iconTwo);
+                        iconTwo.setVisibility(View.VISIBLE);
+                        TextView titleTwo = (TextView) gridFragmentWithBar.findViewById(R.id.txtTitleTwo);
+                        titleTwo.setText(iconBar.get(1).getTitle());
+                        ImageView imgTwo = (ImageView) gridFragmentWithBar.findViewById(R.id.imgIconTwo);
+                        if(iconBar.get(1).getIcon() < 0 ){
+                            imgTwo.setImageBitmap(iconBar.get(1).getBitmap());
+                        }else {
+                            imgTwo.setImageResource(iconBar.get(1).getIcon());
+                        }
+                    }
+                    if(iconBar.size() >= 3) {
+                        LinearLayout iconThree = (LinearLayout) gridFragmentWithBar.findViewById(R.id.iconThree);
+                        iconThree.setVisibility(View.VISIBLE);
+                        TextView titleThree = (TextView) gridFragmentWithBar.findViewById(R.id.txtTitleThree);
+                        titleThree.setText(iconBar.get(2).getTitle());
+                        ImageView imgThree = (ImageView) gridFragmentWithBar.findViewById(R.id.imgIconThree);
+                        if(iconBar.get(2).getIcon() < 0 ){
+                            imgThree.setImageBitmap(iconBar.get(2).getBitmap());
+                        }else {
+                            imgThree.setImageResource(iconBar.get(2).getIcon());
+                        }
+                    }
+                    if(iconBar.size() >= 4) {
+                        LinearLayout iconFour = (LinearLayout) gridFragmentWithBar.findViewById(R.id.iconFour);
+                        iconFour.setVisibility(View.VISIBLE);
+                        TextView titleFour = (TextView) gridFragmentWithBar.findViewById(R.id.txtTitleFour);
+                        titleFour.setText(iconBar.get(3).getTitle());
+                        ImageView imgFour = (ImageView) gridFragmentWithBar.findViewById(R.id.imgIconFour);
+                        if(iconBar.get(3).getIcon() < 0 ){
+                            imgFour.setImageBitmap(iconBar.get(3).getBitmap());
+                        }else {
+                            imgFour.setImageResource(iconBar.get(3).getIcon());
+                        }
+                    }
+                }
+
+            }
+        }
+
 
         return gridFragmentWithBar;
     }
@@ -484,6 +619,9 @@ public class GridFragmentWithBar extends Fragment {
                     }
                     howManyInBar--;
                     iconBar.remove(0);
+                    if(!topic.equals("Categories")) {
+                        ((multipleCategories) getActivity()).removeIcon(0);
+                    }
                     Log.i("Remove", "Icon One");
                     break;
                 case R.id.btnRemoveTwo:
@@ -518,6 +656,9 @@ public class GridFragmentWithBar extends Fragment {
                     }
                     howManyInBar--;
                     iconBar.remove(1);
+                    if(!topic.equals("Categories")) {
+                        ((multipleCategories) getActivity()).removeIcon(1);
+                    }
                     Log.i("Remove", "Icon Two");
                     break;
                 case R.id.btnRemoveThree:
@@ -537,11 +678,17 @@ public class GridFragmentWithBar extends Fragment {
                     }
                     howManyInBar--;
                     iconBar.remove(2);
+                    if(!topic.equals("Categories")) {
+                        ((multipleCategories) getActivity()).removeIcon(2);
+                    }
                     Log.i("Remove", "Icon Three");
                     break;
                 case R.id.btnRemoveFour:
                     howManyInBar--;
                     iconBar.remove(3);
+                    if(!topic.equals("Categories")) {
+                        ((multipleCategories) getActivity()).removeIcon(3);
+                    }
                     iconFour.setVisibility(View.INVISIBLE);
                     Log.i("Remove", "Icon Four");
                     break;
@@ -567,5 +714,14 @@ public class GridFragmentWithBar extends Fragment {
 
         return null;
     }
+
+
+    public interface multipleCategories{
+        public void addIcon(Icon icon);
+        public void removeIcon(int position);
+    }
+
+
+
 
 }
