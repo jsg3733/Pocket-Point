@@ -557,6 +557,18 @@ public class GridFragmentWithBar extends Fragment {
     private View.OnClickListener removeIcon = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            titleOne = (TextView) getActivity().findViewById(R.id.txtTitleOne);
+            imgOne = (ImageView) getActivity().findViewById(R.id.imgIconOne);
+            titleTwo = (TextView) getActivity().findViewById(R.id.txtTitleTwo);
+            imgTwo = (ImageView) getActivity().findViewById(R.id.imgIconTwo);
+            titleThree = (TextView) getActivity().findViewById(R.id.txtTitleThree);
+            imgThree = (ImageView) getActivity().findViewById(R.id.imgIconThree);
+            titleFour = (TextView) getActivity().findViewById(R.id.txtTitleFour);
+            imgFour = (ImageView) getActivity().findViewById(R.id.imgIconFour);
+            iconOne = (LinearLayout) getActivity().findViewById(R.id.iconOne);
+            iconTwo = (LinearLayout) getActivity().findViewById(R.id.iconTwo);
+            iconThree = (LinearLayout) getActivity().findViewById(R.id.iconThree);
+            iconFour = (LinearLayout) getActivity().findViewById(R.id.iconFour);
             switch(v.getId()){
                 case R.id.btnRemoveOne:
                     switch (howManyInBar){
