@@ -328,7 +328,16 @@ public class NewWord extends ActionBarActivity {
         // TODO Auto-generated method stub
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (resultCode == RESULT_OK){
+        if(resultCode == RESULT_OK && requestCode == REQUEST_IMAGE_CAPTURE) {
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+            savedImage = imageBitmap.createScaledBitmap(imageBitmap, 500, 500, false);
+            image.setVisibility(View.VISIBLE);
+            image.setImageBitmap(savedImage);
+            if(!wordField.getText().toString().equals("")) {
+                save.setEnabled(true);
+            }
+        }else if (resultCode == RESULT_OK){
             Uri targetUri = data.getData();
             //pathy = targetUri;
             Bitmap bitmap;

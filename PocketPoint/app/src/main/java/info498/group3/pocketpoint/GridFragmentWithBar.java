@@ -434,6 +434,7 @@ public class GridFragmentWithBar extends Fragment {
                 arrange.putExtra("howManyInBar", howManyInBar);
                 arrange.putExtra("category", topic);
                 startActivity(arrange);
+                getActivity().finish();
             }
         });
 
