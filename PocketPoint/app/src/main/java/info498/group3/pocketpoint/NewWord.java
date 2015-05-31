@@ -3,9 +3,13 @@ package info498.group3.pocketpoint;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.MediaPlayer;
+import android.media.MediaRecorder;
 import android.net.Uri;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -37,6 +41,18 @@ public class NewWord extends ActionBarActivity {
     private ImageView image;
     static final int REQUEST_IMAGE_CAPTURE = 1;
     Bitmap savedImage;
+
+    private static MediaRecorder mediaRecorder;
+    private static MediaPlayer mediaPlayer;
+
+    private static String audioFilePath;
+    private static ImageView stopButton;
+    private static ImageView playButton;
+    private static ImageView recordButton;
+
+    private boolean isRecording = false;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,6 +125,8 @@ public class NewWord extends ActionBarActivity {
         });
 
 
+
+
         //save button click listener
         save.setOnClickListener(new Button.OnClickListener() {
             @Override
@@ -116,6 +134,10 @@ public class NewWord extends ActionBarActivity {
                 String words = "";
                 // saves the image internally
                 saveToInternalStorage(savedImage, wordField.getText().toString());
+                /*String name = wordField.getText().toString();
+                String path = Environment.getExternalStorageDirectory().getAbsolutePath()
+                        + "/" + name + ".3gp";
+                mediaRecorder.setOutputFile(path);*/
                 // reads through the words internal file and stores all lines to a string
                 try {
                     BufferedReader inputReader = new BufferedReader(new InputStreamReader(openFileInput("Words")));
@@ -154,6 +176,54 @@ public class NewWord extends ActionBarActivity {
         });
 
 
+        recordButton = (ImageView) findViewById(R.id.imgRecord);
+        playButton = (ImageView) findViewById(R.id.imgPlay);
+        stopButton = (ImageView) findViewById(R.id.imgStop);
+
+        recordButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    recordAudio(v);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        playButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    playAudio(v);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        stopButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                stopAudio(v);
+
+            }
+        });
+
+        if (!hasMicrophone()) {
+            stopButton.setEnabled(false);
+            playButton.setEnabled(false);
+            recordButton.setEnabled(false);
+        } else {
+            playButton.setEnabled(false);
+            stopButton.setEnabled(false);
+        }
+
+
+        audioFilePath =
+                Environment.getExternalStorageDirectory().getAbsolutePath()
+                        + "/myaudio.3gp";
+
 
     }
 
@@ -164,6 +234,70 @@ public class NewWord extends ActionBarActivity {
             finish();
         }
     };
+
+    public void recordAudio (View view) throws IOException {
+        if(!wordField.getText().toString().equals("")) {
+
+            isRecording = true;
+            stopButton.setEnabled(true);
+            playButton.setEnabled(false);
+            recordButton.setEnabled(false);
+
+            try {
+                mediaRecorder = new MediaRecorder();
+                mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+                mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+                String name = wordField.getText().toString().replaceAll("\\s+", "").replaceAll("'","").toLowerCase();
+                audioFilePath = Environment.getExternalStorageDirectory().getAbsolutePath()
+                        + "/" + name + ".3gp";
+                mediaRecorder.setOutputFile(audioFilePath);
+                mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+                mediaRecorder.prepare();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            mediaRecorder.start();
+        }
+    }
+
+    public void stopAudio (View view) {
+
+        stopButton.setEnabled(false);
+        playButton.setEnabled(true);
+
+        if (isRecording)
+        {
+            recordButton.setEnabled(false);
+            mediaRecorder.stop();
+            mediaRecorder.release();
+            mediaRecorder = null;
+            isRecording = false;
+        } else {
+            mediaPlayer.release();
+            mediaPlayer = null;
+            recordButton.setEnabled(true);
+        }
+    }
+
+    public void playAudio (View view) throws IOException {
+        playButton.setEnabled(false);
+        recordButton.setEnabled(false);
+        stopButton.setEnabled(true);
+
+        mediaPlayer = new MediaPlayer();
+        mediaPlayer.setDataSource(audioFilePath);
+        mediaPlayer.prepare();
+        mediaPlayer.start();
+    }
+
+
+
+    protected boolean hasMicrophone() {
+        PackageManager pmanager = this.getPackageManager();
+        return pmanager.hasSystemFeature(
+                PackageManager.FEATURE_MICROPHONE);
+    }
 
 
     @Override

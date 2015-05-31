@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
+import android.net.Uri;
+import android.os.Environment;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -143,30 +145,49 @@ public class KiddoPage extends ActionBarActivity {
         public void onClick(View v) {
             if(!playing) {
                 int musicID = -1;
+                Uri path = null;
                 switch (v.getId()) {
                 case R.id.iconOne:
                     if(iconBar.get(0).getIcon() > 0 ){
                         musicID = getResources().getIdentifier(iconBar.get(0).getTitle().replaceAll("\\s+", "").replaceAll("'","").toLowerCase(), "raw", getPackageName());
+                    }else {
+                        String name  = iconBar.get(0).getTitle().replaceAll("\\s+", "").replaceAll("'","").toLowerCase();
+                        path = Uri.parse(Environment.getExternalStorageDirectory().getAbsolutePath()
+                                +  "/" + name + ".3gp");
                     }
                     break;
                 case R.id.iconTwo:
                     if(iconBar.get(1).getIcon() > 0 ){
                         musicID = getResources().getIdentifier(iconBar.get(1).getTitle().replaceAll("\\s+", "").replaceAll("'","").toLowerCase(), "raw", getPackageName());
+                    }else {
+                        String name  = iconBar.get(1).getTitle().replaceAll("\\s+", "").replaceAll("'","").toLowerCase();
+                        path = Uri.parse(Environment.getExternalStorageDirectory().getAbsolutePath()
+                                +  "/" + name + ".3gp");
                     }
                     break;
                 case R.id.iconThree:
                     if(iconBar.get(2).getIcon() > 0 ){
                         musicID = getResources().getIdentifier(iconBar.get(2).getTitle().replaceAll("\\s+", "").replaceAll("'","").toLowerCase(), "raw", getPackageName());
+                    }else {
+                        String name  = iconBar.get(2).getTitle().replaceAll("\\s+", "").replaceAll("'","").toLowerCase();
+                        path = Uri.parse(Environment.getExternalStorageDirectory().getAbsolutePath()
+                                +  "/" + name + ".3gp");
                     }
                     break;
                 case R.id.iconFour:
                     if(iconBar.get(3).getIcon() > 0 ){
                         musicID = getResources().getIdentifier(iconBar.get(3).getTitle().replaceAll("\\s+", "").replaceAll("'","").toLowerCase(), "raw", getPackageName());
+                    }else {
+                        String name  = iconBar.get(3).getTitle().replaceAll("\\s+", "").replaceAll("'","").toLowerCase();
+                        path = Uri.parse(Environment.getExternalStorageDirectory().getAbsolutePath()
+                                +  "/" + name + ".3gp");
                     }
                     break;
                 }
                 if(musicID > 0) {
                     mp = MediaPlayer.create(KiddoPage.this, musicID);
+                }else if(path != null){
+                    mp = MediaPlayer.create(KiddoPage.this, path);
                 }else {
                     mp = MediaPlayer.create(KiddoPage.this, R.raw.test);
                 }
