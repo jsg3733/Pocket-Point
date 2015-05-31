@@ -142,7 +142,7 @@ public class KiddoPage extends ActionBarActivity {
         @Override
         public void onClick(View v) {
             if(!playing) {
-                mp = MediaPlayer.create(KiddoPage.this, R.raw.test);
+                mp = MediaPlayer.create(KiddoPage.this, R.raw.train);
                 mp.start();
                 SoundtrackPlayerListener Music = new SoundtrackPlayerListener();
                 Music.onCompletion(mp);
