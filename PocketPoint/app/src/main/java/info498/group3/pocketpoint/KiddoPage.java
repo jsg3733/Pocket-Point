@@ -142,22 +142,40 @@ public class KiddoPage extends ActionBarActivity {
         @Override
         public void onClick(View v) {
             if(!playing) {
-                mp = MediaPlayer.create(KiddoPage.this, R.raw.train);
+                int musicID = -1;
+                switch (v.getId()) {
+                case R.id.iconOne:
+                    if(iconBar.get(0).getIcon() > 0 ){
+                        musicID = getResources().getIdentifier(iconBar.get(0).getTitle().replaceAll("\\s+", "").replaceAll("'","").toLowerCase(), "raw", getPackageName());
+                    }
+                    break;
+                case R.id.iconTwo:
+                    if(iconBar.get(1).getIcon() > 0 ){
+                        musicID = getResources().getIdentifier(iconBar.get(1).getTitle().replaceAll("\\s+", "").replaceAll("'","").toLowerCase(), "raw", getPackageName());
+                    }
+                    break;
+                case R.id.iconThree:
+                    if(iconBar.get(2).getIcon() > 0 ){
+                        musicID = getResources().getIdentifier(iconBar.get(2).getTitle().replaceAll("\\s+", "").replaceAll("'","").toLowerCase(), "raw", getPackageName());
+                    }
+                    break;
+                case R.id.iconFour:
+                    if(iconBar.get(3).getIcon() > 0 ){
+                        musicID = getResources().getIdentifier(iconBar.get(3).getTitle().replaceAll("\\s+", "").replaceAll("'","").toLowerCase(), "raw", getPackageName());
+                    }
+                    break;
+                }
+                if(musicID > 0) {
+                    mp = MediaPlayer.create(KiddoPage.this, musicID);
+                }else {
+                    mp = MediaPlayer.create(KiddoPage.this, R.raw.test);
+                }
                 mp.start();
                 SoundtrackPlayerListener Music = new SoundtrackPlayerListener();
                 Music.onCompletion(mp);
                 playing = true;
             }
-            /*switch (v.getId()) {
-                case R.id.iconOne:
-                    break;
-                case R.id.iconTwo:
-                    break;
-                case R.id.iconThree:
-                    break;
-                case R.id.iconFour:
-                    break;
-            }*/
+
         }
     };
 
