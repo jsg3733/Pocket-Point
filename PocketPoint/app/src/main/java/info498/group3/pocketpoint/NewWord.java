@@ -9,6 +9,7 @@ import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.net.Uri;
+import android.os.CountDownTimer;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.ActionBarActivity;
@@ -58,6 +59,8 @@ public class NewWord extends ActionBarActivity {
     private boolean recordingMade = false;
 
     private String category;
+
+    private CountDownTimer countDownTimer;
 
 
 
@@ -394,10 +397,31 @@ public class NewWord extends ActionBarActivity {
             }
 
             mediaRecorder.start();
-            recordingMade = true;
+            countDownTimer = new CountDownTimer(4000, 1000) {
+            public void onTick(long millisUntilFinished) {
+            }
+
+            public void onFinish() {
+                Toast.makeText(NewWord.this, "Recording Done", Toast.LENGTH_SHORT).show();
+                //recordButton.setEnabled(false);
+                recordButton.setEnabled(true);
+                stopButton.setEnabled(false);
+                playButton.setEnabled(true);
+                mediaRecorder.stop();
+                mediaRecorder.release();
+                mediaRecorder = null;
+                isRecording = false;
+                recordingMade = true;
+                if(!wordField.getText().toString().equals("") && image.getVisibility() == View.VISIBLE) {
+                    save.setEnabled(true);
+                }
+
+            }};
+            countDownTimer.start();
+            /*recordingMade = true;
             if(!wordField.getText().toString().equals("") && image.getVisibility() == View.VISIBLE) {
                 save.setEnabled(true);
-            }
+            }*/
     }
 
     public void stopAudio (View view) {
@@ -407,15 +431,22 @@ public class NewWord extends ActionBarActivity {
 
         if (isRecording)
         {
-            recordButton.setEnabled(false);
+            //recordButton.setEnabled(false);
+            recordButton.setEnabled(true);
             mediaRecorder.stop();
             mediaRecorder.release();
             mediaRecorder = null;
             isRecording = false;
+            countDownTimer.cancel();
+            recordingMade = true;
+            if(!wordField.getText().toString().equals("") && image.getVisibility() == View.VISIBLE) {
+                save.setEnabled(true);
+            }
         } else {
             mediaPlayer.release();
             mediaPlayer = null;
             recordButton.setEnabled(true);
+            //countDownTimer.cancel();
         }
     }
 
@@ -428,6 +459,26 @@ public class NewWord extends ActionBarActivity {
         mediaPlayer.setDataSource(audioFilePath);
         mediaPlayer.prepare();
         mediaPlayer.start();
+        SoundtrackPlayerListener Music = new SoundtrackPlayerListener();
+        Music.onCompletion(mediaPlayer);
+    }
+
+    private class SoundtrackPlayerListener implements MediaPlayer.OnCompletionListener{
+
+        public void onCompletion(MediaPlayer mp) {
+            mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer mp) {
+                    mp.stop();
+                    mp.reset();
+                    Toast.makeText(NewWord.this, "Playing Done", Toast.LENGTH_SHORT).show();
+                    stopButton.setEnabled(false);
+                    playButton.setEnabled(true);
+                    recordButton.setEnabled(true);
+                    //finish();
+                }
+            });
+        }
     }
 
 
