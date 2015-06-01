@@ -60,7 +60,7 @@ public class WordPage extends ActionBarActivity implements GridFragmentWithBar.m
         backButton.setVisibility(View.VISIBLE);
         backButton.setOnClickListener(new LinearLayout.OnClickListener() {
             public void onClick(View v) {
-                if(findViewById(R.id.iconBar).getVisibility() == View.VISIBLE) {
+                /*if(findViewById(R.id.iconBar).getVisibility() == View.VISIBLE) {
                     Intent categoryPage = new Intent(WordPage.this, CategoryPage.class);
                     List<String> iconNumber = new ArrayList<String>(
                             Arrays.asList("iconOne", "iconTwo", "iconThree", "iconFour"));
@@ -97,8 +97,8 @@ public class WordPage extends ActionBarActivity implements GridFragmentWithBar.m
                     categoryPage.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(categoryPage);
                 }
-                finish();
-
+                finish();*/
+                back();
             }
         });
 
@@ -180,5 +180,51 @@ public class WordPage extends ActionBarActivity implements GridFragmentWithBar.m
 
     public void removeIcon(int position){
         iconBar.remove(position);
+    }
+
+    private void back(){
+        if(findViewById(R.id.iconBar).getVisibility() == View.VISIBLE) {
+            Intent categoryPage = new Intent(WordPage.this, CategoryPage.class);
+            List<String> iconNumber = new ArrayList<String>(
+                    Arrays.asList("iconOne", "iconTwo", "iconThree", "iconFour"));
+            GridFragmentWithBar gridFragmentWithBar = new GridFragmentWithBar();
+            //List<Icon> iconBar = gridFragmentWithBar.getIconBar();
+            //int howManyInBar = iconBar.size();
+            int howManyInBar = 0;
+            if(findViewById(R.id.iconFour).getVisibility() == View.VISIBLE) {
+                howManyInBar = 4;
+            }else if(findViewById(R.id.iconThree).getVisibility() == View.VISIBLE) {
+                howManyInBar = 3;
+            }else if(findViewById(R.id.iconTwo).getVisibility() == View.VISIBLE) {
+                howManyInBar = 2;
+            }else if(findViewById(R.id.iconOne).getVisibility() == View.VISIBLE) {
+                howManyInBar = 1;
+            }
+            for(int i = 0; i < howManyInBar; i++) {
+                Icon current = iconBar.get(i);
+                String iconNum = iconNumber.get(i);
+
+                categoryPage.putExtra(iconNum + "Title",  current.getTitle());
+                if(current.getIcon() < 0 ) {
+                    categoryPage.putExtra(iconNum + "ImageInt", 1);
+                    //arrange.putExtra(iconNum + "Img", current.getBitmap());
+                }else {
+                    categoryPage.putExtra(iconNum + "ImageInt", 0);
+                    categoryPage.putExtra(iconNum + "Img", current.getIcon());
+                }
+            }
+            categoryPage.putExtra("howManyInBar", howManyInBar);
+            if(howManyInBar > 0){
+                categoryPage.putExtra("showBar", true);
+            }
+            categoryPage.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(categoryPage);
+        }
+        finish();
+    }
+
+    @Override
+    public void onBackPressed(){
+        back();
     }
 }

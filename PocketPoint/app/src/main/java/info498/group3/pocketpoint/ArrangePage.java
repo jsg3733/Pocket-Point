@@ -103,7 +103,7 @@ public class ArrangePage extends ActionBarActivity {
         LinearLayout backButton = (LinearLayout) findViewById(R.id.backButton);
         backButton.setOnClickListener(new LinearLayout.OnClickListener() {
             public void onClick(View v) {
-                Log.i("HowManyinBar", "" + howManyInBar);
+                /*Log.i("HowManyinBar", "" + howManyInBar);
                 Intent categoryPage = new Intent();
                 if(topic.equals("Categories")) {
                     categoryPage = new Intent(ArrangePage.this, CategoryPage.class);
@@ -132,7 +132,8 @@ public class ArrangePage extends ActionBarActivity {
                 }
                 //categoryPage.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(categoryPage);
-                finish();
+                finish();*/
+                back();
 
             }
         });
@@ -423,5 +424,43 @@ public class ArrangePage extends ActionBarActivity {
         }
 
         return null;
+    }
+
+    private void back() {
+        Log.i("HowManyinBar", "" + howManyInBar);
+        Intent categoryPage = new Intent();
+        if(topic.equals("Categories")) {
+            categoryPage = new Intent(ArrangePage.this, CategoryPage.class);
+        }else {
+            categoryPage = new Intent(ArrangePage.this, WordPage.class);
+        }
+        List<String> iconNumber = new ArrayList<String>(
+                Arrays.asList("iconOne", "iconTwo", "iconThree", "iconFour"));
+        for(int i = 0; i < howManyInBar; i++) {
+            Icon current = iconBar.get(i);
+            String iconNum = iconNumber.get(i);
+
+            categoryPage.putExtra(iconNum + "Title",  current.getTitle());
+            if(current.getIcon() < 0 ) {
+                categoryPage.putExtra(iconNum + "ImageInt", 1);
+                //arrange.putExtra(iconNum + "Img", current.getBitmap());
+            }else {
+                categoryPage.putExtra(iconNum + "ImageInt", 0);
+                categoryPage.putExtra(iconNum + "Img", current.getIcon());
+            }
+        }
+        categoryPage.putExtra("howManyInBar", howManyInBar);
+        categoryPage.putExtra("category", topic);
+        if(howManyInBar > 0){
+            categoryPage.putExtra("showBar", true);
+        }
+        //categoryPage.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(categoryPage);
+        finish();
+    }
+
+    @Override
+    public void onBackPressed(){
+        back();
     }
 }
