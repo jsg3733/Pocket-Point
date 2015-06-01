@@ -124,8 +124,8 @@ public class GridFragmentWithBar extends Fragment {
                     categoryTest = true;
                 }else if(categoryTest){
                     categoryName = inputString;
-                    int testImageType = Integer.parseInt(inputReader.readLine());
-                    if(testImageType == 0) {
+                    String testImageType = inputReader.readLine();
+                    if(testImageType.equals("!")) {
                         int resId = getResources().getIdentifier("categories_" + categoryName, "drawable", getActivity().getPackageName());
                         cat = new Icon(resId, categoryName);
                     }else {

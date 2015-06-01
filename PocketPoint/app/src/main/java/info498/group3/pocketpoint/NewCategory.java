@@ -118,9 +118,8 @@ public class NewCategory extends ActionBarActivity {
             public void onClick(View v) {
                 List<String> categoryList = new ArrayList<String>();
                 categoryList.add("::");
-                categoryList.add("0");
-                categoryList.add("1");
                 categoryList.add("categories");
+                categoryList.add("savedpages");
                 String categories = "";
                 // saves the image internally
                 saveToInternalStorage(savedImage, categoryField.getText().toString());
@@ -148,7 +147,7 @@ public class NewCategory extends ActionBarActivity {
                     String newCategory = categoryField.getText().toString();
                     if(!categoryList.contains(newCategory.replaceAll("\\s+", "").replaceAll("'","").toLowerCase())) {
                         categories += newCategory + "\n";
-                        categories += "1" + "\n";
+                        categories += "=" + "\n";
                         categories += "::";
                         fos.write(categories.getBytes());
                         fos.close();

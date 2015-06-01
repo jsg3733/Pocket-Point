@@ -150,9 +150,8 @@ public class NewWord extends ActionBarActivity {
                 mediaRecorder.setOutputFile(path);*/
                 List<String> wordList = new ArrayList<>();
                 wordList.add("::");
-                wordList.add("0");
-                wordList.add("1");
                 wordList.add("categories");
+                wordList.add("savedpages");
                 try {
                     BufferedReader inputReader = new BufferedReader(new InputStreamReader(openFileInput("Categories")));
                     String inputString = inputReader.readLine();
@@ -240,7 +239,7 @@ public class NewWord extends ActionBarActivity {
                     // adds the new word to the end of the file
                     if(stillNeedToAddWord  && !wordList.contains(newWord.replaceAll("\\s+", "").replaceAll("'","").toLowerCase())) {
                         words += category + "\n";
-                        words += "0" + "\n";
+                        words += "!" + "\n";
                         words += newWord + "\n";
                         words += "::";
 
@@ -276,11 +275,10 @@ public class NewWord extends ActionBarActivity {
                             audioFis.close();
                             audioFos.close();
 
-                        } catch (FileNotFoundException e) {
-                            e.printStackTrace();
-                        } catch (IOException e) {
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
+
 
                         // goes back to the main category page
                         Intent backToCategoryPage = new Intent(NewWord.this, CategoryPage.class);
@@ -288,10 +286,20 @@ public class NewWord extends ActionBarActivity {
                         backToCategoryPage.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(backToCategoryPage);
                         finish();
+                    }else if(stillNeedToAddWord) {
+                        fos.write(words.getBytes());
+                        fos.close();
+                        Log.i("multiple words", "failed");
+                        Toast.makeText(NewWord.this, "Cannot have the same user created names for Categories and Words", Toast.LENGTH_SHORT).show();
                     }else {
                         fos.write(words.getBytes());
                         fos.close();
-                        Toast.makeText(NewWord.this, "Cannot have the same user created names for Categories and Words", Toast.LENGTH_SHORT).show();
+                        // goes back to the main category page
+                        Intent backToCategoryPage = new Intent(NewWord.this, CategoryPage.class);
+                        // closes activities in the background
+                        backToCategoryPage.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(backToCategoryPage);
+                        finish();
                     }
 
                 }catch (Exception e) {
