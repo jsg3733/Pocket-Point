@@ -79,6 +79,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/edtxtWordField"
+                android:digits="0123456789qwertzuiopasdfghjklyxcvbnm' "
                 android:inputType="text"
                 android:textColorHint="#ff000000"
                 android:hint="@string/insert_word_field_text"

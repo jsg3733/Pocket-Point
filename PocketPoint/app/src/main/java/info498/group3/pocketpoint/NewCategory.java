@@ -21,6 +21,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -115,6 +116,11 @@ public class NewCategory extends ActionBarActivity {
         save.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
+                List<String> categoryList = new ArrayList<String>();
+                categoryList.add("::");
+                categoryList.add("0");
+                categoryList.add("1");
+                categoryList.add("categories");
                 String categories = "";
                 // saves the image internally
                 saveToInternalStorage(savedImage, categoryField.getText().toString());
@@ -124,6 +130,7 @@ public class NewCategory extends ActionBarActivity {
                     String inputString = inputReader.readLine();
                     while (inputString != null) {
                         categories += inputString + "\n";
+                        categoryList.add(inputString.replaceAll("\\s+", "").replaceAll("'","").toLowerCase());
                         inputString = inputReader.readLine();
                     }
                     Log.i("internalFile", "pass");
@@ -137,17 +144,25 @@ public class NewCategory extends ActionBarActivity {
                 try{
                     FileOutputStream fos = openFileOutput("Categories", Context.MODE_PRIVATE);
                     // adds the new category to the end of the file
-                    categories += categoryField.getText().toString() + "\n";
-                    categories += "1" + "\n";
-                    categories += "::";
-                    fos.write(categories.getBytes());
-                    fos.close();
-                    // goes back to the main category page
-                    Intent backToCategoryPage = new Intent(NewCategory.this, CategoryPage.class);
-                    // closes activities in the background
-                    backToCategoryPage.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(backToCategoryPage);
-                    finish();
+                    String newCategory = categoryField.getText().toString();
+                    if(!categoryList.contains(newCategory.replaceAll("\\s+", "").replaceAll("'","").toLowerCase())) {
+                        categories += newCategory + "\n";
+                        categories += "1" + "\n";
+                        categories += "::";
+                        fos.write(categories.getBytes());
+                        fos.close();
+                        // goes back to the main category page
+                        Intent backToCategoryPage = new Intent(NewCategory.this, CategoryPage.class);
+                        // closes activities in the background
+                        backToCategoryPage.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(backToCategoryPage);
+                        finish();
+                    }else {
+                        fos.write(categories.getBytes());
+                        fos.close();
+                        Toast.makeText(NewCategory.this, "Cannot have the same user created names for Categories and Words", Toast.LENGTH_SHORT).show();
+
+                    }
 
                 }catch (Exception e) {
                     e.printStackTrace();

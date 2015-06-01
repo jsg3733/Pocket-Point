@@ -25,6 +25,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -32,6 +33,8 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 
 // Is the Create New Word Page linked from the Word Page
 public class NewWord extends ActionBarActivity {
@@ -143,15 +146,35 @@ public class NewWord extends ActionBarActivity {
                 String path = Environment.getExternalStorageDirectory().getAbsolutePath()
                         + "/" + name + ".3gp";
                 mediaRecorder.setOutputFile(path);*/
+                List<String> wordList = new ArrayList<>();
+                wordList.add("::");
+                wordList.add("0");
+                wordList.add("1");
+                wordList.add("categories");
+                try {
+                    BufferedReader inputReader = new BufferedReader(new InputStreamReader(openFileInput("Categories")));
+                    String inputString = inputReader.readLine();
+                    while (inputString != null) {
+                        wordList.add(inputString.replaceAll("\\s+", "").replaceAll("'","").toLowerCase());
+                        inputString = inputReader.readLine();
+                    }
+                    Log.i("internalFile", "pass");
+                } catch (IOException e) {
+                    Log.i("internalFile", "fail");
+                    e.printStackTrace();
+                }
+
+
                 // reads through the words internal file and stores all lines to a string
                 Boolean addWord = false;
                 Boolean stillNeedToAddWord = true;
+                String newWord = wordField.getText().toString();
                 try {
                     BufferedReader inputReader = new BufferedReader(new InputStreamReader(openFileInput("Categories")));
                     String inputString = inputReader.readLine();
                     while (inputString != null) {
                         if(inputString.equals("::") && addWord) {
-                            words += wordField.getText().toString() + "\n";
+                            words += newWord + "\n";
                             Log.i("Testing", "Adding Word");
                             addWord = false;
                             stillNeedToAddWord = false;
@@ -160,7 +183,9 @@ public class NewWord extends ActionBarActivity {
                         if(inputString.toLowerCase().replaceAll("\\s+", "").replaceAll("'","").equals(
                                 category.toLowerCase().replaceAll("\\s+", "").replaceAll("'",""))  && !addWord){
                             //words += wordField.getText().toString();
-                            addWord = true;
+                            if(!wordList.contains((wordField.getText().toString().replaceAll("\\s+", "").replaceAll("'","").toLowerCase()))){
+                                addWord = true;
+                            }
                             Log.i("Testing", "Should be adding word");
                         }
                         inputString = inputReader.readLine();
@@ -175,22 +200,27 @@ public class NewWord extends ActionBarActivity {
                 try{
                     FileOutputStream fos = openFileOutput("Categories", Context.MODE_PRIVATE);
                     // adds the new word to the end of the file
-                    if(stillNeedToAddWord) {
+                    if(stillNeedToAddWord  && !wordList.contains(newWord.replaceAll("\\s+", "").replaceAll("'","").toLowerCase())) {
                         words += category + "\n";
                         words += "0" + "\n";
-                        words += wordField.getText().toString() + "\n";
+                        words += newWord + "\n";
                         words += "::";
+
+                        Log.i("Testing Words", words);
+                        //words += wordField.getText().toString();
+                        fos.write(words.getBytes());
+                        fos.close();
+                        // goes back to the main category page
+                        Intent backToCategoryPage = new Intent(NewWord.this, CategoryPage.class);
+                        // closes activities in the background
+                        backToCategoryPage.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(backToCategoryPage);
+                        finish();
+                    }else {
+                        fos.write(words.getBytes());
+                        fos.close();
+                        Toast.makeText(NewWord.this, "Cannot have the same user created names for Categories and Words", Toast.LENGTH_SHORT).show();
                     }
-                    Log.i("Testing Words", words);
-                    //words += wordField.getText().toString();
-                    fos.write(words.getBytes());
-                    fos.close();
-                    // goes back to the main category page
-                    Intent backToCategoryPage = new Intent(NewWord.this, CategoryPage.class);
-                    // closes activities in the background
-                    backToCategoryPage.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(backToCategoryPage);
-                    finish();
 
                 }catch (Exception e) {
                     e.printStackTrace();
