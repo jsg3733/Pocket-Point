@@ -137,7 +137,9 @@ public class NewCategory extends ActionBarActivity {
                 try{
                     FileOutputStream fos = openFileOutput("Categories", Context.MODE_PRIVATE);
                     // adds the new category to the end of the file
-                    categories += categoryField.getText().toString();
+                    categories += categoryField.getText().toString() + "\n";
+                    categories += "1" + "\n";
+                    categories += "::";
                     fos.write(categories.getBytes());
                     fos.close();
                     // goes back to the main category page

@@ -123,6 +123,7 @@ public class WordPage extends ActionBarActivity implements GridFragmentWithBar.m
         newCategory.setOnClickListener(new LinearLayout.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(WordPage.this, NewWord.class);
+                intent.putExtra("category", category);
                 startActivity(intent);
             }
         });

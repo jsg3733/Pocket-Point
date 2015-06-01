@@ -52,6 +52,8 @@ public class NewWord extends ActionBarActivity {
 
     private boolean isRecording = false;
 
+    private String category;
+
 
 
     @Override
@@ -62,6 +64,9 @@ public class NewWord extends ActionBarActivity {
         // gets rid of the notification bar
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        Intent launchedMe = getIntent();
+        category = launchedMe.getStringExtra("category");
 
         //makes a onclick listener for the back arrow and cancel button
         LinearLayout backButton = (LinearLayout) findViewById(R.id.backButton);
@@ -139,11 +144,25 @@ public class NewWord extends ActionBarActivity {
                         + "/" + name + ".3gp";
                 mediaRecorder.setOutputFile(path);*/
                 // reads through the words internal file and stores all lines to a string
+                Boolean addWord = false;
+                Boolean stillNeedToAddWord = true;
                 try {
-                    BufferedReader inputReader = new BufferedReader(new InputStreamReader(openFileInput("Words")));
+                    BufferedReader inputReader = new BufferedReader(new InputStreamReader(openFileInput("Categories")));
                     String inputString = inputReader.readLine();
                     while (inputString != null) {
+                        if(inputString.equals("::") && addWord) {
+                            words += wordField.getText().toString() + "\n";
+                            Log.i("Testing", "Adding Word");
+                            addWord = false;
+                            stillNeedToAddWord = false;
+                        }
                         words += inputString + "\n";
+                        if(inputString.toLowerCase().replaceAll("\\s+", "").replaceAll("'","").equals(
+                                category.toLowerCase().replaceAll("\\s+", "").replaceAll("'",""))  && !addWord){
+                            //words += wordField.getText().toString();
+                            addWord = true;
+                            Log.i("Testing", "Should be adding word");
+                        }
                         inputString = inputReader.readLine();
                     }
                     Log.i("internalFile", "pass");
@@ -154,9 +173,16 @@ public class NewWord extends ActionBarActivity {
 
                 // rewrites the category internal file with the new word added
                 try{
-                    FileOutputStream fos = openFileOutput("Words", Context.MODE_PRIVATE);
+                    FileOutputStream fos = openFileOutput("Categories", Context.MODE_PRIVATE);
                     // adds the new word to the end of the file
-                    words += wordField.getText().toString();
+                    if(stillNeedToAddWord) {
+                        words += category + "\n";
+                        words += "0" + "\n";
+                        words += wordField.getText().toString() + "\n";
+                        words += "::";
+                    }
+                    Log.i("Testing Words", words);
+                    //words += wordField.getText().toString();
                     fos.write(words.getBytes());
                     fos.close();
                     // goes back to the main category page

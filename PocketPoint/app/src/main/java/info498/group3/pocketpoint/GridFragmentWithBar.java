@@ -108,7 +108,72 @@ public class GridFragmentWithBar extends Fragment {
         // is the array list of icons that have all the information needed for gridview
         final List<Icon> icons = new ArrayList<>();
 
-        //internal category file
+        List<Category> categories = new ArrayList<>();
+        List<Icon> categoryIcons = new ArrayList<>();
+        String categoryName = "";
+        Icon cat = new Icon(0, "");
+        try {
+            BufferedReader inputReader = new BufferedReader(new InputStreamReader(gridFragmentWithBar.getContext().openFileInput("Categories")));
+            String inputString = inputReader.readLine();
+            Boolean categoryTest = true;
+            while (inputString != null) {
+                if(inputString.equals("::")) {
+                    Category newCategory = new Category(cat, categoryIcons);
+                    categories.add(newCategory);
+                    categoryIcons = new ArrayList<>();
+                    categoryTest = true;
+                }else if(categoryTest){
+                    categoryName = inputString;
+                    int testImageType = Integer.parseInt(inputReader.readLine());
+                    if(testImageType == 0) {
+                        int resId = getResources().getIdentifier("categories_" + categoryName, "drawable", getActivity().getPackageName());
+                        cat = new Icon(resId, categoryName);
+                    }else {
+                        //getting image
+                        ContextWrapper cw = new ContextWrapper(gridFragmentWithBar.getContext());
+                        File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
+
+                        Bitmap storedimagepath = loadImageFromStorage(directory.getAbsolutePath(), inputString.trim());
+
+                        //set icon to negative value
+                        cat = new Icon(-1, inputString);
+                        //set bitmap on icon class
+                        cat.setBitmap(storedimagepath);
+                        //add to icon list
+                        if(topic.equals("Categories")) {
+                            icons.add(cat);
+                        }
+                    }
+                    categoryTest = false;
+                    Log.i("Testing", "Category " + categoryName + " is being added");
+                } else {
+                    //getting image
+                    ContextWrapper cw = new ContextWrapper(gridFragmentWithBar.getContext());
+                    File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
+
+                    Bitmap storedimagepath = loadImageFromStorage(directory.getAbsolutePath(), inputString.trim());
+
+                    //set icon to negative value
+                    Icon bitmapIcon = new Icon(-1, inputString);
+                    //set bitmap on icon class
+                    bitmapIcon.setBitmap(storedimagepath);
+                    //add to icon list
+                    Log.i("Testing", "Before adding");
+                    if(topic.replaceAll("\\s+", "").replaceAll("'","").equals(categoryName.replaceAll("\\s+", "").replaceAll("'",""))){
+                        icons.add(bitmapIcon);
+                        Log.i("Testing", "Should be adding");
+                    }
+                    categoryIcons.add(bitmapIcon);
+                }
+                Log.i("Testing", "Test statement " + inputString.trim());
+                inputString = inputReader.readLine();
+            }
+        }catch (IOException e) {
+            Log.i("internalFile", "fail");
+            e.printStackTrace();
+        }
+
+       /* //internal category file
         if(topic.equals("Categories")) {
             try {
                 BufferedReader inputReader = new BufferedReader(new InputStreamReader(gridFragmentWithBar.getContext().openFileInput("Categories")));
@@ -137,7 +202,7 @@ public class GridFragmentWithBar extends Fragment {
                 Log.i("internalFile", "fail");
                 e.printStackTrace();
             }
-        }
+        }*/
 
 
 
@@ -145,7 +210,7 @@ public class GridFragmentWithBar extends Fragment {
         //final List<Icon> icons = new ArrayList<>();
 
         //if in mywords category pull from internal mywords file
-        if(topic.equals("MYWORDS")) {
+       /* if(topic.equals("MYWORDS")) {
             try {
                 BufferedReader inputReader = new BufferedReader(new InputStreamReader(gridFragmentWithBar.getContext().openFileInput("Words")));
                 String inputString = inputReader.readLine();
@@ -174,7 +239,7 @@ public class GridFragmentWithBar extends Fragment {
                 e.printStackTrace();
             }
 
-        }else {  // for getting all words if not in MYWORDS section
+        }else {  // for getting all words if not in MYWORDS section */
 
             // goes through all pre-stored icons based on names
             for (int i = 0; i < names.size(); i++) {
@@ -197,7 +262,7 @@ public class GridFragmentWithBar extends Fragment {
                 }
 
             }
-        }
+        //}
         Collections.sort(icons, new IconComparator());
         // creates the gridview with all the icons by calling customGridAdapter
         gridView = (HeaderGridView) gridFragmentWithBar.findViewById(R.id.myGridView);
