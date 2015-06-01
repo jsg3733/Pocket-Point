@@ -29,6 +29,7 @@ import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -54,6 +55,7 @@ public class NewWord extends ActionBarActivity {
     private static ImageView recordButton;
 
     private boolean isRecording = false;
+    private boolean recordingMade = false;
 
     private String category;
 
@@ -101,7 +103,7 @@ public class NewWord extends ActionBarActivity {
                 if(input.equals("")) {
                     save.setEnabled(false);
                     // if edittext has text and image preview is visible then save button is enabled
-                }else if(image.getVisibility() == View.VISIBLE){
+                }else if(image.getVisibility() == View.VISIBLE && recordingMade){
                     save.setEnabled(true);
                 }
             }
@@ -159,6 +161,7 @@ public class NewWord extends ActionBarActivity {
                         inputString = inputReader.readLine();
                     }
                     Log.i("internalFile", "pass");
+                    inputReader.close();
                 } catch (IOException e) {
                     Log.i("internalFile", "fail");
                     e.printStackTrace();
@@ -178,12 +181,46 @@ public class NewWord extends ActionBarActivity {
                             Log.i("Testing", "Adding Word");
                             addWord = false;
                             stillNeedToAddWord = false;
+
+                            File sourceFile = new File(audioFilePath);
+
+                            String pathName = newWord.replaceAll("\\s+", "").replaceAll("'","").toLowerCase();
+                            String path =Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + pathName +".3gp";
+                            File destFile = new File(path);
+
+
+                        /*if (!destFile.exists()) {
+                            try {
+                                destFile.createNewFile();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }*/
+
+                            try{
+                                FileInputStream audioFis = new FileInputStream(sourceFile);
+                                FileOutputStream audioFos = new FileOutputStream(destFile);
+                                byte[] buf = new byte[1024];
+                                int bytesRead;
+
+                                while ((bytesRead = audioFis.read(buf)) > 0) {
+                                    audioFos.write(buf, 0, bytesRead);
+                                }
+                                audioFis.close();
+                                audioFos.close();
+
+                            } catch (FileNotFoundException e) {
+                                e.printStackTrace();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+
                         }
                         words += inputString + "\n";
                         if(inputString.toLowerCase().replaceAll("\\s+", "").replaceAll("'","").equals(
                                 category.toLowerCase().replaceAll("\\s+", "").replaceAll("'",""))  && !addWord){
                             //words += wordField.getText().toString();
-                            if(!wordList.contains((wordField.getText().toString().replaceAll("\\s+", "").replaceAll("'","").toLowerCase()))){
+                            if(!wordList.contains((newWord.replaceAll("\\s+", "").replaceAll("'","").toLowerCase()))){
                                 addWord = true;
                             }
                             Log.i("Testing", "Should be adding word");
@@ -191,6 +228,7 @@ public class NewWord extends ActionBarActivity {
                         inputString = inputReader.readLine();
                     }
                     Log.i("internalFile", "pass");
+                    inputReader.close();
                 } catch (IOException e) {
                     Log.i("internalFile", "fail");
                     e.printStackTrace();
@@ -210,6 +248,40 @@ public class NewWord extends ActionBarActivity {
                         //words += wordField.getText().toString();
                         fos.write(words.getBytes());
                         fos.close();
+
+                        File sourceFile = new File(audioFilePath);
+
+                        String pathName = newWord.replaceAll("\\s+", "").replaceAll("'","").toLowerCase();
+                        String path =Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + pathName +".3gp";
+                        File destFile = new File(path);
+
+
+                        /*if (!destFile.exists()) {
+                            try {
+                                destFile.createNewFile();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }*/
+
+                        try{
+                            FileInputStream audioFis = new FileInputStream(sourceFile);
+                            FileOutputStream audioFos = new FileOutputStream(destFile);
+                            byte[] buf = new byte[1024];
+                            int bytesRead;
+
+                            while ((bytesRead = audioFis.read(buf)) > 0) {
+                                audioFos.write(buf, 0, bytesRead);
+                            }
+                            audioFis.close();
+                            audioFos.close();
+
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
                         // goes back to the main category page
                         Intent backToCategoryPage = new Intent(NewWord.this, CategoryPage.class);
                         // closes activities in the background
@@ -278,7 +350,7 @@ public class NewWord extends ActionBarActivity {
 
         audioFilePath =
                 Environment.getExternalStorageDirectory().getAbsolutePath()
-                        + "/myaudio.3gp";
+                        + "/categories.3gp";
 
 
     }
@@ -292,8 +364,7 @@ public class NewWord extends ActionBarActivity {
     };
 
     public void recordAudio (View view) throws IOException {
-        if(!wordField.getText().toString().equals("")) {
-
+        
             isRecording = true;
             stopButton.setEnabled(true);
             playButton.setEnabled(false);
@@ -303,9 +374,10 @@ public class NewWord extends ActionBarActivity {
                 mediaRecorder = new MediaRecorder();
                 mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
                 mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
-                String name = wordField.getText().toString().replaceAll("\\s+", "").replaceAll("'","").toLowerCase();
-                audioFilePath = Environment.getExternalStorageDirectory().getAbsolutePath()
-                        + "/" + name + ".3gp";
+                //String name = wordField.getText().toString().replaceAll("\\s+", "").replaceAll("'","").toLowerCase();
+                //audioFilePath = Environment.getExternalStorageDirectory().getAbsolutePath()
+                //        + "/" + name + ".3gp";
+                //File audio = new File(getApplicationContext().getExternalFilesDir(null), "/categories.3gp");
                 mediaRecorder.setOutputFile(audioFilePath);
                 mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
                 mediaRecorder.prepare();
@@ -314,7 +386,10 @@ public class NewWord extends ActionBarActivity {
             }
 
             mediaRecorder.start();
-        }
+            recordingMade = true;
+            if(!wordField.getText().toString().equals("") && image.getVisibility() == View.VISIBLE) {
+                save.setEnabled(true);
+            }
     }
 
     public void stopAudio (View view) {
@@ -390,7 +465,7 @@ public class NewWord extends ActionBarActivity {
             savedImage = imageBitmap.createScaledBitmap(imageBitmap, 500, 500, false);
             image.setVisibility(View.VISIBLE);
             image.setImageBitmap(savedImage);
-            if(!wordField.getText().toString().equals("")) {
+            if(!wordField.getText().toString().equals("") && recordingMade) {
                 save.setEnabled(true);
             }
         }else if (resultCode == RESULT_OK){

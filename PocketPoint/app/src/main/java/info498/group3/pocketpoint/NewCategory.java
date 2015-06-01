@@ -134,6 +134,7 @@ public class NewCategory extends ActionBarActivity {
                         inputString = inputReader.readLine();
                     }
                     Log.i("internalFile", "pass");
+                    inputReader.close();
                 } catch (IOException e) {
                     Log.i("internalFile", "fail");
                     e.printStackTrace();
