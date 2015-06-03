@@ -61,6 +61,7 @@ public class NewWord extends ActionBarActivity {
     private String category;
 
     private CountDownTimer countDownTimer;
+    private Boolean playing;
 
 
 
@@ -75,6 +76,7 @@ public class NewWord extends ActionBarActivity {
 
         Intent launchedMe = getIntent();
         category = launchedMe.getStringExtra("category");
+        playing = false;
 
         //makes a onclick listener for the back arrow and cancel button
         LinearLayout backButton = (LinearLayout) findViewById(R.id.backButton);
@@ -334,6 +336,7 @@ public class NewWord extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 try {
+                    playing = true;
                     playAudio(v);
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -345,7 +348,6 @@ public class NewWord extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 stopAudio(v);
-
             }
         });
 
@@ -370,7 +372,7 @@ public class NewWord extends ActionBarActivity {
     private View.OnClickListener back = new View.OnClickListener() {
         @Override
         public void onClick(final View v) {
-            finish();
+            back();
         }
     };
 
@@ -445,6 +447,7 @@ public class NewWord extends ActionBarActivity {
         } else {
             mediaPlayer.release();
             mediaPlayer = null;
+            playing = false;
             recordButton.setEnabled(true);
             //countDownTimer.cancel();
         }
@@ -471,6 +474,7 @@ public class NewWord extends ActionBarActivity {
                 public void onCompletion(MediaPlayer mp) {
                     mp.stop();
                     mp.reset();
+                    playing = false;
                     Toast.makeText(NewWord.this, "Playing Done", Toast.LENGTH_SHORT).show();
                     stopButton.setEnabled(false);
                     playButton.setEnabled(true);
@@ -578,6 +582,24 @@ public class NewWord extends ActionBarActivity {
             e.printStackTrace();
         }
         return directory.getAbsolutePath();
+    }
+
+    @Override
+    public void onBackPressed(){
+        back();
+    }
+
+    public void back(){
+        if(playing) {
+            mediaPlayer.stop();
+            mediaPlayer.reset();
+        }else if(isRecording) {
+            mediaRecorder.stop();
+            mediaRecorder.release();
+            mediaRecorder = null;
+            countDownTimer.cancel();
+        }
+        finish();
     }
 
 }

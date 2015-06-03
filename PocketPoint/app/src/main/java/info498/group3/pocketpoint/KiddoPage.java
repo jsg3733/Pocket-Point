@@ -50,8 +50,10 @@ public class KiddoPage extends ActionBarActivity {
         backButton.setOnLongClickListener(new ImageView.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                mp.stop();
-                mp.reset();
+                if(playing) {
+                    mp.stop();
+                    mp.reset();
+                }
                 finish();
                 return true;
             }
