@@ -47,7 +47,7 @@ public class KiddoPage extends ActionBarActivity {
         playing = false;
 
         ImageView backButton = (ImageView) findViewById(R.id.btnBackButton);
-        backButton.setOnLongClickListener(new ImageView.OnLongClickListener() {
+        /*backButton.setOnLongClickListener(new ImageView.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
                 if(playing) {
@@ -56,6 +56,16 @@ public class KiddoPage extends ActionBarActivity {
                 }
                 finish();
                 return true;
+            }
+        });*/
+        backButton.setOnClickListener(new ImageView.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(playing) {
+                    mp.stop();
+                    mp.reset();
+                }
+                finish();
             }
         });
 
