@@ -1,3 +1,18 @@
 Bedroom
 Home
 School
+Library
+Kitchen
+Daycare
+Mall
+Movies
+Restaurant
+Park
+Pool
+Rec center
+Bathroom
+Beach
+Mountain
+Car
+Store
+My room

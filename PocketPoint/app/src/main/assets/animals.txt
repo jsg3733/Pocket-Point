@@ -1,0 +1,9 @@
+Alligator
+Bear
+Bird
+Cat
+Dog
+Duck
+Fish
+Horse
+Mouse

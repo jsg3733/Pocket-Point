@@ -1,0 +1,10 @@
+Above
+Below
+Behind
+Left
+Right
+Inside
+Outside
+In front
+Top
+Bottom

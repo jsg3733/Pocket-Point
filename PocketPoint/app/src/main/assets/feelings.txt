@@ -5,3 +5,8 @@ Happy
 Nervous
 Sleepy
 Surprised
+Sad
+Excited
+Full
+Hungry
+Thirsty

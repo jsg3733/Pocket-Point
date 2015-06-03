@@ -1,0 +1,9 @@
+Blanket
+Box
+Bowl
+Cup
+Dish
+Fork
+Spoon
+Napkin
+Pillow

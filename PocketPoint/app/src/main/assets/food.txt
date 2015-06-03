@@ -10,3 +10,34 @@ Milk
 Pizza
 Stix
 Water
+Goldfish
+Rice
+Noodles
+Pretzels
+Strawberries
+Blueberries
+Animal crackers
+Muffin
+Sandwich
+Cereal
+Carrots
+Meat
+Fish
+Beans
+Soup
+Salad
+Popsicle
+Yogurt
+Jam
+Butter
+Peanut Butter
+Oranges
+Pear
+Cherries
+Grapes
+Oatmeal
+Nuts
+Popcorn
+Sauce
+Fruit
+Vegetables

@@ -2,6 +2,10 @@ Bedtime
 Breakfast
 Dinner
 Lunch
-Playtime
-School Time
+Play time
+School time
 Wake Up
+Circle time
+Snack time
+Art time
+Family time
