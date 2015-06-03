@@ -3,6 +3,7 @@ package info498.group3.pocketpoint;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
+import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -28,6 +29,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
@@ -121,8 +123,6 @@ public class NewCategory extends ActionBarActivity {
                 categoryList.add("categories");
                 categoryList.add("savedpages");
                 String categories = "";
-                // saves the image internally
-                saveToInternalStorage(savedImage, categoryField.getText().toString());
                 // reads through the category internal file and stores all lines to a string
                 try {
                     BufferedReader inputReader = new BufferedReader(new InputStreamReader(openFileInput("Categories")));
@@ -139,6 +139,26 @@ public class NewCategory extends ActionBarActivity {
                     e.printStackTrace();
                 }
 
+                try{
+                    // reads the app category file and makes sure do not repeat the preloaded category names
+                    // brings the file into a inputstream
+                    AssetManager am = getApplicationContext().getAssets();
+                    InputStream is = am.open("categories.txt");
+
+                    // turns the inputstream of the file into a bufferedReader and reads the first line
+                    BufferedReader br = new BufferedReader(new InputStreamReader(is));
+                    String line = br.readLine();
+
+                    // while line read is not null will keep adding lines to title list
+                    while(line != null) {
+                        categoryList.add(line.replaceAll("\\s+", "").replaceAll("'","").toLowerCase());
+                        line = br.readLine();
+                    }
+                    // catch exception if file is not found
+                }catch (IOException e) {
+                    Log.i("New Category", "File is not being found");
+                }
+
 
                 // rewrites the category internal file with the new category added
                 try{
@@ -151,6 +171,8 @@ public class NewCategory extends ActionBarActivity {
                         categories += "::";
                         fos.write(categories.getBytes());
                         fos.close();
+                        // saves the image internally
+                        saveToInternalStorage(savedImage, newCategory.replaceAll("\\s+", "").replaceAll("'","").toLowerCase());
                         // goes back to the main category page
                         Intent backToCategoryPage = new Intent(NewCategory.this, CategoryPage.class);
                         // closes activities in the background
