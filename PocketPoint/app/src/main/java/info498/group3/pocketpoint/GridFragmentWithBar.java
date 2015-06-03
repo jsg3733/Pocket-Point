@@ -78,14 +78,14 @@ public class GridFragmentWithBar extends Fragment {
 
         // is reading through pre-stored files to get the titles of objects
         try{
-            String file = "food.txt";
+           // String file = "food.txt";
             // if is not food will also do for categories and activities because only
             // have these images at the moment
-            if(topic.equals("Categories") || topic.equals("Activities") || topic.equals("Answers") ||
-                    topic.equals("Colors") || topic.equals("Feelings") || topic.equals("Shapes")
-                    || topic.equals("Places") || topic.equals("Time")) {
-                file = topic.toLowerCase() + ".txt";
-            }
+            //if(topic.equals("Categories") || topic.equals("Activities") || topic.equals("Answers") ||
+                   // topic.equals("Colors") || topic.equals("Feelings") || topic.equals("Shapes")
+                    //|| topic.equals("Places") || topic.equals("Time")) {
+                String file = topic.toLowerCase() + ".txt";
+           // }
             // brings the file into a inputstream
             AssetManager am = gridFragmentWithBar.getContext().getAssets();
             InputStream is = am.open(file);
@@ -243,23 +243,23 @@ public class GridFragmentWithBar extends Fragment {
 
             // goes through all pre-stored icons based on names
             for (int i = 0; i < names.size(); i++) {
-                if (topic.equals("Categories") || topic.equals("Activities") || topic.equals("Answers")
+               /* if (topic.equals("Categories") || topic.equals("Activities") || topic.equals("Answers")
                         || topic.equals("Colors") || topic.equals("Feelings") || topic.equals("Shapes")
-                        || topic.equals("Places") || topic.equals("Time")) {
+                        || topic.equals("Places") || topic.equals("Time")) {*/
                     // makes name into one word
                     String name = names.get(i).replaceAll("\\s+", "").replaceAll("'","").toLowerCase();
                     // gets the resource id for the object based on drawable name
                     int resID = getResources().getIdentifier(topic.toLowerCase() + "_" + name, "drawable", getActivity().getPackageName());
                     // adds each icon to icon list
                     icons.add(new Icon(resID, names.get(i)));
-                } else {
+               /* } else {
                     // makes name into one word
                     String name = names.get(i).replaceAll("\\s+", "").toLowerCase();
                     // gets the resource id for the object based on drawable name
                     int resID = getResources().getIdentifier("food_" + name, "drawable", getActivity().getPackageName());
                     // adds each icon to icon list
                     icons.add(new Icon(resID, names.get(i)));
-                }
+                }*/
 
             }
         //}
