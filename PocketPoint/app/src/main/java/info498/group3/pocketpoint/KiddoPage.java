@@ -33,6 +33,7 @@ public class KiddoPage extends ActionBarActivity {
     private int howManyInBar;
     private MediaPlayer mp;
     private Boolean playing;
+    private List<String> smallAudioList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +46,8 @@ public class KiddoPage extends ActionBarActivity {
 
         mp = new MediaPlayer();
         playing = false;
+        smallAudioList = new ArrayList<>(
+                Arrays.asList("1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "catch", "throw", "new"));
 
         ImageView backButton = (ImageView) findViewById(R.id.btnBackButton);
         /*backButton.setOnLongClickListener(new ImageView.OnLongClickListener() {
@@ -161,7 +164,11 @@ public class KiddoPage extends ActionBarActivity {
                 switch (v.getId()) {
                 case R.id.iconOne:
                     if(iconBar.get(0).getIcon() > 0 ){
-                        musicID = getResources().getIdentifier(iconBar.get(0).getTitle().replaceAll("\\s+", "").replaceAll("'","").toLowerCase(), "raw", getPackageName());
+                        if(smallAudioList.contains(iconBar.get(0).getTitle().replaceAll("\\s+", "").replaceAll("'", "").toLowerCase())){
+                            musicID = getResources().getIdentifier("sound_" + iconBar.get(0).getTitle().replaceAll("\\s+", "").replaceAll("'", "").toLowerCase(), "raw", getPackageName());
+                        }else {
+                            musicID = getResources().getIdentifier(iconBar.get(0).getTitle().replaceAll("\\s+", "").replaceAll("'", "").toLowerCase(), "raw", getPackageName());
+                        }
                     }else {
                         String name  = iconBar.get(0).getTitle().replaceAll("\\s+", "").replaceAll("'","").toLowerCase();
                         path = Uri.parse(Environment.getExternalStorageDirectory().getAbsolutePath()
@@ -170,7 +177,11 @@ public class KiddoPage extends ActionBarActivity {
                     break;
                 case R.id.iconTwo:
                     if(iconBar.get(1).getIcon() > 0 ){
-                        musicID = getResources().getIdentifier(iconBar.get(1).getTitle().replaceAll("\\s+", "").replaceAll("'","").toLowerCase(), "raw", getPackageName());
+                        if(smallAudioList.contains(iconBar.get(1).getTitle().replaceAll("\\s+", "").replaceAll("'","").toLowerCase())){
+                            musicID = getResources().getIdentifier("sound_" + iconBar.get(1).getTitle().replaceAll("\\s+", "").replaceAll("'", "").toLowerCase(), "raw", getPackageName());
+                        }else {
+                            musicID = getResources().getIdentifier(iconBar.get(1).getTitle().replaceAll("\\s+", "").replaceAll("'", "").toLowerCase(), "raw", getPackageName());
+                        }
                     }else {
                         String name  = iconBar.get(1).getTitle().replaceAll("\\s+", "").replaceAll("'","").toLowerCase();
                         path = Uri.parse(Environment.getExternalStorageDirectory().getAbsolutePath()
@@ -179,7 +190,11 @@ public class KiddoPage extends ActionBarActivity {
                     break;
                 case R.id.iconThree:
                     if(iconBar.get(2).getIcon() > 0 ){
-                        musicID = getResources().getIdentifier(iconBar.get(2).getTitle().replaceAll("\\s+", "").replaceAll("'","").toLowerCase(), "raw", getPackageName());
+                        if(smallAudioList.contains(iconBar.get(2).getTitle().replaceAll("\\s+", "").replaceAll("'","").toLowerCase())){
+                            musicID = getResources().getIdentifier("sound_" + iconBar.get(2).getTitle().replaceAll("\\s+", "").replaceAll("'", "").toLowerCase(), "raw", getPackageName());
+                        }else {
+                            musicID = getResources().getIdentifier(iconBar.get(2).getTitle().replaceAll("\\s+", "").replaceAll("'", "").toLowerCase(), "raw", getPackageName());
+                        }
                     }else {
                         String name  = iconBar.get(2).getTitle().replaceAll("\\s+", "").replaceAll("'","").toLowerCase();
                         path = Uri.parse(Environment.getExternalStorageDirectory().getAbsolutePath()
@@ -188,7 +203,11 @@ public class KiddoPage extends ActionBarActivity {
                     break;
                 case R.id.iconFour:
                     if(iconBar.get(3).getIcon() > 0 ){
-                        musicID = getResources().getIdentifier(iconBar.get(3).getTitle().replaceAll("\\s+", "").replaceAll("'","").toLowerCase(), "raw", getPackageName());
+                        if(smallAudioList.contains(iconBar.get(3).getTitle().replaceAll("\\s+", "").replaceAll("'","").toLowerCase())){
+                            musicID = getResources().getIdentifier("sound_" + iconBar.get(3).getTitle().replaceAll("\\s+", "").replaceAll("'", "").toLowerCase(), "raw", getPackageName());
+                        }else {
+                            musicID = getResources().getIdentifier(iconBar.get(3).getTitle().replaceAll("\\s+", "").replaceAll("'", "").toLowerCase(), "raw", getPackageName());
+                        }
                     }else {
                         String name  = iconBar.get(3).getTitle().replaceAll("\\s+", "").replaceAll("'","").toLowerCase();
                         path = Uri.parse(Environment.getExternalStorageDirectory().getAbsolutePath()
