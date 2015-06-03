@@ -124,6 +124,7 @@ public class NewWord extends ActionBarActivity {
             @Override
             public void onClick(View arg0) {
                 // TODO Auto-generated method stub
+                finishPlayOrRecord();
                 Intent intent = new Intent(Intent.ACTION_PICK,
                         android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(intent, 0);
@@ -135,6 +136,7 @@ public class NewWord extends ActionBarActivity {
 
             @Override
             public void onClick(View arg0){
+                finishPlayOrRecord();
                 dispatchTakePictureIntent();
             }
         });
@@ -146,9 +148,8 @@ public class NewWord extends ActionBarActivity {
         save.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
+                finishPlayOrRecord();
                 String words = "";
-                // saves the image internally
-                saveToInternalStorage(savedImage, wordField.getText().toString());
                 /*String name = wordField.getText().toString();
                 String path = Environment.getExternalStorageDirectory().getAbsolutePath()
                         + "/" + name + ".3gp";
@@ -219,6 +220,9 @@ public class NewWord extends ActionBarActivity {
                                 e.printStackTrace();
                             }
 
+                            // saves the image internally
+                            saveToInternalStorage(savedImage, pathName);
+
                         }
                         words += inputString + "\n";
                         if(inputString.toLowerCase().replaceAll("\\s+", "").replaceAll("'","").equals(
@@ -283,6 +287,9 @@ public class NewWord extends ActionBarActivity {
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
+
+                        // saves the image internally
+                        saveToInternalStorage(savedImage, pathName);
 
 
                         // goes back to the main category page
@@ -590,16 +597,22 @@ public class NewWord extends ActionBarActivity {
     }
 
     public void back(){
+        finishPlayOrRecord();
+        finish();
+    }
+
+    public void finishPlayOrRecord(){
         if(playing) {
             mediaPlayer.stop();
             mediaPlayer.reset();
+            playing = false;
         }else if(isRecording) {
             mediaRecorder.stop();
             mediaRecorder.release();
             mediaRecorder = null;
             countDownTimer.cancel();
+            isRecording = false;
         }
-        finish();
     }
 
 }
