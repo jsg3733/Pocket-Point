@@ -27,7 +27,7 @@ Salad
 Popsicle
 Yogurt
 Jam
-Peanut Butter
+Peanut butter
 Oranges
 Pear
 Grapes
@@ -37,3 +37,5 @@ Popcorn
 Sauce
 Fruit
 Vegetables
+Animal crackers
+Cherries
