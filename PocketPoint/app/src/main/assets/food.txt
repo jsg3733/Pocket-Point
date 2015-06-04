@@ -16,11 +16,9 @@ Noodles
 Pretzels
 Strawberries
 Blueberries
-Animal crackers
 Muffin
 Sandwich
 Cereal
-Carrots
 Meat
 Fish
 Beans
@@ -29,11 +27,9 @@ Salad
 Popsicle
 Yogurt
 Jam
-Butter
 Peanut Butter
 Oranges
 Pear
-Cherries
 Grapes
 Oatmeal
 Nuts
