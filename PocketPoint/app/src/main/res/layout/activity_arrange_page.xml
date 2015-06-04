@@ -42,14 +42,16 @@
             />
     </LinearLayout>
 
-    <Button
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/save_page_button"
-        android:id="@+id/button"
+        android:id="@+id/btnSavePage"
         android:layout_alignBottom="@+id/txtLineHeader"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:src="@drawable/button_savepage"/>
+
+
 
     <RelativeLayout
         android:layout_width="fill_parent"
@@ -60,14 +62,15 @@
         android:background="@color/body">
 
 
-        <Button
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/done_button"
             android:id="@+id/btnDone"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/button_done"/>
 
         <LinearLayout
             android:layout_width="match_parent"

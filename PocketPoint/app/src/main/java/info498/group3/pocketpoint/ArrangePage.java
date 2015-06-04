@@ -195,7 +195,7 @@ public class ArrangePage extends ActionBarActivity {
             removeIconFour.setVisibility(View.VISIBLE);
         }
 
-        Button done = (Button) findViewById(R.id.btnDone);
+        ImageView done = (ImageView) findViewById(R.id.btnDone);
         done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
