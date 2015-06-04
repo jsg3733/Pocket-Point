@@ -310,6 +310,7 @@ public class GridFragmentWithBar extends Fragment {
                             wordPage.putExtra("showBar", true);
                         }
                         startActivity(wordPage);
+                        getActivity().finish();
 
 
                     /*Intent nextActivity = new Intent(getActivity(), WordPage.class);

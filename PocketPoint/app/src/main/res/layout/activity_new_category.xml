@@ -119,19 +119,19 @@
                 android:textColor="@color/txtHeader"
                 android:layout_weight="0.04"/>
 
-            <Button
-                android:layout_width="wrap_content"
+            <ImageView
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="@string/insert_import_field_text"
                 android:id="@+id/btnImport"
-                android:layout_weight=".15"/>
+                android:layout_weight=".15"
+                android:src="@drawable/button_importphoto"/>
 
-            <Button
-                android:layout_width="wrap_content"
+            <ImageView
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="@string/insert_takePhoto_field_text"
                 android:id="@+id/btnTakePhoto"
-                android:layout_weight=".15"/>
+                android:layout_weight=".15"
+                android:src="@drawable/button_takephoto"/>
 
 
         </LinearLayout>
@@ -158,24 +158,21 @@
 
         </LinearLayout>
 
-
-
-        <Button
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/cancel_button"
             android:id="@+id/btnCancel"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_marginStart="@dimen/input_fields_margin"
             android:layout_marginLeft="@dimen/input_fields_margin"
-            android:layout_marginBottom="@dimen/input_fields_margin"/>
+            android:layout_marginBottom="@dimen/input_fields_margin"
+            android:src="@drawable/button_cancel"/>
 
-        <Button
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/save_button"
             android:id="@+id/btnSave"
             android:enabled="false"
             android:layout_alignParentBottom="true"
@@ -183,7 +180,10 @@
             android:layout_alignEnd="@+id/linlayImageField"
             android:layout_marginEnd="@dimen/input_fields_margin"
             android:layout_marginRight="@dimen/input_fields_margin"
-            android:layout_marginBottom="@dimen/input_fields_margin"/>
+            android:layout_marginBottom="@dimen/input_fields_margin"
+            android:src="@drawable/button_save"
+            android:visibility="invisible"/>
+
 
     </RelativeLayout>
 

@@ -37,7 +37,7 @@ import java.util.List;
 // Is the Create New Category Page linked from the Category Page
 public class NewCategory extends ActionBarActivity {
 
-    private Button save;
+    private ImageView save;
     private EditText categoryField;
     private ImageView image;
     static final int REQUEST_IMAGE_CAPTURE = 1;
@@ -55,13 +55,13 @@ public class NewCategory extends ActionBarActivity {
 
         //makes a onclick listener for the back arrow and cancel button
         LinearLayout backButton = (LinearLayout) findViewById(R.id.backButton);
-        Button cancel = (Button)findViewById(R.id.btnCancel);
+        ImageView cancel = (ImageView)findViewById(R.id.btnCancel);
         // sets the onclick listener to the back function
         backButton.setOnClickListener(back);
         cancel.setOnClickListener(back);
 
 
-        save = (Button) findViewById(R.id.btnSave);
+        save = (ImageView) findViewById(R.id.btnSave);
         categoryField = (EditText) findViewById(R.id.edtxtCategoryField);
         image = (ImageView) findViewById(R.id.imgPreview);
 
@@ -81,17 +81,17 @@ public class NewCategory extends ActionBarActivity {
                     String input = s.toString();
                     // if edittext field is empty save button is disabled
                     if(input.equals("")) {
-                        save.setEnabled(false);
+                        save.setVisibility(View.INVISIBLE);
                     // if edittext has text and image preview is visible then save button is enabled
                     }else if(image.getVisibility() == View.VISIBLE){
-                        save.setEnabled(true);
+                        save.setVisibility(View.VISIBLE);
                     }
             }
         };
 
         // sets textwatcher for category edittext
         categoryField.addTextChangedListener(chan);
-        Button buttonLoadImage = (Button)findViewById(R.id.btnImport);
+        ImageView buttonLoadImage = (ImageView)findViewById(R.id.btnImport);
 
         //import
         buttonLoadImage.setOnClickListener(new Button.OnClickListener(){
@@ -105,7 +105,7 @@ public class NewCategory extends ActionBarActivity {
             }});
 
         //camera
-        Button takeimage = (Button)findViewById(R.id.btnTakePhoto);
+        ImageView takeimage = (ImageView)findViewById(R.id.btnTakePhoto);
         takeimage.setOnClickListener(new Button.OnClickListener(){
 
             @Override
@@ -246,7 +246,7 @@ public class NewCategory extends ActionBarActivity {
             image.setVisibility(View.VISIBLE);
             image.setImageBitmap(savedImage);
             if(!categoryField.getText().toString().equals("")) {
-                save.setEnabled(true);
+                save.setVisibility(View.VISIBLE);
             }
         }else if (resultCode == RESULT_OK){
             Uri targetUri = data.getData();
@@ -259,7 +259,7 @@ public class NewCategory extends ActionBarActivity {
                 image.setImageBitmap(savedImage);
                 image.setVisibility(View.VISIBLE);
                 if(!categoryField.getText().toString().equals("")) {
-                    save.setEnabled(true);
+                    save.setVisibility(View.VISIBLE);
                 }
             } catch (FileNotFoundException e) {
                 // TODO Auto-generated catch block
