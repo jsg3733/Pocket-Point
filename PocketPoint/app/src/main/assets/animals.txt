@@ -5,5 +5,4 @@ Cat
 Dog
 Duck
 Fish
-Horse
 Mouse
