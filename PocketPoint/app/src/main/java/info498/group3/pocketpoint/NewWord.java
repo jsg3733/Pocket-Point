@@ -41,7 +41,7 @@ import java.util.List;
 // Is the Create New Word Page linked from the Word Page
 public class NewWord extends ActionBarActivity {
 
-    private Button save;
+    private ImageView save;
     private EditText wordField;
     private ImageView image;
     static final int REQUEST_IMAGE_CAPTURE = 1;
@@ -80,13 +80,13 @@ public class NewWord extends ActionBarActivity {
 
         //makes a onclick listener for the back arrow and cancel button
         LinearLayout backButton = (LinearLayout) findViewById(R.id.backButton);
-        Button cancel = (Button)findViewById(R.id.btnCancel);
+        ImageView cancel = (ImageView)findViewById(R.id.btnCancel);
         // sets the onclick listener to the back function
         backButton.setOnClickListener(back);
         cancel.setOnClickListener(back);
 
 
-        save = (Button) findViewById(R.id.btnSave);
+        save = (ImageView) findViewById(R.id.btnSave);
         wordField = (EditText) findViewById(R.id.edtxtWordField);
         image = (ImageView) findViewById(R.id.imgPreview);
 
@@ -106,17 +106,17 @@ public class NewWord extends ActionBarActivity {
                 String input = s.toString();
                 // if edittext field is empty save button is disabled
                 if(input.equals("")) {
-                    save.setEnabled(false);
+                    save.setVisibility(View.INVISIBLE);
                     // if edittext has text and image preview is visible then save button is enabled
                 }else if(image.getVisibility() == View.VISIBLE && recordingMade){
-                    save.setEnabled(true);
+                    save.setVisibility(View.VISIBLE);
                 }
             }
         };
 
         // sets textwatcher for word edittext
         wordField.addTextChangedListener(chan);
-        Button buttonLoadImage = (Button)findViewById(R.id.btnImport);
+        ImageView buttonLoadImage = (ImageView)findViewById(R.id.btnImport);
 
         //import
         buttonLoadImage.setOnClickListener(new Button.OnClickListener(){
@@ -131,7 +131,7 @@ public class NewWord extends ActionBarActivity {
             }});
 
         //camera
-        Button takeimage = (Button)findViewById(R.id.btnTakePhoto);
+        ImageView takeimage = (ImageView)findViewById(R.id.btnTakePhoto);
         takeimage.setOnClickListener(new Button.OnClickListener(){
 
             @Override
@@ -422,7 +422,7 @@ public class NewWord extends ActionBarActivity {
                 isRecording = false;
                 recordingMade = true;
                 if(!wordField.getText().toString().equals("") && image.getVisibility() == View.VISIBLE) {
-                    save.setEnabled(true);
+                    save.setVisibility(View.VISIBLE);;
                 }
 
             }};
@@ -449,7 +449,7 @@ public class NewWord extends ActionBarActivity {
             countDownTimer.cancel();
             recordingMade = true;
             if(!wordField.getText().toString().equals("") && image.getVisibility() == View.VISIBLE) {
-                save.setEnabled(true);
+                save.setVisibility(View.VISIBLE);;
             }
         } else {
             mediaPlayer.release();
@@ -536,7 +536,7 @@ public class NewWord extends ActionBarActivity {
             image.setVisibility(View.VISIBLE);
             image.setImageBitmap(savedImage);
             if(!wordField.getText().toString().equals("") && recordingMade) {
-                save.setEnabled(true);
+                save.setVisibility(View.VISIBLE);;
             }
         }else if (resultCode == RESULT_OK){
             Uri targetUri = data.getData();
@@ -548,7 +548,7 @@ public class NewWord extends ActionBarActivity {
                 image.setImageBitmap(savedImage);
                 image.setVisibility(View.VISIBLE);
                 if(!wordField.getText().toString().equals("")) {
-                    save.setEnabled(true);
+                    save.setVisibility(View.VISIBLE);;
                 }
             } catch (FileNotFoundException e) {
                 // TODO Auto-generated catch block
