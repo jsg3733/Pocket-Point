@@ -133,7 +133,7 @@ public class GridFragmentWithBar extends Fragment {
                         ContextWrapper cw = new ContextWrapper(gridFragmentWithBar.getContext());
                         File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
 
-                        Bitmap storedimagepath = loadImageFromStorage(directory.getAbsolutePath(), inputString.trim());
+                        Bitmap storedimagepath = loadImageFromStorage(directory.getAbsolutePath(), inputString.replaceAll("\\s+", "").replaceAll("'","").toLowerCase());
 
                         //set icon to negative value
                         cat = new Icon(-1, inputString);
@@ -151,7 +151,7 @@ public class GridFragmentWithBar extends Fragment {
                     ContextWrapper cw = new ContextWrapper(gridFragmentWithBar.getContext());
                     File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
 
-                    Bitmap storedimagepath = loadImageFromStorage(directory.getAbsolutePath(), inputString.trim());
+                    Bitmap storedimagepath = loadImageFromStorage(directory.getAbsolutePath(), inputString.replaceAll("\\s+", "").replaceAll("'","").toLowerCase());
 
                     //set icon to negative value
                     Icon bitmapIcon = new Icon(-1, inputString);
@@ -546,7 +546,7 @@ public class GridFragmentWithBar extends Fragment {
                             ContextWrapper cw = new ContextWrapper(getActivity().getApplicationContext());
                             File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
 
-                            Bitmap storedimagepath = loadImageFromStorage(directory.getAbsolutePath(), iconTitle.trim());
+                            Bitmap storedimagepath = loadImageFromStorage(directory.getAbsolutePath(), iconTitle.replaceAll("\\s+", "").replaceAll("'","").toLowerCase());
 
                             //Bitmap imgBitmap = launchedMe.getParcelableExtra(iconNum + "Img");
                             Icon current = new Icon((-1), iconTitle);

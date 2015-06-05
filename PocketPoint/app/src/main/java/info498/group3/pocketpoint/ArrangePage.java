@@ -88,7 +88,7 @@ public class ArrangePage extends ActionBarActivity {
                 ContextWrapper cw = new ContextWrapper(getApplicationContext());
                 File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
 
-                Bitmap storedimagepath = loadImageFromStorage(directory.getAbsolutePath(), iconTitle.trim());
+                Bitmap storedimagepath = loadImageFromStorage(directory.getAbsolutePath(), iconTitle.replaceAll("\\s+", "").replaceAll("'","").toLowerCase());
 
 
 
