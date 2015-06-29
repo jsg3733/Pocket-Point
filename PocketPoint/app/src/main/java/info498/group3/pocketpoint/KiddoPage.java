@@ -38,7 +38,13 @@ public class KiddoPage extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_kiddo_page);
+        Intent launchedMe = getIntent();
+        howManyInBar = launchedMe.getIntExtra("howManyInBar", 1);
+        if(howManyInBar > 2) {
+            setContentView(R.layout.activity_kiddo_page);
+        }else {
+            setContentView(R.layout.activity_kiddo_page_twoword);
+        }
 
         // removes the notification bar
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
@@ -73,8 +79,8 @@ public class KiddoPage extends ActionBarActivity {
         });
 
         iconBar = new ArrayList<Icon>();
-        Intent launchedMe = getIntent();
-        howManyInBar = launchedMe.getIntExtra("howManyInBar", 1);
+        /*Intent launchedMe = getIntent();
+        howManyInBar = launchedMe.getIntExtra("howManyInBar", 1);*/
         List<String> iconNumber = new ArrayList<String>(
                 Arrays.asList("iconOne", "iconTwo", "iconThree", "iconFour"));
         for(int i = 0; i < howManyInBar; i++) {
@@ -98,13 +104,14 @@ public class KiddoPage extends ActionBarActivity {
             }
         }
 
-        LinearLayout iconOne = (LinearLayout) findViewById(R.id.iconOne);
+        /*LinearLayout iconOne = (LinearLayout) findViewById(R.id.iconOne);
         LinearLayout iconTwo = (LinearLayout) findViewById(R.id.iconTwo);
         LinearLayout iconThree = (LinearLayout) findViewById(R.id.iconThree);
-        LinearLayout iconFour = (LinearLayout) findViewById(R.id.iconFour);
+        LinearLayout iconFour = (LinearLayout) findViewById(R.id.iconFour);*/
 
 
         if(iconBar.size() >= 1) {
+            LinearLayout iconOne = (LinearLayout) findViewById(R.id.iconOne);
             TextView titleOne = (TextView) findViewById(R.id.txtTitleOne);
             titleOne.setText(iconBar.get(0).getTitle());
             ImageView imgOne = (ImageView) findViewById(R.id.imgIconOne);
@@ -113,8 +120,10 @@ public class KiddoPage extends ActionBarActivity {
             } else {
                 imgOne.setImageResource(iconBar.get(0).getIcon());
             }
+            iconOne.setOnClickListener(sound);
         }
         if(iconBar.size() >= 2) {
+            LinearLayout iconTwo = (LinearLayout) findViewById(R.id.iconTwo);
             TextView titleTwo = (TextView) findViewById(R.id.txtTitleTwo);
             titleTwo.setText(iconBar.get(1).getTitle());
             ImageView imgTwo = (ImageView) findViewById(R.id.imgIconTwo);
@@ -124,8 +133,10 @@ public class KiddoPage extends ActionBarActivity {
                 imgTwo.setImageResource(iconBar.get(1).getIcon());
             }
             iconTwo.setVisibility(View.VISIBLE);
+            iconTwo.setOnClickListener(sound);
         }
         if(iconBar.size() >= 3) {
+            LinearLayout iconThree = (LinearLayout) findViewById(R.id.iconThree);
             TextView titleThree = (TextView) findViewById(R.id.txtTitleThree);
             titleThree.setText(iconBar.get(2).getTitle());
             ImageView imgThree = (ImageView) findViewById(R.id.imgIconThree);
@@ -135,8 +146,10 @@ public class KiddoPage extends ActionBarActivity {
                 imgThree.setImageResource(iconBar.get(2).getIcon());
             }
             iconThree.setVisibility(View.VISIBLE);
+            iconThree.setOnClickListener(sound);
         }
         if(iconBar.size() >= 4) {
+            LinearLayout iconFour = (LinearLayout) findViewById(R.id.iconFour);
             TextView titleFour = (TextView) findViewById(R.id.txtTitleFour);
             titleFour.setText(iconBar.get(3).getTitle());
             ImageView imgFour = (ImageView) findViewById(R.id.imgIconFour);
@@ -146,12 +159,13 @@ public class KiddoPage extends ActionBarActivity {
                 imgFour.setImageResource(iconBar.get(3).getIcon());
             }
             iconFour.setVisibility(View.VISIBLE);
+            iconFour.setOnClickListener(sound);
         }
 
-        iconOne.setOnClickListener(sound);
+        /*iconOne.setOnClickListener(sound);
         iconTwo.setOnClickListener(sound);
         iconThree.setOnClickListener(sound);
-        iconFour.setOnClickListener(sound);
+        iconFour.setOnClickListener(sound);*/
 
     }
 
