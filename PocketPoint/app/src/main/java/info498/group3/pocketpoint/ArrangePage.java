@@ -1,26 +1,38 @@
 package info498.group3.pocketpoint;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.ContextWrapper;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Environment;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -218,6 +230,127 @@ public class ArrangePage extends ActionBarActivity {
                 kiddoPage.putExtra("howManyInBar", howManyInBar);
 
                 startActivity(kiddoPage);
+            }
+        });
+
+        ImageView savePage = (ImageView) findViewById(R.id.btnSavePage);
+        savePage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if(howManyInBar == 0) {
+                    Toast.makeText(ArrangePage.this, "Have to have at least one image to save a page", Toast.LENGTH_SHORT).show();
+                }else {
+                    // get prompts.xml view
+                    LayoutInflater li = LayoutInflater.from(ArrangePage.this);
+                    View promptsView = li.inflate(R.layout.save_page_prompt, null);
+
+                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                            ArrangePage.this);
+
+                    // set prompts.xml to alertdialog builder
+                    alertDialogBuilder.setView(promptsView);
+
+                    final EditText userInput = (EditText) promptsView
+                            .findViewById(R.id.edtxtDialogInput);
+
+                    // set dialog message
+                    alertDialogBuilder
+                            .setCancelable(false)
+                            .setPositiveButton("Save Page",
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int id) {
+                                            // get user input and set it to result
+                                            // edit text
+                                            //savePageName.setText(userInput.getText());
+                                            if (userInput.equals("")) {
+                                                Toast.makeText(ArrangePage.this, "Can not save with blank name", Toast.LENGTH_SHORT).show();
+                                            } else {
+                                                List<String> savePageList = new ArrayList<String>();
+                                                savePageList.add("::");
+                                                savePageList.add("categories");
+                                                savePageList.add("savedpages");
+                                                String savePage = "";
+                                                // reads through the category internal file and stores all lines to a string
+                                                try {
+                                                    BufferedReader inputReader = new BufferedReader(new InputStreamReader(openFileInput("Saved Pages")));
+                                                    String inputString = inputReader.readLine();
+                                                    Boolean nameTest = true;
+                                                    while (inputString != null) {
+                                                        if (nameTest) {
+                                                            savePageList.add(inputString.replaceAll("\\s+", "").replaceAll("'", "").toLowerCase());
+                                                            nameTest = false;
+                                                        } else {
+                                                            if (inputString.equals("::")) {
+                                                                nameTest = true;
+                                                            }
+                                                        }
+                                                        savePage += inputString + "\n";
+                                                        inputString = inputReader.readLine();
+                                                    }
+                                                    Log.i("internalFile", "pass");
+                                                    inputReader.close();
+                                                } catch (IOException e) {
+                                                    Log.i("internalFile", "fail");
+                                                    e.printStackTrace();
+                                                }
+
+
+                                                // rewrites the category internal file with the new category added
+                                                try {
+                                                    FileOutputStream fos = openFileOutput("Saved Pages", Context.MODE_PRIVATE);
+                                                    // adds the new category to the end of the file
+                                                    String newSavedPage = userInput.getText().toString();
+                                                    if (!savePageList.contains(newSavedPage.replaceAll("\\s+", "").replaceAll("'", "").toLowerCase())) {
+                                                        savePage += newSavedPage + "\n";
+                                                        //categories += "=" + "\n";
+                                                        for (int i = 0; i < howManyInBar; i++) {
+                                                            Icon current = iconBar.get(i);
+                                                            savePage += current.getTitle() + "\n";
+                                                            if (current.getIcon() >= 0) {
+                                                                savePage += "!" + "\n";
+                                                                savePage += current.getIcon() + "\n";
+                                                            } else {
+                                                                savePage += "=" + "\n";
+                                                            }
+                                                        }
+                                                        savePage += "::";
+                                                        fos.write(savePage.getBytes());
+                                                        fos.close();
+                                                        // saves the image internally
+                                                        //saveToInternalStorage(savedImage, newCategory.replaceAll("\\s+", "").replaceAll("'", "").toLowerCase());
+                                                        // goes back to the main category page
+                                                        Intent backToCategoryPage = new Intent(ArrangePage.this, CategoryPage.class);
+                                                        // closes activities in the background
+                                                        backToCategoryPage.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                                        startActivity(backToCategoryPage);
+                                                        finish();
+                                                    } else {
+                                                        fos.write(savePage.getBytes());
+                                                        fos.close();
+                                                        Toast.makeText(ArrangePage.this, "Cannot have the same user created names for Saved Pages", Toast.LENGTH_SHORT).show();
+                                                    }
+                                                } catch (Exception e) {
+                                                    e.printStackTrace();
+                                                }
+
+                                            }
+                                        }
+                                    })
+                            .setNegativeButton("Cancel",
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int id) {
+                                            dialog.cancel();
+                                        }
+                                    });
+
+                    // create alert dialog
+                    AlertDialog alertDialog = alertDialogBuilder.create();
+
+                    // show it
+                    alertDialog.show();
+
+                }
             }
         });
 

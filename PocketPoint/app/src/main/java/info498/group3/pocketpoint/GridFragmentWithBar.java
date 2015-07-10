@@ -108,69 +108,119 @@ public class GridFragmentWithBar extends Fragment {
         // is the array list of icons that have all the information needed for gridview
         final List<Icon> icons = new ArrayList<>();
 
-        List<Category> categories = new ArrayList<>();
+        final List<Category> categories = new ArrayList<>();
         List<Icon> categoryIcons = new ArrayList<>();
         String categoryName = "";
         Icon cat = new Icon(0, "");
-        try {
-            BufferedReader inputReader = new BufferedReader(new InputStreamReader(gridFragmentWithBar.getContext().openFileInput("Categories")));
-            String inputString = inputReader.readLine();
-            Boolean categoryTest = true;
-            while (inputString != null) {
-                if(inputString.equals("::")) {
-                    Category newCategory = new Category(cat, categoryIcons);
-                    categories.add(newCategory);
-                    categoryIcons = new ArrayList<>();
-                    categoryTest = true;
-                }else if(categoryTest){
-                    categoryName = inputString;
-                    String testImageType = inputReader.readLine();
-                    if(testImageType.equals("!")) {
-                        int resId = getResources().getIdentifier("categories_" + categoryName, "drawable", getActivity().getPackageName());
-                        cat = new Icon(resId, categoryName);
-                    }else {
+        if(!topic.equals("Saved Pages")) {
+            try {
+                BufferedReader inputReader = new BufferedReader(new InputStreamReader(gridFragmentWithBar.getContext().openFileInput("Categories")));
+                String inputString = inputReader.readLine();
+                Boolean categoryTest = true;
+                while (inputString != null) {
+                    if (inputString.equals("::")) {
+                        Category newCategory = new Category(cat, categoryIcons);
+                        categories.add(newCategory);
+                        categoryIcons = new ArrayList<>();
+                        categoryTest = true;
+                    } else if (categoryTest) {
+                        categoryName = inputString;
+                        String testImageType = inputReader.readLine();
+                        if (testImageType.equals("!")) {
+                            int resId = getResources().getIdentifier("categories_" + categoryName, "drawable", getActivity().getPackageName());
+                            cat = new Icon(resId, categoryName);
+                        } else {
+                            //getting image
+                            ContextWrapper cw = new ContextWrapper(gridFragmentWithBar.getContext());
+                            File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
+
+                            Bitmap storedimagepath = loadImageFromStorage(directory.getAbsolutePath(), inputString.replaceAll("\\s+", "").replaceAll("'", "").toLowerCase());
+
+                            //set icon to negative value
+                            cat = new Icon(-1, inputString);
+                            //set bitmap on icon class
+                            cat.setBitmap(storedimagepath);
+                            //add to icon list
+                            if (topic.equals("Categories")) {
+                                icons.add(cat);
+                            }
+                        }
+                        categoryTest = false;
+                        Log.i("Testing", "Category " + categoryName + " is being added");
+                    } else {
                         //getting image
                         ContextWrapper cw = new ContextWrapper(gridFragmentWithBar.getContext());
                         File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
 
-                        Bitmap storedimagepath = loadImageFromStorage(directory.getAbsolutePath(), inputString.replaceAll("\\s+", "").replaceAll("'","").toLowerCase());
+                        Bitmap storedimagepath = loadImageFromStorage(directory.getAbsolutePath(), inputString.replaceAll("\\s+", "").replaceAll("'", "").toLowerCase());
 
                         //set icon to negative value
-                        cat = new Icon(-1, inputString);
+                        Icon bitmapIcon = new Icon(-1, inputString);
                         //set bitmap on icon class
-                        cat.setBitmap(storedimagepath);
+                        bitmapIcon.setBitmap(storedimagepath);
                         //add to icon list
-                        if(topic.equals("Categories")) {
-                            icons.add(cat);
+                        Log.i("Testing", "Before adding");
+                        if (topic.replaceAll("\\s+", "").replaceAll("'", "").equals(categoryName.replaceAll("\\s+", "").replaceAll("'", ""))) {
+                            icons.add(bitmapIcon);
+                            Log.i("Testing", "Should be adding");
+                        }
+                        categoryIcons.add(bitmapIcon);
+                    }
+                    Log.i("Testing", "Test statement " + inputString.trim());
+                    inputString = inputReader.readLine();
+                }
+            } catch (IOException e) {
+                Log.i("internalFile", "fail");
+                e.printStackTrace();
+            }
+        }else {
+            try {
+                BufferedReader inputReader = new BufferedReader(new InputStreamReader(gridFragmentWithBar.getContext().openFileInput("Saved Pages")));
+                String inputString = inputReader.readLine();
+                Boolean categoryTest = true;
+                while(inputString != null) {
+                    if (inputString.equals("::")) {
+                        Category newCategory = new Category(cat, categoryIcons);
+                        categories.add(newCategory);
+                        categoryIcons = new ArrayList<>();
+                        categoryTest = true;
+                    } else if (categoryTest) {
+                        categoryName = inputString;
+                        int resId = getResources().getIdentifier("ic_launcher", "drawable", getActivity().getPackageName());
+                        cat = new Icon(resId, categoryName);
+                        icons.add(cat);
+                        categoryTest = false;
+                    } else {
+                        String wordName = inputString.replaceAll("\\s+", "").replaceAll("'", "").toLowerCase();
+                        String testImageType = inputReader.readLine();
+                        if(testImageType.equals("!")){
+                            // had to change because don't have categories when on Arrange Page
+                            //categoryName = inputReader.readLine();
+                            //int resId = getResources().getIdentifier(categoryName + "_" + wordName, "drawable", getActivity().getPackageName());
+                            int resId = Integer.parseInt(inputReader.readLine());
+                            cat = new Icon(resId, inputString);
+                            categoryIcons.add(cat);
+                        }else {
+                            //getting image
+                            ContextWrapper cw = new ContextWrapper(gridFragmentWithBar.getContext());
+                            File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
+
+                            Bitmap storedimagepath = loadImageFromStorage(directory.getAbsolutePath(), inputString.replaceAll("\\s+", "").replaceAll("'", "").toLowerCase());
+
+                            //set icon to negative value
+                            Icon bitmapIcon = new Icon(-1, inputString);
+                            //set bitmap on icon class
+                            bitmapIcon.setBitmap(storedimagepath);
+                            categoryIcons.add(bitmapIcon);
                         }
                     }
-                    categoryTest = false;
-                    Log.i("Testing", "Category " + categoryName + " is being added");
-                } else {
-                    //getting image
-                    ContextWrapper cw = new ContextWrapper(gridFragmentWithBar.getContext());
-                    File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
-
-                    Bitmap storedimagepath = loadImageFromStorage(directory.getAbsolutePath(), inputString.replaceAll("\\s+", "").replaceAll("'","").toLowerCase());
-
-                    //set icon to negative value
-                    Icon bitmapIcon = new Icon(-1, inputString);
-                    //set bitmap on icon class
-                    bitmapIcon.setBitmap(storedimagepath);
-                    //add to icon list
-                    Log.i("Testing", "Before adding");
-                    if(topic.replaceAll("\\s+", "").replaceAll("'","").equals(categoryName.replaceAll("\\s+", "").replaceAll("'",""))){
-                        icons.add(bitmapIcon);
-                        Log.i("Testing", "Should be adding");
-                    }
-                    categoryIcons.add(bitmapIcon);
+                    Log.i("Testing", "Test statement " + inputString.trim());
+                    inputString = inputReader.readLine();
                 }
-                Log.i("Testing", "Test statement " + inputString.trim());
-                inputString = inputReader.readLine();
+            }catch (IOException e) {
+                Log.i("internalFile", "fail");
+                e.printStackTrace();
             }
-        }catch (IOException e) {
-            Log.i("internalFile", "fail");
-            e.printStackTrace();
         }
 
        /* //internal category file
@@ -242,16 +292,17 @@ public class GridFragmentWithBar extends Fragment {
         }else {  // for getting all words if not in MYWORDS section */
 
             // goes through all pre-stored icons based on names
+        if(!topic.equals("Saved Pages")) {
             for (int i = 0; i < names.size(); i++) {
                /* if (topic.equals("Categories") || topic.equals("Activities") || topic.equals("Answers")
                         || topic.equals("Colors") || topic.equals("Feelings") || topic.equals("Shapes")
                         || topic.equals("Places") || topic.equals("Time")) {*/
-                    // makes name into one word
-                    String name = names.get(i).replaceAll("\\s+", "").replaceAll("'","").toLowerCase();
-                    // gets the resource id for the object based on drawable name
-                    int resID = getResources().getIdentifier(topic.toLowerCase() + "_" + name, "drawable", getActivity().getPackageName());
-                    // adds each icon to icon list
-                    icons.add(new Icon(resID, names.get(i)));
+                // makes name into one word
+                String name = names.get(i).replaceAll("\\s+", "").replaceAll("'", "").toLowerCase();
+                // gets the resource id for the object based on drawable name
+                int resID = getResources().getIdentifier(topic.toLowerCase() + "_" + name, "drawable", getActivity().getPackageName());
+                // adds each icon to icon list
+                icons.add(new Icon(resID, names.get(i)));
                /* } else {
                     // makes name into one word
                     String name = names.get(i).replaceAll("\\s+", "").toLowerCase();
@@ -262,8 +313,10 @@ public class GridFragmentWithBar extends Fragment {
                 }*/
 
             }
+        }
         //}
         Collections.sort(icons, new IconComparator());
+        Collections.sort(categories, new CategoryComparator());
         // creates the gridview with all the icons by calling customGridAdapter
         gridView = (HeaderGridView) gridFragmentWithBar.findViewById(R.id.myGridView);
         //gridView.setNumColumns(1);
@@ -317,6 +370,33 @@ public class GridFragmentWithBar extends Fragment {
                     //nextActivity.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     nextActivity.putExtra("category", icons.get(position).getTitle());
                     startActivity(nextActivity);*/
+                    } else if(topic.equals("Saved Pages")) {
+                        Category clickedCat = categories.get(position);
+                        int size = clickedCat.getIconListSize();
+                        Intent kiddo = new Intent(getActivity(), KiddoPage.class);
+                        List<String> iconNumber = new ArrayList<String>(
+                                Arrays.asList("iconOne", "iconTwo", "iconThree", "iconFour"));
+                       /* for(int i = 0; i < categories.size(); i++){
+                            if(categories.get(i).getCategory().getTitle().equals()){
+
+                            }
+                        }*/
+                        for(int i = 0; i < size; i++) {
+                            Icon current = clickedCat.getIcon(i);
+                            String iconNum = iconNumber.get(i);
+
+                            kiddo.putExtra(iconNum + "Title",  current.getTitle());
+                            if(current.getIcon() < 0 ) {
+                                kiddo.putExtra(iconNum + "ImageInt", 1);
+                                //arrange.putExtra(iconNum + "Img", current.getBitmap());
+                            }else {
+                                kiddo.putExtra(iconNum + "ImageInt", 0);
+                                kiddo.putExtra(iconNum + "Img", current.getIcon());
+                            }
+                        }
+                        kiddo.putExtra("howManyInBar", size);
+                        startActivity(kiddo);
+
                     } else {
                         // sets category section to topic
                         // if want to see word clicked then have it icons.get(poistion).getTitle()
