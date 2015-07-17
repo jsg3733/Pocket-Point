@@ -40,10 +40,13 @@ public class KiddoPage extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         Intent launchedMe = getIntent();
         howManyInBar = launchedMe.getIntExtra("howManyInBar", 1);
+        Boolean nowThen = launchedMe.getBooleanExtra("nowThen", false);
         if(howManyInBar > 2) {
             setContentView(R.layout.activity_kiddo_page);
-        }else {
+        }else if(!nowThen) {
             setContentView(R.layout.activity_kiddo_page_twoword);
+        }else {
+            setContentView(R.layout.activity_kiddo_page_nowthen);
         }
 
         // removes the notification bar

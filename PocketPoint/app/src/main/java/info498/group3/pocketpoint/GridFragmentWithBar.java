@@ -18,6 +18,7 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -581,6 +582,38 @@ public class GridFragmentWithBar extends Fragment {
                 arrange.putExtra("category", topic);
                 startActivity(arrange);
                 getActivity().finish();
+            }
+        });
+
+
+        LinearLayout btnNnowThen = (LinearLayout) gridFragmentWithBar.findViewById(R.id.btnNowThen);
+        btnNnowThen.setOnClickListener(new LinearLayout.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(howManyInBar == 2) {
+                    Intent nowThen = new Intent(getActivity(), KiddoPage.class);
+                    List<String> iconNumber = new ArrayList<String>(
+                            Arrays.asList("iconOne", "iconTwo"));
+                    for (int i = 0; i < howManyInBar; i++) {
+                        Icon current = iconBar.get(i);
+                        String iconNum = iconNumber.get(i);
+
+                        nowThen.putExtra(iconNum + "Title", current.getTitle());
+                        if (current.getIcon() < 0) {
+                            nowThen.putExtra(iconNum + "ImageInt", 1);
+                            //arrange.putExtra(iconNum + "Img", current.getBitmap());
+                        } else {
+                            nowThen.putExtra(iconNum + "ImageInt", 0);
+                            nowThen.putExtra(iconNum + "Img", current.getIcon());
+                        }
+                    }
+                    nowThen.putExtra("howManyInBar", howManyInBar);
+                    nowThen.putExtra("nowThen", true);
+                    startActivity(nowThen);
+                }else {
+                    Toast.makeText(getActivity(), "Now/Then can only have two icons in the bar", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
 

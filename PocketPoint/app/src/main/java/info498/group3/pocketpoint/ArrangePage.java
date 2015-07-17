@@ -263,7 +263,7 @@ public class ArrangePage extends ActionBarActivity {
                                             // get user input and set it to result
                                             // edit text
                                             //savePageName.setText(userInput.getText());
-                                            if (userInput.equals("")) {
+                                            if (userInput.getText().toString().equals("")) {
                                                 Toast.makeText(ArrangePage.this, "Can not save with blank name", Toast.LENGTH_SHORT).show();
                                             } else {
                                                 List<String> savePageList = new ArrayList<String>();
