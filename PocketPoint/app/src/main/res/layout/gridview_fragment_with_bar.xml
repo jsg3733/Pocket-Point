@@ -240,6 +240,33 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="150dp"
+            android:layout_weight=".05">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/btnClearBar">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/imgClearBar"
+                    android:src="@drawable/button_clear"
+                    android:layout_gravity="center"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="2dp"
+            android:layout_height="fill_parent"
+            android:id="@+id/txtSpacerAfterClear"
+            android:background="@color/barLines"/>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="150dp"
             android:id="@+id/btnSettings"
             android:layout_weight=".1"
             android:orientation="vertical"

@@ -617,6 +617,41 @@ public class GridFragmentWithBar extends Fragment {
             }
         });
 
+        LinearLayout clearBar = (LinearLayout) gridFragmentWithBar.findViewById(R.id.btnClearBar);
+        clearBar.setOnClickListener(new LinearLayout.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                for (int i = 0; i < howManyInBar; i++) {
+                    iconBar.remove(0);
+                    if (!topic.equals("Categories")) {
+                        ((multipleCategories) getActivity()).removeIcon(0);
+                    }
+                }
+                if (howManyInBar >= 4) {
+                    iconFour = (LinearLayout) getActivity().findViewById(R.id.iconFour);
+                    iconFour.setVisibility(View.INVISIBLE);
+                }
+                if (howManyInBar >= 3) {
+                    iconThree = (LinearLayout) getActivity().findViewById(R.id.iconThree);
+                    iconThree.setVisibility(View.INVISIBLE);
+                }
+                if (howManyInBar >= 2) {
+                    iconTwo = (LinearLayout) getActivity().findViewById(R.id.iconTwo);
+                    iconTwo.setVisibility(View.INVISIBLE);
+                }
+                if (howManyInBar >= 1) {
+                    iconOne = (LinearLayout) getActivity().findViewById(R.id.iconOne);
+                    iconOne.setVisibility(View.INVISIBLE);
+                }
+                howManyInBar = 0;
+                LinearLayout linLayoutIconBar = (LinearLayout) getActivity().findViewById(R.id.iconBar);
+                ViewGroup.LayoutParams params = linLayoutIconBar.getLayoutParams();
+                params.height = 0;
+                linLayoutIconBar.setLayoutParams(params);
+                iconBarVisible = false;
+            }
+        });
+
         // finding the imageviews for the X's in the corners of the icons within the iconBar
         ImageView removeIconOne = (ImageView) gridFragmentWithBar.findViewById(R.id.btnRemoveOne);
         ImageView removeIconTwo = (ImageView) gridFragmentWithBar.findViewById(R.id.btnRemoveTwo);
