@@ -11,6 +11,7 @@
     <item name="txtNowThen" type="color">#ffffff</item>
     <item name="barIconSpaces" type="color">#e5e2e2</item>
     <item name="iconBackground" type="color">#ffffff</item>
+    <item name="iconShadow" type="color">#7b90a8</item>
 
 
     <item name="oldred" type="color">#ffff231c</item>
