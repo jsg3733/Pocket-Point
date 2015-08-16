@@ -6,335 +6,449 @@
 
 
     <LinearLayout
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="220dp"
         android:background="@color/bar"
         android:layout_alignParentBottom="true"
         android:id="@+id/iconBar"
         >
 
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="150dp"
-            android:id="@+id/iconOne"
-            android:layout_weight=".2"
-            android:orientation="vertical"
-            android:background="@drawable/gridview_button_rounded"
-            android:gravity="center"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
-            android:visibility="invisible">
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal"
+            android:id="@+id/topOfBar"
+            android:paddingLeft="15dp"
+            android:paddingStart="15dp"
+            android:paddingRight="15dp"
+            android:paddingEnd="15dp">
 
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:id="@+id/txtLeftBarText"
+                android:layout_weight="69"
+                android:textSize="@dimen/bar_headers"
+                android:text="@string/barHeaderLeft"
+                android:textColor="@color/txtBarHeaders"/>
 
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/layoutTitleOne"
+            <View
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:id = "@+id/txtTopViewSpacerOne"
+                android:layout_weight="1" />
 
-                >
+            <View
+                android:layout_width="0dp"
+                android:layout_height="180dp"
+                android:id = "@+id/txtTopViewBarSeperator"
+                android:layout_weight="1"
+                android:background="@color/barLines" />
 
-                <TextView android:id="@+id/txtTitleOne"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:textSize="22dp"
-                    android:textColor="@color/txtIcons"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginBottom="5dp"/>
+            <View
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:id = "@+id/txtTopViewSpacerTwo"
+                android:layout_weight="1" />
 
-                <ImageView
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:id="@+id/btnRemoveOne"
-                    android:background="@drawable/button_delete"
-                    android:layout_marginBottom="5dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentEnd="true" />
-
-            </RelativeLayout>
-
-
-            <ImageView android:id="@+id/imgIconOne"
-                android:layout_width="wrap_content"
-                android:layout_height="100dp"
-                android:gravity="center_vertical"
-                android:layout_marginBottom="5dp"
-                />
-
-        </LinearLayout>
-
-
-
-        <TextView
-            android:layout_width="2dp"
-            android:layout_height="fill_parent"
-            android:id="@+id/txtSpacerOne"
-            android:background="@color/barLines"/>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="150dp"
-            android:id="@+id/iconTwo"
-            android:layout_weight=".2"
-            android:orientation="vertical"
-            android:background="@drawable/gridview_button_rounded"
-            android:gravity="center"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
-            android:visibility="invisible">
-
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/layoutTitleTwo"
-
-                >
-
-                <TextView android:id="@+id/txtTitleTwo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:textSize="22dp"
-                    android:textColor="@color/txtIcons"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginBottom="5dp"/>
-
-                <ImageView
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:id="@+id/btnRemoveTwo"
-                    android:background="@drawable/button_delete"
-                    android:layout_marginBottom="5dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentEnd="true" />
-
-            </RelativeLayout>
-
-
-            <ImageView android:id="@+id/imgIconTwo"
-                android:layout_width="wrap_content"
-                android:layout_height="100dp"
-                android:gravity="center_vertical"
-                android:layout_marginBottom="5dp"
-                />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:id="@+id/txtRightBarText"
+                android:layout_weight="27"
+                android:textSize="@dimen/bar_headers"
+                android:text="@string/barHeaderRight"
+                android:textColor="@color/txtBarHeaders"/>
 
         </LinearLayout>
 
-        <TextView
-            android:layout_width="2dp"
-            android:layout_height="fill_parent"
-            android:id="@+id/txtSpacerTwo"
-            android:background="@color/barLines"/>
-
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="150dp"
-            android:id="@+id/iconThree"
-            android:layout_weight=".2"
-            android:orientation="vertical"
-            android:background="@drawable/gridview_button_rounded"
-            android:gravity="center"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
-            android:visibility="invisible">
-
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/layoutTitleThree"
-
-                >
-
-                <TextView android:id="@+id/txtTitleThree"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:textSize="22dp"
-                    android:textColor="@color/txtIcons"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginBottom="5dp"/>
-
-                <ImageView
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:id="@+id/btnRemoveThree"
-                    android:background="@drawable/button_delete"
-                    android:layout_marginBottom="5dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentEnd="true" />
-
-            </RelativeLayout>
-
-
-            <ImageView android:id="@+id/imgIconThree"
-                android:layout_width="wrap_content"
-                android:layout_height="100dp"
-                android:gravity="center_vertical"
-                android:layout_marginBottom="5dp"
-                />
-
-        </LinearLayout>
-
-        <TextView
-            android:layout_width="2dp"
-            android:layout_height="fill_parent"
-            android:id="@+id/txtSpacerThree"
-            android:background="@color/barLines"/>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="150dp"
-            android:id="@+id/iconFour"
-            android:layout_weight=".2"
-            android:orientation="vertical"
-            android:background="@drawable/gridview_button_rounded"
-            android:gravity="center"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
-            android:visibility="invisible">
-
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/layoutTitleFour"
-
-                >
-
-                <TextView android:id="@+id/txtTitleFour"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:textSize="22dp"
-                    android:textColor="@color/txtIcons"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginBottom="5dp"/>
-
-                <ImageView
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:id="@+id/btnRemoveFour"
-                    android:background="@drawable/button_delete"
-                    android:layout_marginBottom="5dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentEnd="true" />
-
-            </RelativeLayout>
-
-
-            <ImageView android:id="@+id/imgIconFour"
-                android:layout_width="wrap_content"
-                android:layout_height="100dp"
-                android:gravity="center_vertical"
-                android:layout_marginBottom="5dp"
-                />
-
-        </LinearLayout>
-
-        <TextView
-            android:layout_width="2dp"
-            android:layout_height="fill_parent"
-            android:id="@+id/txtSpacerFour"
-            android:background="@color/barLines"/>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="150dp"
-            android:layout_weight=".05">
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:id="@+id/bottomOfBar"
+            android:orientation="horizontal"
+            android:paddingStart="15dp"
+            android:paddingLeft="15dp"
+            android:paddingEnd="15dp"
+            android:paddingRight="15dp">
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/btnClearBar">
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:id="@+id/iconOneSpot"
+                android:layout_weight="13"
+                android:orientation="vertical"
+                android:background="@drawable/gridview_bar_icon_spaces"
+                android:gravity="center"
+                android:layout_marginBottom="15dp"
+                android:layout_marginTop="15dp" >
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/imgClearBar"
-                    android:src="@drawable/button_clear"
-                    android:layout_gravity="center"/>
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:id="@+id/iconOne"
+                    android:orientation="vertical"
+                    android:background="@drawable/gridview_button_rounded"
+                    android:gravity="center"
+                    android:visibility="invisible">
+
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/layoutTitleOne"
+
+                        >
+
+                        <TextView android:id="@+id/txtTitleOne"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textStyle="bold"
+                            android:textSize="18dp"
+                            android:textColor="@color/txtIcons"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginBottom="5dp"/>
+
+                        <ImageView
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:id="@+id/btnRemoveOne"
+                            android:background="@drawable/button_delete"
+                            android:layout_marginBottom="5dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentTop="true"/>
+
+                    </RelativeLayout>
+
+
+                    <ImageView android:id="@+id/imgIconOne"
+                        android:layout_width="wrap_content"
+                        android:layout_height="100dp"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginEnd="10dp"
+                        />
+
+                </LinearLayout>
 
             </LinearLayout>
 
-        </LinearLayout>
 
-        <TextView
-            android:layout_width="2dp"
-            android:layout_height="fill_parent"
-            android:id="@+id/txtSpacerAfterClear"
-            android:background="@color/barLines"/>
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="150dp"
-            android:id="@+id/btnSettings"
-            android:layout_weight=".1"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp">
+            <View
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:id="@+id/txtIconSpacerOne"
+                android:layout_weight="1" />
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight=".5"
-                android:id="@+id/btnArrangePage">
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:id="@+id/iconTwoSpot"
+                android:layout_weight="13"
+                android:orientation="vertical"
+                android:background="@drawable/gridview_bar_icon_spaces"
+                android:gravity="center"
+                android:layout_marginBottom="15dp"
+                android:layout_marginTop="15dp" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:id="@+id/iconTwo"
+                    android:orientation="vertical"
+                    android:background="@drawable/gridview_button_rounded"
+                    android:gravity="center"
+                    android:visibility="invisible">
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/layoutTitleTwo"
+                        >
+
+                        <TextView android:id="@+id/txtTitleTwo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textStyle="bold"
+                            android:textSize="18dp"
+                            android:textColor="@color/txtIcons"
+                            android:layout_centerHorizontal="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_marginBottom="5dp"/>
+
+                        <ImageView
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:id="@+id/btnRemoveTwo"
+                            android:background="@drawable/button_delete"
+                            android:layout_marginBottom="5dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentTop="true"/>
+
+                    </RelativeLayout>
+
+
+                    <ImageView android:id="@+id/imgIconTwo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="100dp"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginEnd="10dp"
+                        />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:id="@+id/txtIconSpacerTwo"
+                android:layout_weight="1" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:id="@+id/iconThreeSpot"
+                android:layout_weight="13"
+                android:orientation="vertical"
+                android:background="@drawable/gridview_bar_icon_spaces"
+                android:gravity="center"
+                android:layout_marginBottom="15dp"
+                android:layout_marginTop="15dp" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:id="@+id/iconThree"
+                    android:orientation="vertical"
+                    android:background="@drawable/gridview_button_rounded"
+                    android:gravity="center"
+                    android:visibility="invisible">
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/layoutTitleThree"
+
+                        >
+
+                        <TextView android:id="@+id/txtTitleThree"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textStyle="bold"
+                            android:textSize="18dp"
+                            android:textColor="@color/txtIcons"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginBottom="5dp"/>
+
+                        <ImageView
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:id="@+id/btnRemoveThree"
+                            android:background="@drawable/button_delete"
+                            android:layout_marginBottom="5dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentTop="true"/>
+
+                    </RelativeLayout>
+
+
+                    <ImageView android:id="@+id/imgIconThree"
+                        android:layout_width="wrap_content"
+                        android:layout_height="100dp"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginEnd="10dp"
+                        />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:id="@+id/txtIconSpacerThree"
+                android:layout_weight="1" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:id="@+id/iconFourSpot"
+                android:layout_weight="13"
+                android:orientation="vertical"
+                android:background="@drawable/gridview_bar_icon_spaces"
+                android:gravity="center"
+                android:layout_marginBottom="15dp"
+                android:layout_marginTop="15dp" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:id="@+id/iconFour"
+                    android:orientation="vertical"
+                    android:background="@drawable/gridview_button_rounded"
+                    android:gravity="center"
+                    android:visibility="invisible">
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/layoutTitleFour"
+
+                        >
+
+                        <TextView android:id="@+id/txtTitleFour"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textStyle="bold"
+                            android:textSize="18dp"
+                            android:textColor="@color/txtIcons"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginBottom="5dp"/>
+
+                        <ImageView
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:id="@+id/btnRemoveFour"
+                            android:background="@drawable/button_delete"
+                            android:layout_marginBottom="5dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentTop="true"/>
+
+                    </RelativeLayout>
+
+
+                    <ImageView android:id="@+id/imgIconFour"
+                        android:layout_width="wrap_content"
+                        android:layout_height="100dp"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginEnd="10dp"
+                        />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:id="@+id/txtIconSpacerFour"
+                android:layout_weight="1" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:id="@+id/btnArrangePage"
+                android:layout_weight="13"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:layout_marginBottom="15dp"
+                android:layout_marginTop="15dp">
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/imgArrange"
-                    android:src="@drawable/button_settings"
+                    android:src="@drawable/button_forward"
                     android:layout_gravity="center"/>
 
             </LinearLayout>
 
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="2dp"
-                android:id="@+id/txtSpacerSettings"
-                android:background="@color/barLines"/>
+            <View
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:id = "@+id/txtViewBarSpacerOne"
+                android:layout_weight="1" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="180dp"
+                android:id = "@+id/txtBottomViewBarSeperator"
+                android:layout_weight="1"
+                android:background="@color/barLines" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:id = "@+id/txtViewBarSpacerTwo"
+                android:layout_weight="1" />
+
+
+
+
+
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight=".5"
-                android:id="@+id/btnNowThen">
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:id="@+id/btnNowThen"
+                android:layout_weight="13"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:layout_marginBottom="15dp"
+                android:layout_marginTop="15dp">
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/imgNowThen"
-                    android:src="@drawable/button_nowthen"
+                    android:src="@drawable/button_forward"
                     android:layout_gravity="center"/>
 
             </LinearLayout>
 
-        </LinearLayout>
-
-        <TextView
-            android:layout_width="2dp"
-            android:layout_height="fill_parent"
-            android:id="@+id/txtSpacerFive"
-            android:background="@color/barLines"/>
+            <View
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:id = "@+id/txtViewButtonsSeparator"
+                android:layout_weight="1" />
 
 
-        <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="150dp"
-        android:id="@+id/forwardArrow"
-        android:layout_weight=".1"
-        android:orientation="vertical"
-        android:gravity="center"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:id="@+id/forwardArrow"
+                android:layout_weight="13"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:layout_marginBottom="15dp"
+                android:layout_marginTop="15dp">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/imgForwardArrow"
-                android:src="@drawable/button_forward"
-                android:layout_gravity="center"/>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/imgForwardArrow"
+                    android:src="@drawable/button_forward"
+                    android:layout_gravity="center"/>
+
+            </LinearLayout>
 
         </LinearLayout>
 
@@ -359,6 +473,8 @@
         android:layout_margin="10dp"
         android:gravity="center"
         android:layout_above="@id/txtTopOfBar"
+        android:fadeScrollbars="false"
+        android:scrollbarThumbVertical="@color/barLines"
         />
 
 

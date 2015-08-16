@@ -1,16 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <item name="header" type="color">#ffe4a5ff</item>
+    <item name="header" type="color">#5c9de9</item>
     <item name="body" type="color">#ffffffdd</item>
-    <item name="txtHeader" type="color">#ff000000</item>
-    <item name="txtIcons" type="color">#ff000000</item>
-    <item name="kiddoPageBackground" type="color">#ff000000</item>
-    <item name="bar" type="color">#ffbfbfbf</item>
-    <item name="barLines" type="color">#ff000000</item>
-    <item name="txtNowThen" type="color">#ffffffff</item>
+    <item name="txtHeader" type="color">#000000</item>
+    <item name="txtIcons" type="color">#000000</item>
+    <item name="txtBarHeaders" type="color">#000000</item>
+    <item name="kiddoPageBackground" type="color">#000000</item>
+    <item name="bar" type="color">#f7f7f7</item>
+    <item name="barLines" type="color">#e5e2e2</item>
+    <item name="txtNowThen" type="color">#ffffff</item>
+    <item name="barIconSpaces" type="color">#e5e2e2</item>
+    <item name="iconBackground" type="color">#ffffff</item>
 
 
     <item name="oldred" type="color">#ffff231c</item>
+    <item name="oldHeader" type="color">#ffe4a5ff</item>
+    <item name="oldBody" type="color">#ffffffdd</item>
+    <item name="oldBar" type="color">#ffbfbfbf</item>
+    <item name="oldtxtHeader" type="color">#ff000000</item>
+    <item name="oldBarLines" type="color">#000000</item>
+    <item name="oldiconBackground" type="color">#ffefefef</item>
 
 
 

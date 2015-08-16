@@ -7,14 +7,12 @@ import android.content.Intent;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -617,7 +615,7 @@ public class GridFragmentWithBar extends Fragment {
             }
         });
 
-        LinearLayout clearBar = (LinearLayout) gridFragmentWithBar.findViewById(R.id.btnClearBar);
+        /*LinearLayout clearBar = (LinearLayout) gridFragmentWithBar.findViewById(R.id.btnClearBar);
         clearBar.setOnClickListener(new LinearLayout.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -650,7 +648,7 @@ public class GridFragmentWithBar extends Fragment {
                 linLayoutIconBar.setLayoutParams(params);
                 iconBarVisible = false;
             }
-        });
+        });*/
 
         // finding the imageviews for the X's in the corners of the icons within the iconBar
         ImageView removeIconOne = (ImageView) gridFragmentWithBar.findViewById(R.id.btnRemoveOne);
