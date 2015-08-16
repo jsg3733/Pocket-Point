@@ -372,7 +372,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/imgArrange"
-                    android:src="@drawable/button_forward"
+                    android:src="@drawable/button_arrangesave"
                     android:layout_gravity="center"/>
 
             </LinearLayout>
@@ -417,7 +417,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/imgNowThen"
-                    android:src="@drawable/button_forward"
+                    android:src="@drawable/button_firstthen"
                     android:layout_gravity="center"/>
 
             </LinearLayout>
@@ -445,7 +445,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/imgForwardArrow"
-                    android:src="@drawable/button_forward"
+                    android:src="@drawable/button_kidspage"
                     android:layout_gravity="center" />
 
             </LinearLayout>
