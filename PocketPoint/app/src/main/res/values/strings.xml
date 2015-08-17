@@ -32,7 +32,7 @@
     <string name="title_activity_kiddo_page">KiddoPage</string>
     <string name="save_page_prompt">Please type name for Page</string>
     <string name="then">Then:</string>
-    <string name="now">Now:</string>
+    <string name="first">First:</string>
     <string name="barHeaderLeft">Selected Words:</string>
     <string name="barHeaderRight">Switch View:</string>
     <string name="addNew">Add New</string>

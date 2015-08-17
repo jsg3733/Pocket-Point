@@ -27,7 +27,6 @@
             android:text="@string/kiddoPageBackText"
             android:visibility="invisible"/>
 
-
     </LinearLayout>
 
     <LinearLayout
