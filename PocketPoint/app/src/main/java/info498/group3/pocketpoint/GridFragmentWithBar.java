@@ -190,6 +190,7 @@ public class GridFragmentWithBar extends Fragment {
                         icons.add(cat);
                         categoryTest = false;
                     } else {
+                        Icon savedIcon = new Icon(0, "");
                         String wordName = inputString.replaceAll("\\s+", "").replaceAll("'", "").toLowerCase();
                         String testImageType = inputReader.readLine();
                         if(testImageType.equals("!")){
@@ -197,8 +198,8 @@ public class GridFragmentWithBar extends Fragment {
                             //categoryName = inputReader.readLine();
                             //int resId = getResources().getIdentifier(categoryName + "_" + wordName, "drawable", getActivity().getPackageName());
                             int resId = Integer.parseInt(inputReader.readLine());
-                            cat = new Icon(resId, inputString);
-                            categoryIcons.add(cat);
+                            savedIcon = new Icon(resId, inputString);
+                            categoryIcons.add(savedIcon);
                         }else {
                             //getting image
                             ContextWrapper cw = new ContextWrapper(gridFragmentWithBar.getContext());
@@ -348,7 +349,7 @@ public class GridFragmentWithBar extends Fragment {
                     // is the title of the icon based on the position clicked for testing
                     Log.i("ITEM_CLICKED", icons.get(position).getTitle());
                     // if topic is equal to category then on click will take to wordPage intent
-                    if(position == icons.size() - 1) {
+                    if(position == icons.size() - 1  && !topic.equals("Saved Pages")) {
                         Intent intent = new Intent();
                         if(topic.equals("Categories")){
                             intent = new Intent(getActivity(), NewCategory.class);
@@ -357,7 +358,6 @@ public class GridFragmentWithBar extends Fragment {
                             intent.putExtra("category", topic);
                         }
                         startActivity(intent);
-                        Log.i("Test", "Test");
                     } else if (topic.equals("Categories")) {
                         Intent wordPage = new Intent(getActivity(), WordPage.class);
                         //nextActivity.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
