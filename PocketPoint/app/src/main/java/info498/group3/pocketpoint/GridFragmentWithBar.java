@@ -312,8 +312,8 @@ public class GridFragmentWithBar extends Fragment {
                 }*/
 
             }
-            int addNew = getResources().getIdentifier("ic_launcher", "drawable", getActivity().getPackageName());
-            icons.add(new Icon(addNew, "Add New"));
+            int addNew = getResources().getIdentifier("button_addnew", "drawable", getActivity().getPackageName());
+            icons.add(new Icon(addNew, getString(R.string.addNew)));
         }
         //}
         Collections.sort(icons, new IconComparator());
