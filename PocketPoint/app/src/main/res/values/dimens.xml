@@ -7,4 +7,5 @@
     <dimen name="input_fields_margin">30dp</dimen>
     <dimen name="input_fields_text">40dp</dimen>
     <dimen name="bar_headers">30dp</dimen>
+    <dimen name="txtKiddoPage">40dp</dimen>
 </resources>

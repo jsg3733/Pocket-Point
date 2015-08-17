@@ -36,6 +36,7 @@
     <string name="barHeaderLeft">Selected Words:</string>
     <string name="barHeaderRight">Switch View:</string>
     <string name="addNew">Add New</string>
+    <string name="kiddoPageBackText">Press and Hold the caret to go back</string>
 
     <string name="oldwordPageDesc">Select 1 to 4 Words</string>
     <string name="oldnewCategoryPageDesc">Add a Category</string>

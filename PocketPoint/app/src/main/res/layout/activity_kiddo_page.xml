@@ -4,11 +4,31 @@
     tools:context="info498.group3.pocketpoint.KiddoPage"
     android:background="@color/kiddoPageBackground" android:orientation="vertical">
 
-    <ImageView
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:id="@+id/btnBackButton"
-        android:src="@drawable/button_longclick"/>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginLeft="15dp">
+
+        <ImageView
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:id="@+id/btnBackButton"
+            android:src="@drawable/button_caret"
+            android:layout_marginEnd="15dp"
+            android:layout_marginRight="15dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtBack"
+            android:textSize="22dp"
+            android:textColor="@color/txtKiddoPage"
+            android:text="@string/kiddoPageBackText"
+            android:visibility="invisible"/>
+
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -44,7 +64,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
-                    android:textSize="22dp"
+                    android:textSize="@dimen/txtKiddoPage"
                     android:textColor="@color/txtIcons"
                     android:layout_centerHorizontal="true"
                     android:layout_marginBottom="5dp"/>
@@ -91,7 +111,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
-                    android:textSize="22dp"
+                    android:textSize="@dimen/txtKiddoPage"
                     android:textColor="@color/txtIcons"
                     android:layout_centerHorizontal="true"
                     android:layout_marginBottom="5dp"/>
@@ -149,7 +169,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
-                    android:textSize="22dp"
+                    android:textSize="@dimen/txtKiddoPage"
                     android:textColor="@color/txtIcons"
                     android:layout_centerHorizontal="true"
                     android:layout_marginBottom="5dp"/>
@@ -194,7 +214,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
-                    android:textSize="22dp"
+                    android:textSize="@dimen/txtKiddoPage"
                     android:textColor="@color/txtIcons"
                     android:layout_centerHorizontal="true"
                     android:layout_marginBottom="5dp"/>

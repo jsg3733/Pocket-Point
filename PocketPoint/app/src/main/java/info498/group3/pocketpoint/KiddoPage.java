@@ -59,7 +59,7 @@ public class KiddoPage extends ActionBarActivity {
                 Arrays.asList("1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "catch", "throw", "new"));
 
         ImageView backButton = (ImageView) findViewById(R.id.btnBackButton);
-        /*backButton.setOnLongClickListener(new ImageView.OnLongClickListener() {
+        backButton.setOnLongClickListener(new ImageView.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
                 if(playing) {
@@ -69,15 +69,17 @@ public class KiddoPage extends ActionBarActivity {
                 finish();
                 return true;
             }
-        });*/
+        });
         backButton.setOnClickListener(new ImageView.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(playing) {
+                /*if(playing) {
                     mp.stop();
                     mp.reset();
                 }
-                finish();
+                finish();*/
+                TextView backText = (TextView) findViewById(R.id.txtBack);
+                backText.setVisibility(View.VISIBLE);
             }
         });
 
