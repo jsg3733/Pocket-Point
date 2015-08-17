@@ -51,9 +51,13 @@ class  IconComparator implements Comparator<Icon> {
         }else {
             return iconOne.getTitle().compareToIgnoreCase(iconTwo.getTitle());
         }*/
-        if (iconOne.getTitle().equalsIgnoreCase(iconTwo.getTitle())  && iconOne.getTitle().compareTo(iconTwo.getTitle()) != 0) {
+        if(iconOne.getTitle().equalsIgnoreCase("saved pages") || iconTwo.getTitle().equalsIgnoreCase("add new")) {
+            return -1;
+        }else if(iconTwo.getTitle().equalsIgnoreCase("saved pages") || iconOne.getTitle().equalsIgnoreCase("add new")){
+            return 1;
+        }else if (iconOne.getTitle().equalsIgnoreCase(iconTwo.getTitle()) && iconOne.getTitle().compareTo(iconTwo.getTitle()) != 0) {
             return iconOne.getTitle().compareTo(iconTwo.getTitle());
-        }else if(iconOne.getTitle().equalsIgnoreCase(iconTwo.getTitle()) && iconOne.getIcon() < 0){
+        } else if (iconOne.getTitle().equalsIgnoreCase(iconTwo.getTitle()) && iconOne.getIcon() < 0){
             return 1;
         }else if(iconOne.getTitle().equals(iconTwo.getTitle()) && iconOne.getIcon() < 0) {
             return -1;
