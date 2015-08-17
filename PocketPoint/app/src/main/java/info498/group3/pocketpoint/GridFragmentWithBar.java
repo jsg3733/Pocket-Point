@@ -185,7 +185,7 @@ public class GridFragmentWithBar extends Fragment {
                         categoryTest = true;
                     } else if (categoryTest) {
                         categoryName = inputString;
-                        int resId = getResources().getIdentifier("ic_launcher", "drawable", getActivity().getPackageName());
+                        int resId = getResources().getIdentifier("savedpages_icon", "drawable", getActivity().getPackageName());
                         cat = new Icon(resId, categoryName);
                         icons.add(cat);
                         categoryTest = false;
