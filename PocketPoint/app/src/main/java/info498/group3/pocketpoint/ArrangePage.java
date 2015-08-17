@@ -207,6 +207,7 @@ public class ArrangePage extends ActionBarActivity {
             removeIconFour.setVisibility(View.VISIBLE);
         }
 
+        /*
         ImageView done = (ImageView) findViewById(R.id.btnDone);
         done.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -231,7 +232,7 @@ public class ArrangePage extends ActionBarActivity {
 
                 startActivity(kiddoPage);
             }
-        });
+        });*/
 
         ImageView savePage = (ImageView) findViewById(R.id.btnSavePage);
         savePage.setOnClickListener(new View.OnClickListener() {

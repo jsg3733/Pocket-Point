@@ -32,14 +32,17 @@
         android:layout_above="@id/txtLineHeader"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
-        android:gravity="center">
+        android:gravity="center"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp">
 
         <ImageView
             android:layout_width="@dimen/title_size"
             android:layout_height="@dimen/title_size"
             android:id="@+id/imgBackButton"
-            android:src="@drawable/backarrow"
+            android:src="@drawable/button_back"
             />
+
     </LinearLayout>
 
     <ImageView
@@ -61,6 +64,7 @@
         android:layout_alignParentStart="true"
         android:background="@color/body">
 
+        <!--
 
         <ImageView
             android:layout_width="wrap_content"
@@ -72,11 +76,12 @@
             android:layout_alignParentEnd="true"
             android:src="@drawable/button_done"/>
 
+            -->
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_above="@+id/btnDone">
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
