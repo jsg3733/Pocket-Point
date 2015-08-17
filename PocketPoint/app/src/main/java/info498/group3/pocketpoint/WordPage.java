@@ -7,6 +7,7 @@ import android.content.ContextWrapper;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.Image;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -47,7 +49,7 @@ public class WordPage extends ActionBarActivity implements GridFragmentWithBar.m
 
         // changes the text to show what to do on the page
         TextView txtTitle = (TextView) findViewById(R.id.txtTitle);
-        txtTitle.setText(R.string.wordPageDesc);
+        txtTitle.setText(category);
 
         iconBar = new ArrayList<Icon>();
 
@@ -57,7 +59,8 @@ public class WordPage extends ActionBarActivity implements GridFragmentWithBar.m
 
         // makes the back button visible so can click to finish the current activity
         LinearLayout backButton = (LinearLayout) findViewById(R.id.backButton);
-        backButton.setVisibility(View.VISIBLE);
+        ImageView backImage = (ImageView) findViewById(R.id.imgBackButton);
+        backImage.setImageResource(R.drawable.button_back);
         backButton.setOnClickListener(new LinearLayout.OnClickListener() {
             public void onClick(View v) {
                 /*if(findViewById(R.id.iconBar).getVisibility() == View.VISIBLE) {

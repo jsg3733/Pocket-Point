@@ -325,8 +325,16 @@ public class GridFragmentWithBar extends Fragment {
         CustomGridAdapter gridAdapter = new CustomGridAdapter(gridFragmentWithBar.getContext(), R.layout.gridview_cell, icons);
         gridView.setAdapter(gridAdapter);
 
-        TextView label = (TextView) header.findViewById(R.id.txtCategory);
-        label.setText(topic);
+        if(topic.equals("Categories")) {
+            TextView label = (TextView) header.findViewById(R.id.txtAction);
+            label.setText(R.string.categoryPageDesc);
+        }else if (topic.equals("Saved Pages")) {
+            TextView label = (TextView) header.findViewById(R.id.txtAction);
+            label.setText(R.string.savedPagesDesc);
+        }else {
+            TextView label = (TextView) header.findViewById(R.id.txtAction);
+            label.setText(R.string.wordPageDesc);
+        }
 
         iconBar = new ArrayList<>();
         //loadIconBar(gridFragmentWithBar);

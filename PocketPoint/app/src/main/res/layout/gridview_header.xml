@@ -8,7 +8,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/category"
-        android:id="@+id/txtCategory"
+        android:id="@+id/txtAction"
         android:textSize="@dimen/sub_title"
         android:layout_marginTop="15dp"
         android:layout_marginBottom="15dp"
