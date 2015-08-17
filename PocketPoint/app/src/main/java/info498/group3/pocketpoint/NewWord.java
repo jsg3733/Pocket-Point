@@ -158,6 +158,7 @@ public class NewWord extends ActionBarActivity {
                 wordList.add("::");
                 wordList.add("categories");
                 wordList.add("savedpages");
+                wordList.add("addnew");
                 try {
                     BufferedReader inputReader = new BufferedReader(new InputStreamReader(openFileInput("Categories")));
                     String inputString = inputReader.readLine();

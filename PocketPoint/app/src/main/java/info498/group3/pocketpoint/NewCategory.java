@@ -122,6 +122,7 @@ public class NewCategory extends ActionBarActivity {
                 categoryList.add("::");
                 categoryList.add("categories");
                 categoryList.add("savedpages");
+                categoryList.add("addnew");
                 String categories = "";
                 // reads through the category internal file and stores all lines to a string
                 try {

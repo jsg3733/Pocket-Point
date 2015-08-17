@@ -348,7 +348,17 @@ public class GridFragmentWithBar extends Fragment {
                     // is the title of the icon based on the position clicked for testing
                     Log.i("ITEM_CLICKED", icons.get(position).getTitle());
                     // if topic is equal to category then on click will take to wordPage intent
-                    if (topic.equals("Categories")) {
+                    if(position == icons.size() - 1) {
+                        Intent intent = new Intent();
+                        if(topic.equals("Categories")){
+                            intent = new Intent(getActivity(), NewCategory.class);
+                        }else {
+                            intent = new Intent(getActivity(), NewWord.class);
+                            intent.putExtra("category", topic);
+                        }
+                        startActivity(intent);
+                        Log.i("Test", "Test");
+                    } else if (topic.equals("Categories")) {
                         Intent wordPage = new Intent(getActivity(), WordPage.class);
                         //nextActivity.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                         wordPage.putExtra("category", icons.get(position).getTitle());
