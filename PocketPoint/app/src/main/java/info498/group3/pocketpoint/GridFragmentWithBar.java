@@ -37,7 +37,8 @@ public class GridFragmentWithBar extends Fragment {
     private List<String> names;
     private String topic;
     private int howManyInBar;
-    private Boolean iconBarVisible;
+    //Commented out iconBarVisible because not needed after redesign (redesign)
+    //private Boolean iconBarVisible;
     //private final List<String> foods = new ArrayList<>(Arrays.asList("Apple", "Banana", "Bread", "Cake", "Cheese", "Cracker",
     //"Egg", "Juice", "Milk", "Pizza", "Stix", "Water"));
 
@@ -68,7 +69,8 @@ public class GridFragmentWithBar extends Fragment {
         Bundle info = this.getArguments();
         topic = info.getString("category");
         howManyInBar = 0;
-        iconBarVisible = false;
+        // Commented out iconBarVisible because not needed after redesign (redesign)
+        //iconBarVisible = false;
         Log.i("FragmentLoad", topic);
 
         // array list of icon titles
@@ -316,6 +318,13 @@ public class GridFragmentWithBar extends Fragment {
             int addNew = getResources().getIdentifier("button_addnew", "drawable", getActivity().getPackageName());
             icons.add(new Icon(addNew, getString(R.string.addNew)));
         }
+        // Added to make it so bar does not show when in saved page (redesign)
+        if(topic.equals("Saved Pages")){
+            LinearLayout linLayoutIconBar = (LinearLayout) gridFragmentWithBar.findViewById(R.id.iconBar);
+            ViewGroup.LayoutParams params = linLayoutIconBar.getLayoutParams();
+            params.height = 0;
+            linLayoutIconBar.setLayoutParams(params);
+        }
         //}
         Collections.sort(icons, new IconComparator());
         Collections.sort(categories, new CategoryComparator());
@@ -422,12 +431,13 @@ public class GridFragmentWithBar extends Fragment {
                         // TextView label = (TextView) getActivity().findViewById(R.id.txtCategory);
                         //label.setText(topic);
                         Boolean notRepeatedImage = true;
-                        if (!iconBarVisible) {
+                        // Commented out because not needed to have bar become visible in redesign (redesign)
+                        /*if (!iconBarVisible) {
                             LinearLayout linLayoutIconBar = (LinearLayout) getActivity().findViewById(R.id.iconBar);
                             ViewGroup.LayoutParams params = linLayoutIconBar.getLayoutParams();
                             params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
                             iconBarVisible = true;
-                        }
+                        }*/
 
                         switch (howManyInBar) {
                             case 0:
@@ -683,10 +693,11 @@ public class GridFragmentWithBar extends Fragment {
 
         if(getActivity().getIntent().getBooleanExtra("showBar", false)){
             Log.i("Hey", getActivity().toString() );
-            LinearLayout linLayoutIconBar = (LinearLayout) gridFragmentWithBar.findViewById(R.id.iconBar);
+            // Removed during redesign because bar is always showing on word page so not needed (redesign)
+            /*LinearLayout linLayoutIconBar = (LinearLayout) gridFragmentWithBar.findViewById(R.id.iconBar);
             ViewGroup.LayoutParams params = linLayoutIconBar.getLayoutParams();
             params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-            iconBarVisible = true;
+            iconBarVisible = true;*/
 
             if(getActivity().getIntent() != null) {
                 Log.i("hey" , "in if statement");
@@ -781,6 +792,14 @@ public class GridFragmentWithBar extends Fragment {
                 }
 
             }
+            // Added during redesing to hide bar in case is in categories and bar is not showing (redesign)
+        }else {
+            if(topic.equals("Categories")) {
+                LinearLayout linLayoutIconBar = (LinearLayout) gridFragmentWithBar.findViewById(R.id.iconBar);
+                ViewGroup.LayoutParams params = linLayoutIconBar.getLayoutParams();
+                params.height = 0;
+                linLayoutIconBar.setLayoutParams(params);
+            }
         }
 
 
@@ -812,11 +831,14 @@ public class GridFragmentWithBar extends Fragment {
                             break;*/
                         case 1:
                             iconOne.setVisibility(View.INVISIBLE);
-                            LinearLayout linLayoutIconBar = (LinearLayout) getActivity().findViewById(R.id.iconBar);
-                            ViewGroup.LayoutParams params = linLayoutIconBar.getLayoutParams();
-                            params.height = 0;
-                            linLayoutIconBar.setLayoutParams(params);
-                            iconBarVisible = false;
+                            // Added top if statement and commented out iconBarVisible to make sure only disappears in Category Page (redesign)
+                            if(topic.equals("Categories")) {
+                                LinearLayout linLayoutIconBar = (LinearLayout) getActivity().findViewById(R.id.iconBar);
+                                ViewGroup.LayoutParams params = linLayoutIconBar.getLayoutParams();
+                                params.height = 0;
+                                linLayoutIconBar.setLayoutParams(params);
+                                //iconBarVisible = false;
+                            }
                             break;
                         case 2:
                             titleOne.setText(titleTwo.getText());
