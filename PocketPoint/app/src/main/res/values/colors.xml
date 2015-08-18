@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <item name="header" type="color">#5c9de9</item>
-    <item name="body" type="color">#ffffffdd</item>
+    <item name="body" type="color">#cbe3ff</item>
     <item name="txtHeader" type="color">#000000</item>
     <item name="txtIcons" type="color">#000000</item>
     <item name="txtBarHeaders" type="color">#000000</item>

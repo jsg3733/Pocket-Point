@@ -16,6 +16,8 @@
         android:layout_gravity="center"
         android:background="@color/header"
         android:padding="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginStart="20dp"
         />
 
 </LinearLayout>
